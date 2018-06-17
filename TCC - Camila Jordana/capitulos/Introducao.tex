@@ -1,0 +1,76 @@
+% Introdu��o
+\chapter{Introdução}
+
+À primeira vista o cubo de Rubik parece ser um brinquedo desafiador. Ele tem como base o raciocínio lógico e fundamentação em sequência de passos. Desde a sua invenção, o cubo tem levado várias pessoas a tentarem solucioná-lo de diferentes maneiras. Dificilmente existiu um enigma que causou tanta inquietação e que encontrou seu espaço não só no mundo dos jogos, mas também na Matemática e na Computação. \cite{knill}. Além disso, nenhum outro quebra-cabeça teve tantos adeptos, o que o torna um brinquedo bastante conhecido e bem utilizado.
+
+
+\begin{quotation}
+O cubo mágico é um jogo que faz uso de mecanismos, a princípio aleatórios, para atingir uma determinada solução, que pode ser de variadas formas, tais como: fazer cada face do cubo ficar de uma cor, fazer apenas uma face ficar de uma cor, fazer as faces ficarem com cores entrelaçadas em cruz, completar uma linha, completar uma coluna, e assim por diante, tendo múltiplas formas de se jogar. Ele se apresenta com elementos, associados ao modo como se joga e com seus objetivos, que pertencem ao universo de soluções algorítmicas, pois o jogo faz uso de raciocínio lógico, da busca de soluções a partir de passos sequenciais e da busca de soluções no menor espaço de tempo \cite{quadros}.
+\end{quotation}
+
+
+Em termos computacionais, a solução do cubo de Rubik é considerado um problema de alta complexidade, aproximada ao tipo NP Completo \cite{cormen}, sem solução algorítmica única, podendo ser aplicado diversos algoritmos para a solução do problema. Isto é, não existe apenas um algoritmo ótimo para a solução do mesmo, sendo aplicado diversas formas de métodos heurísticos do tipo Algoritmos Gulosos, Grafos ou Programação Dinâmica \cite{tardos} para atingir o objetivo de gerar o menor número de movimentos possível.
+
+
+Só o simples fato de resolver o cubo permite ter 43 quintilhões de combinações possíveis que podem solucionar o problema, sendo que, para cada uma das combinações, gastando um tempo de 10 segundos, seriam necessários cerca de 136.000 anos para atingir essa marca \cite{korf}. Este fato só aumenta a dificuldade em se atingir uma solução rápida, exigindo principalmente concentração, capacidade de observação e empenho para encontrar soluções consideradas ótimas. No entanto, justamente por não existir apenas uma solução ótima, a proposição para se empenhar em achar algum caminho ótimo, aquele com um número pequeno de movimentos para resolver o cubo, fortalece o aprendizado de soluções algorítmicas complexas \cite{quadros}.
+
+
+
+Desde a sua criação, surgiram métodos que prometem resolver o problema do cubo de Rubik, como o método em camadas e o Fridrich. Eles empregam seu próprio conjunto de algoritmos, que vão desde os mais simples aos mais complexos, podendo resultar em poucos movimentos ou até sequências que exigem verdadeiros esforços para a memorização. A maioria tem o objetivo de permutar algumas peças sem alterar a posição das peças restantes, porque, ao realizar um giro simples, as peças presentes na face girada são afetadas.
+
+
+Tendo isso em vista, o foco principal deste trabalho é fazer uma comparação entre algoritmos que resolvem o problema do cubo de Rubik, levando em consideração métodos que já existem. Para esse estudo foram selecionados dois algoritmos: o algoritmo tradicional em camadas, popularmente conhecido como o método dos sete passos, e o Fridrich.
+
+
+
+\section{Objetivos Gerais}
+
+Este trabalho tem como objetivo geral encontrar uma solução otimizada através da análise de algoritmos que solucionam o cubo de Rubik. A solução foi encontrada a partir da busca e seleção de algoritmos que já existem. 
+
+
+\section{Objetivos Específicos} 
+
+Os objetivos específicos deste trabalho são:
+
+\begin{itemize}
+    \item Seleção de métodos que se propõem a solucionar o problema do cubo de Rubik: essa seleção é realizada através da avaliação de métodos que já existem;
+    
+    \item Implementação das soluções: após selecionar os métodos é realizada a implementação e descrição de cada solução escolhida;
+    
+    \item Realização de testes: testes são realizados após as implementações, levando em consideração aspectos como o tempo de execução e a quantidade de movimentos gerados em cada solução;
+
+    \item Análise das soluções: a partir dos testes é feito uma análise com o propósito de comparar as soluções implementadas e verificar qual é a mais otimizada.
+
+    
+\end{itemize}
+
+
+
+
+
+\section{Metodologia}
+
+O desenvolvimento deste trabalho consiste, primeiramente, na busca por algoritmos destinados a solucionarem o problema do cubo de Rubik. Cada solução encontrada é descrita e avaliada. 
+
+
+Após avaliar e comparar as soluções, dois métodos são selecionados: o método tradicional em camadas e o Fridrich. O passo seguinte é destinado à implementação dos algoritmos que compõem as duas soluções. 
+
+
+A próxima etapa visa realizar testes, levando em consideração seus respectivos tempos de execução e a quantidade média de movimentos gerados para a mesma configuração original do cubo nos dois métodos. São testados até 100.000 configurações distintas em ambas as soluções para verificar o comportamento dos algoritmos
+
+
+Em seguida, os algoritmos e resultados de seus respectivos são analisados, com o intuito de comparar os algoritmos e verificar qual o mais otimizado. No decorrer do processo de elaboração deste trabalho, são utilizados conceitos de desenvolvimento de software e análise de complexidade de algoritmos, aplicando conceitos teóricos de Computação em soluções computacionais concretas.
+
+
+
+\section{Organização do trabalho}
+
+Este trabalho é organizado em cinco capítulos: Introdução, Avaliação de Soluções para Resolver o Cubo de Rubik, Implementações, Experimentos e Conclusão.
+
+O capítulo 2, Avaliação de Soluções para Resolver o Cubo de Rubik, apresenta um breve histórico do cubo de Rubik e uma pequena descrição da relação do cubo com teorias matemáticas, com foco na Teoria de Grupos. O objetivo deste capítulo é descrever e avaliar algumas soluções que se propõem a resolver o problema do cubo de Rubik. A partir dessa avaliação dois métodos são escolhidos para serem implementados e analisados de forma mais detalhada nos capítulos subsequentes.
+
+No capítulo 3, Implementações, é descrito o passo a passo da implementação realizada nas soluções escolhidas.
+
+O capítulo 4, Experimentos, apresenta os resultados dos testes realizados nas soluções implementadas, a fim de se chegar em uma análise mais aprofundada. Parâmetros como o tempo de execução e complexidade dos algoritmos são investigados.
+
+No capítulo 5, Conclusão, são apresentadas as considerações finais e as sugestões de trabalhos futuros.

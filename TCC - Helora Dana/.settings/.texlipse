@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Mon Apr 21 11:01:25 BRT 2014
+markTmpDer=true
+builderNum=2
+outputDir=out
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=main.tex
+outputFile=versao-final.pdf
+langSpell=en
+markDer=true
+srcDir=src

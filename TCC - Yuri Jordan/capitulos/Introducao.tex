@@ -1,0 +1,79 @@
+
+% Introdu��o
+\chapter{Introdução}
+
+O ponto de vista sobre “o que as pessoas pensam” sempre teve uma grande influência no nosso processo de decisão sobre algo. Com isso, após a difusão em escala mundial da \textit{World Wide Web} (Rede Mundial de Computadores), atualmente, é possível encontrar nessa rede, uma vasta quantidade de opiniões e relatos de experiências de pessoas conhecidas ou não, especialistas ou não, sobre um assunto.
+
+A proliferação dessas opiniões pessoais na internet, se mostra de interesse de consumidores norte-americanos, como mostra \cite{pewinternet:2008}:
+
+\begin{itemize}
+
+\item 35\% dos americanos, no ano de 2000,  dizem que usam a internet para fazer pesquisas onlines sobre produtos e que esse número cresceu em 60\% após sete anos;
+
+\item 81\% de usuários da internet já fizeram pesquisa online sobre um produto ao menos uma vez;
+
+\item 20\% desses usuários fazem isso diariamente;
+
+\item consumidores dizem estarem mais propensos a pagar de 20\% a 99\% a mais por estabelecimentos cinco-estrelas do que de quatro-estrelas(esse valor varia de acordo com o tipo de produto ou serviço ofertado);
+
+\item leitores de anúncios online de restaurantes, hotéis e outros serviços, entre 73\% e 87\% dizem que as avaliações sobre aquele empreendimento tem uma importante relevância na decisão de compra;
+
+\item 32\% já avaliaram um produto, serviço ou uma pessoa através de sistemas online de avaliação, e 30\% postaram um comentário avaliativo online acerca de um produto ou serviço.
+
+\end{itemize}
+
+O interesse que indivíduos demonstram por opiniões online sobre produtos e/ou serviços faz com que vendedores(empresas, produtores de serviço ou produtos), no geral, direcionem sua atenção e esforços ao desenvolvimento ou utilização de ferramentas capazes de analisar automaticamente os sentimentos expressos nestas opiniões, escritas na internet. Objetivando um melhor entendimento de como seus produtos ou serviços estão no mercado, no ponto de vista do consumidor.
+
+Para atender tal necessidade de automação da extração de sentimento, em textos na linguagem natural, foi desenvolvida a área de estudo Análise de sentimento.
+
+\blockquote{\textit{Análise sentimental e mineração de opinião é o campo de estudo que analisa opiniões, sentimentos, avaliações, atitudes e emoções de pessoas a partir da linguagem escrita. É uma das áreas de pesquisa mais ativas em processamento natural de linguagem e também é amplamente estudada em mineração de dados, mineração na Web, e mineração de texto. De fato, esta área de pesquisa tem se ampliado da ciência da computação para as ciências de gestão e ciências sociais devido sua importância para atividades comerciais e a sociedade como um todo. A crescente importância da análise sentimental corresponde com o crescimento das mídias sociais tais como reviews, fóruns de discussões, blogs, micro-blogs, Twitter, e redes sociais. Pela primeira vez na história da humanidade, nós agora temos um grande volume de dados opinativos gravados em formato digital para análise.} \cite[tradução do autor]{bingLiu:2012}}
+
+A utilização da Análise de sentimento de textos é aplicada em diversas outras áreas além do comércio. Áreas como: saúde \cite{GaoEtAlInfluenza:18}, política \cite{MarozzoeBessi:18}, logística urbana \cite{GaoEtAl:17}, entretenimento \cite{Rosa:15}, prestação de serviços \cite{ThakoreSasi:15}, assim como, é um dos campos de estudo da ciência da computação com o mais rápido crescimento, em relação ao número de pesquisas realizadas.
+\blockquote{\textit{Temos visto um aumento maciço no número de artigos focados em análise de sentimento e mineração de opinião nos últimos anos. De acordo com nossos dados, aproximadamente 7.000 artigos deste tópico foram publicados e, mais interessante, 99\% dos trabalhos surgiram depois de 2004, fazendo da análise de sentimento uma das áreas de pesquisa que mais cresce.}
+\cite[tradução do autor]{MANTYLA201816}}
+
+Com isso, o exemplo, a seguir, ilustra um caso de uso para explicar o estudo de caso realizado, no capítulo 4 deste trabalho, com alguns do pré-candidatos à Presidência do Brasil de 2018.
+
+\textit{Amanda é uma cidadã brasileira que, como todos os outros, ao completar 18 anos, tem de votar obrigatoriamente, nas eleições políticas no Brasil. Nas votações de 2018, será seu primeiro ano como participante, a fim de, eleger seu representante à Presidência da República brasileira. Esse momento é de grande responsabilidade e dúvida para Amanda. Sendo assim, ela pesquisa bastante sobre os pré-candidatos, seja nas mídias tradicionais, como Televisão, Rádio, Jornais e Revistas, ou nas digitais como sítios na internet, blogs e, principalmente, em redes sociais. Entretanto, o volume de dados, criados pelos usuários dessas redes, é grande e variável com relação aos contextos.} 
+
+\textit{Assim, para Amanda ter uma visão holística sobre o ponto de vista da população, acerca dos possíveis candidatos à Presidência, seria útil uma forma de coletar essas informações dos usuários, filtrando-as de acordo com o nome dos políticos e classificando-as, automaticamente se, seu conteúdo possui uma intenção negativa, neutra ou positiva, para que assim, possa ser gerado um levantamento quantitativo, generalizado e rápido para ajudá-la em suas pesquisas.}
+
+\section{Objetivos Gerais}
+
+O objetivo geral deste trabalho é desenvolver um modelo de análise de sentimento para dados extraídos de redes sociais.
+
+\section{Objetivos Específicos} 
+
+Para consumar o objetivo geral deste trabalho foram determinados os seguintes objetivos específicos:
+
+\begin{itemize}
+  \item pesquisar sobre o estado da arte a respeito da Análise de sentimento;
+ \item desenvolver um modelo de análise baseado na carga teórica da pesquisa;
+ \item implementar os algoritmos necessários para execução do modelo;
+\item implementar um serviço web, com o intuito de expor esses algoritmos. 
+\end{itemize}
+
+\section{Metodologia}
+
+Para atingir o objetivo geral deste trabalho, em um primeiro momento, uma pesquisa exploratória foi feita, acerca do estado da arte do objeto de estudo aqui abordado. Tal pesquisa teve como base artigos de jornais, revistas e periódicos, alguns especializados em processamento natural de linguagem e análise de sentimento.
+
+Em seguida, é realizado um estudo de caso, com os pré-candidatos a presidência do Brasil de 2018, no qual dados textuais coletados, da rede sociais Twitter, são analisados sentimentalmente e essa análise está acessível via um serviço web implementado com a linguagem de programação Python. 
+
+Por último, os resultados obtidos com a análise são mostrados, com o intuito de demonstrar se os comentários dos usuários destas redes sociais, a respeito dos possíveis candidatos à presidência da República, foi positiva, neutra ou negativa.
+
+\section{Organização do trabalho}
+
+Este trabalho está organizado em seis capítulos: Introdução, Fundamentação teórica, Trabalhos relacionados, Modelo de sentimento - Estudo de caso com os possíveis candidatos à Presidência do Brasil de 2018, e Considerações finais.
+
+O primeiro capítulo, Introdução, apresenta o contexto do trabalho, os objetivos a serem alcançados e a metodologia seguida para tal. Com o intuito de mostrar ao leitor que há relevância da área de estudo, a qual este trabalho aborda, na sociedade.
+
+No segundo, Fundamentação teórica, os conceitos teóricos que servem como essência para todo o conteúdo deste projeto, são apontados. Esse conceitos são: os aspectos gerais do Processamento de Linguagem Natural, três técnicas que são aplicadas nesse tipo de processamento(com abordagem mais ampla da análise de sentimento), as tecnologias utilizadas na implementação do modelo de sentimento e do serviço web do projeto e a justificativa sobre suas utilizações.
+
+No terceiro capítulo, Trabalhos relacionados, são expostos oito estudos que foram feitos com base na análise de sentimento de textos, quase todos, com os textos extraídos das redes sociais.
+
+O capítulo 4, Modelo de sentimento - Estudo de caso com os pré-candidatos à Presidência do Brasil de 2018, descreve o objetivo do estudo de caso, sua execução, procedimentos de coleta e análise de dados, o modelo de sentimentos aplicado no caso estudado, implementação em Python e resultados obtidos.
+
+Por fim, no último capítulo, são apresentadas as conclusões, limitações e as sugestões de trabalhos futuros.
+
+
+

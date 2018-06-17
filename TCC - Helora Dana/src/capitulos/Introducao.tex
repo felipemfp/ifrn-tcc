@@ -1,0 +1,53 @@
+% Introdu��o
+\chapter{Introdução}
+
+No ano de 1974, um jovem professor de arquitetura de Budapeste (Hungria) chamado Erno Rubik criou um objeto curioso, um cubo que após de ter sido girado,  não quebrou ou desmontou.\cite{his} O primeiro protótipo do cubo mágico foi fabricado com a intenção de criar uma peça que fosse perfeita em si mesma, no que se refere à geometria, e sua principal função foi para ajudar a ilustrar o conceito da terceira dimensão. A primeira peça que foi confeccionada era em material de madeira e os seus seis lados possuíam seis cores distintas, para que quando alguém girasse as faces do cubo, tivesse uma melhor visualização dos movimentos realizados. Com isso, surgiu o primeiro “Cubo de Rubik”. Erno Rubik precisou de um pouco mais de um mês para conseguir solucionar perfeitamente este quebra-cabeça e desde que o cubo mágico foi criado, muitas pessoas procuram maneiras de solucioná-lo e desenvolvem algoritmos para facilitar esse processo.\cite{ORI}
+
+    O cubo de Rubik é um quebra-cabeça tridimensional geralmente confeccionado em plástico e possui várias versões. A a versão 3x3x3 é a mais comum, composta por 6 faces de 6 cores diferentes, com arestas de aproximadamente 5,7 cm. Cada uma das suas seis faces está dividida em nove partes, 3x3, num total de 26 peças que se articulam entre si devido ao mecanismo da peça interior central, oculta dentro do cubo.  Outras versões menos conhecidas são a 2x2x2, 4x4x4 e a 5x5x5. O quebra cabeça se tornou popular depois de ser levado para os Estados Unidos \cite{sobre}. O desafio é colocar todos os quadrados de cor igual na mesma face do cubo apenas girando suas peças. É possível permutar os oito vértices do cubo, logo podemos arranjá-los de em 8! (oito fatorial) formas diferentes. O cubo possui 43.252.003.274.489.856.000 (43 quintilhões) de combinações possíveis diferentes, se alguém pudesse realizar todas as combinações possíveis a uma velocidade de 10 por segundo, demoraria 136.000 anos para solucioná-lo, supondo que nunca repetisse a mesma combinação. \cite{invencao}
+    
+    
+     Em 1980, o cubo começou a ser produzido de forma industrial e estima-se que desde então já tenham sido vendidos mais de 350 milhões de unidades em todo mundo.
+    Para solucionar o cubo de Rubik de maneira eficiente, foram desenvolvidos uma série de algoritmos compostos por sequências de instruções a serem executadas, conhecidas popularmente no “mundo do Cubo Mágico” como fórmulas para resolver o cubo \cite{movimentos}. Existem algoritmos com variadas quantidades de movimentos, desde os mais simples aos mais complexos. As equações para resolver os enigmas com menor número de movimentos são em sua maioria complexas para serem memorizadas. Em geral, são necessários computadores e até supercomputadores (RACIOCÍNIO LÓGICO, 2016). O algoritmo mais usado para resolver o problema do cubo mágico é o algoritmo de camadas, que é composto por oito sequências de passos que resolvem o cubo mágico camada por camada.
+
+    Tendo isso em vista, a melhor maneira de executar essas sequências de passos de maneira eficiente seria uma abordagem não humana. Atualmente, quando falamos sobre abordagem não humana o que está mais próximo da nossa realidade são os robôs. Eles fazem cada vez mais parte do nosso cotidiano, seja em empresas, ocupando funções operárias e  facilitando a vida de quem precisa. A robótica também está presente nas escolas, e visa levar o aluno a questionar, pensar e procurar soluções, a sair da teoria para a prática usando ensinamentos obtidos em sala de aula, na vivência cotidiana, nos relacionamentos, nos conceitos e valores.
+
+    Portanto, para mesclar conceitos de desenvolvimento de software e hardware em  uma solução eficaz para resolver o problema do cubo mágico a melhor maneira seria construindo um robô capaz de solucionar automaticamente o cubo. Entretanto, um dos principais componentes para o funcionamento de robôs de baixo porte são os microcontroladores.  O microcontrolador é um pequeno computador em um único circuito integrado o qual contém um núcleo de processador, memória e periféricos programáveis de entrada e saída. \cite{controlador}
+
+
+    Um dos mais famosos no mercado para automação e controle  é o Arduíno, que  é uma plataforma de prototipagem eletrônica de hardware livre e de placa única, projetada com um microcontrolador Atmel AVR(Advanced Virtual RISC)  com suporte de entrada/saída embutido e uma linguagem de programação padrão. O objetivo do projeto arduíno é criar ferramentas que são acessíveis, com baixo custo, flexíveis e fáceis de se usar principalmente por aqueles que não teriam alcance aos controladores mais sofisticados e de ferramentas mais complicadas \cite{arduinowiki}. Com isso, percebe-se que o uso de arduíno e sensores associados é um atrativo e uma boa escolha para projetar um robô que solucione o problema do cubo mágico de maneira barata e razoável. Este trabalho tem como objetivo explicar como se deu o processo de desenvolvimento do robô, desde seus componentes e estrutura física até a  parte de programação com o foco na plataforma arduíno. 
+
+
+\section{Objetivos Gerais}
+
+Usar conceitos de hardware e software para construir um robô, de baixo custo, para solucionar o problema do cubo de rubik utilizando a plataforma arduíno.
+
+
+\section{Objetivos Específicos} 
+
+Este trabalho tem como objetivos específicos:
+
+\begin{itemize}
+  \item Construir um protótipo inicial do robô.
+  \item Definir componentes necessários para seu funcionamento.
+  \item Utilizar conceitos de algoritmos para a programação da parte lógica.
+  \item Impressão da estrutura física com a impressora 3D.
+  \item Testes de performance.
+\end{itemize}
+
+\section{Metodologia}
+
+A primeira etapa de desenvolvimento do robô, consiste em projetar um protótipo para definir componentes de hardware necessários e medidas de cada peça que compõe sua estrutura física. Feito isso, usar esse protótipo para testes com o cubo de rubik e validação das medidas entre as peças.
+
+O próximo passo, é a programação dos componentes, como o Arduíno, que darão vida ao protótipo para que ele se torne funcional. A programação de cada um deles é codificada e é feita uma integração contínua com o código dos outros componentes. 
+
+    Depois de vários testes de códigos e funcionamento apropriado do robô com o protótipo, é feita a impressão das peças de sua estrutura física com a impressora 3D. Com todas as peças já impressas, é montado o robô e executado testes de funcionamento e cronometrado tempo de resolução total do cubo.
+
+
+\section{Organização do trabalho}
+
+ Nos primeiros capítulos, serão mostrados e detalhados alguns conceitos sobre os elementos principais deste trabalho. Assim como também, trabalhos relacionados ao tema. Seguidamente, serão mostrados toda a parte da arquitetura do robô como componentes e sua estrutura física. Depois de toda a parte de construção do robô, serão mostrados os testes feitos para saber qual seu melhor tempo resolvendo o cubo e a quantidade de movimentos. Por último, serão citados trabalhos futuros nessa área. 
+ 
+ 
+ 
+ 
+ 
