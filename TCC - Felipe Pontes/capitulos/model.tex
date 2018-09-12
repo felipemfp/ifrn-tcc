@@ -5,12 +5,16 @@ We consider two layers: spatial layer and feedback layer.
 
 {\bf In the spatial layer:} each point in a dataset ($p \in \mathcal{P}$) is described using its coordinates (latitude and longitude) and also associated with a set of attributes ($dom(p)$). For instance, %TODO
 
-{\bf In the feedback layer:} we have IDRs per iteration/session where implicid feedback is captured such mouse moves (or eye gaze). In the beginning, each IDRs is a group of raw points described using its coordinates (latitude and longitude) and a timestamp (the unix timestamp it was captured). These raw points once captured will enter the clustering (for now, ST-DBSCAN) phase to generate the IDR itself with a profile. The profile is built based on the spatial layer and it should represent a summary of its contained spatial points. 
+{\bf In the feedback layer:} we have IDRs per iteration/session where implicid feedback is captured such mouse moves (or eye gaze). In the beginning, each IDRs is a group of raw points described using its coordinates (latitude and longitude) and a timestamp (the unix timestamp it was captured). These raw points once captured will enter the clustering (for now, ST-DBSCAN) phase to generate the IDR itself with a profile. The profile is built based on the spatial layer and it should represent a summary of its contained points from the spatial layer.
 
 \begin{itemize}
-\item A profile has summary of its spatial points number attributes (for each number attribute in $dom(p)$, it has a median for the points in the IDR).
+	\item A profile has summary of its spatial points number attributes. For each number attribute in $dom(p)$, we calculate the average, median and standard deviation based on the points contained in the IDR.
 
-\item A profile has a rank $R$ of the terms in the text attributes of its spatial points. %TODO
+	\item A profile has a word rank $R$ of the terms in the text attributes of its spatial points. For each text attribute in $dom(p)$, we evaluate the most used terms in order to create a word rank \cite{kumarAndKaur}.
 
-\item A profile has a feedback vector $F$ which contains a map between $<name, value>$ and relevance of a attribute in $dom(p)$. The feedback vector in the first iteration is filled with 0 and for each next iterations it will be updated by incremeting the relevance of an $<name, value>$ by a arbitrary value ($\sigma$) according with its presence in the IDR and normalizing it using Softmax. %TODO?
+	\item A profile has a map $M$ between the $<name, value>$ of categoricals attributes and its relevance in $dom(p)$.
+
+	\item TODO: datetime attributes
+
+	\item A profile has a meta property with values such the count of points in the IDR.
 \end{itemize}
