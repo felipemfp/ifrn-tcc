@@ -16,31 +16,43 @@ However the increasing amount of data is making analyses a way more difficult.
 So we are investing in techniques and tools to tackle problems such as data mining, data cleaning,
 data visualization, data classification, data exploration and so on.
 
-Right in the middle of this scenario we may find data that comes along with a latitude and a longitude
+Right in the middle of this scenario we may find data that comes along with latitude and longitude
 (tweets and check-ins are good examples). We categorize those data as \textit{spatial data}.
 Spatial data can be very insightful, for instance, a check-in at the airport by your sister
 in the morning of your birthday, probably it means you will have a surprise.
-The problem comes when we have to analyse those data and due to its specificness it can
-be difficult.
 
-GeoGuide is about making easy to the researcher explore, visualize and learn with spatial datasets.
-In order to accomplish a better user experience, we provide a guidence approach based
-on his preferences and explicit feedback.
-GeoGuide continuously improves its guidance algorithm while
-researcher is exploring the dataset. The framework captures implicit feedback
-and try to understand what the user wants by analysing how the
-researcher preferences has evolved over time.
+\section{Problem Definition}
 
+The large size of spatial data make the analyst feel lost during the exploration.
+There could be thousands of points in each neighborhood of a city. Analysts require to obtain
+only few options (so-called "highlights") to act as a direction and be able to focus on.
+In the perfect scenario, these options are not randomly chosen and represent what they showed to be interested.
 
-\section{The problem}
+In this work, we formulate the problem of "information highlighting using implicit feedback collected over time", i.e.,
+highlight few spatial points based on implicit interests of the analysts in order to guide her
+towards what she should concentrate on in consecutive iterations of the analysis process.
 
-TODO
+\subsection{Case Study}
 
-\subsection{Use Case}
+We discuss a real-world example to show the functionality of our approach in practice.
 
-George is a software engineer with a very good taste for food. He likes to go to restaurants every month. George likes to try new restaurants and he already knows almost every place in his city, Parnamirim. So now George is looking for places in the nearby city, Natal. Before GeoGuide, George founds himself losing a lot of time choosing restaurant instead of actually going to them. And George changes his preferences with the seasons: another challenge for him during the Yelp exploration. For example, in the winter George prefers places close to his home or his work and in the summer, he prefers places which offers sea food.
+\textbf{Example.} \textit{George is a software engineer with a very good taste for food.
+	He likes to go to restaurants every month, try new restaurants and he
+	already knows almost every place in his city, Parnamirim. So now George is looking
+	for places in the nearby city, Natal. Before GeoGuide, George founds himself losing
+	a lot of time choosing restaurant instead of actually going to them. Another interesting fact about him is he
+	changes his preferences with the seasons, therefore it represent another challenge for him during the
+	Yelp exploration. For example, in the winter George prefers places close to his
+	home or his work and in the summer, he prefers places which offers sea food.
+	By using GeoGuide during the past year to get to know almost every place in his city,
+	when George starts to looking for places in the nearby city, GeoGuide already
+	understands the behavior of how George's preferences changes over the seasons and highlight
+	suggestions of places most likely to be interesting for him according to
+	the moment of the year.}
 
-By using GeoGuide during the past year to get to know almost every place in his city, when George starts to looking for places in the nearby city, GeoGuide already understands the behavior of George's preferences over the seasons and highlight suggestions of places most likelly to be interesting for him according to the moment of the year.
+We follow the above example to describe how temporal analyses can be effectively
+applied in the highlighting of interesting information based on previous experience
+in the next sections.
 
 \section{Goals}
 
@@ -62,4 +74,10 @@ List of specific goals of this work:\ldots
 
 \section{Organization}
 
-In the first half of this paper, we discuss...
+The next sections is as follow: in the Chapter 2 we discuss the background of this work.
+Chapter 3 defines the data model.
+Chapter 4 presents how the feedback is collected during exploration.
+Chapter 5 presents how temporal analysis is applied.
+Chapter 6 presents how highlight interesting points in order to guide the user using collected feedback and results from temporal analysis.
+Chapter 7 shows experiments and its results.
+Chapter 8 presents some conclusions and future directions.
