@@ -10,14 +10,14 @@ we should also put attention in the {\em value} of spatial data, because is very
 
 Our proposed visualization environment leverage the spatial data analysis by exploiting collected feedback during the analyst exploration to highlight subsets of geographical points. In the literature, are several instances of feedback exploitation to guide the analysts in further analysis steps (e.g., \cite{boley2013one}).
 
-There exist few instances of information-highlighting methods in the literature \cite{Liang2010,Robinson2011,wongsuphasawat2016voyager,willett2007scented}. All these methods are {\em objective} and do not apply to the context of spatial guidance where user feedback is involved.  In terms of recommendation, few approaches focus on spatial dimension \cite{Bao2015,Levandoski:2012} while the context and result diversification are missing.
+There exist few instances of information-highlighting methods in the literature \cite{Liang2010,Robinson2011,wongsuphasawat2016voyager,willett2007scented}. All these methods are {\em objective} and do not apply to the context of spatial guidance where user feedback is involved. In terms of recommendation, few approaches focus on spatial dimension \cite{Bao2015,Levandoski:2012} while the context and result diversification are missing.
 
-There are currently several solutions for applying temporal analysis...
+There are currently several instances which combine temporal analysis with spatial data in the literature \cite{baculo2017,balahadia2017,chidean2018,ghahramani2018,kamath2013,lopestexeira2018,ma2017,mijovic2016,tomoki2010,nara2007,zhan2017,zheng2018}. Those are applications of temporal analysis in specific context, which does not involve user feedback, but represent how temporal analysis could be insightful.
 
 \section{GeoGuide}
 
-GeoGuide \cite{omidvarTehrani2017} is a spatial data visualization environment whick track the user preferences during exploration in order to used this collected data to highlight subsets of geographical points that may be interesting to the user.
+GeoGuide \cite{omidvarTehrani2017} is a spatial data visualization environment which keep track of user preferences during exploration in order to use this collected data to highlight subsets of geographical points that may be interesting to the analyst.
 
-GeoGuide used both explicit and implicit feedback. Explicit feedback is when the user are analyzing the attributes of a point (e.g., the house description in a AirBnb context) and explicitly ask for similar (yet diverse) points to the current selected one. Implicit feedback is tracked using the mouse movement, eye/gaze tracking etc.
+GeoGuide use both explicit and implicit feedback. Explicit feedback is when the user is analyzing the attributes of a point (e.g., the house description in a AirBnb context) and explicitly ask for similar (yet diverse) points to the current selected one. Implicit feedback is tracked using the mouse movements, eye/gaze tracking etc.
 
 In this work, we will leverage GeoGuide into two new concepts: $i$. interesting dense regions and $ii$. understanding how the user preferences change over time.

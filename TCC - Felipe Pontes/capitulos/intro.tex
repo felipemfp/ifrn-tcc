@@ -1,51 +1,42 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-More than ever we are overwhelmed by the amount of information has been created.
-When we compare how much data has been created over the past years, we realize
-it is already increasing exponentially.
-Besides this quantitative evolution, nowadays
-we have the most diverse kinds of data
-(e.g. documents, tweets, pictures, videos, GIF, check-ins).
+More than ever we are overwhelmed by an amount of data which is created every day. When we compare how data has been created over the past years, we realize that is already increasing significantly. Besides this evolution, nowadays we have the most diverse kinds of data (e.g., documents, tweets, pictures, videos, GIFs, check-ins).
 
-This phenomenon has been called \textit{Big Data} and represents an increasing field of study
-for the time being. Therefore researchers all around the world
-are analyzing and learning with these information we create everyday.
-However the increasing amount of data is making analyses a way more difficult.
-So we are investing in techniques and tools to tackle problems such as data mining, data cleaning,
-data visualization, data classification, data exploration and so on.
+This phenomenon has been called \textit{Big Data} and represents an increasing field of study for the time being. Therefore researchers are analyzing and learning with these information we create. However the increasing amount of data make analyses hard to perform. So, people are investing in techniques and tools to tackle challenges such as data mining, data cleaning, data visualization, data classification, data exploration and so on.
 
-Right in the middle of this scenario we may find data that comes along with latitude and longitude
-(tweets and check-ins are good examples). We categorize those data as \textit{spatial data}.
-Spatial data can be very insightful, for instance, a check-in at the airport by your sister
-in the morning of your birthday, probably it means you will have a surprise.
+One common kind of data is what we called {\em spatial data}, which are data the comes with geographical attributes like latitude and longitude (e.g., tweets, restaurants reviews, place check-ins). Spatial data can be very insightful, for instance, a check-in at the airport by your sister in the morning of your birthday, probably it means you will have a surprise.
 
-% TODO: talk about how we explore spatial data (in map, Tableau etc) and how it take us to the problem definition
+As each record in spatial data represents an activity in a precise geographical location, analyzing such data enables discoveries grounded on facts. Analysts are often interested to observe spatial patterns and trends to improve their decision making process. Spatial data analysis has various applications such as smart city management, disaster management and autonomous transport \cite{RoddickEHPS04,Telang:2012}.
 
 \section{Problem Definition}
 
-The large size of spatial data make the analyst feel lost during the exploration.
-There could be thousands of points in each neighborhood of a city. Analysts require to obtain
-only few options (so-called "highlights") to act as a direction and be able to focus on.
-In the perfect scenario, these options are not randomly chosen and represent what they showed to be interested.
+Spatial data analysis is often performed in {\em exploratory context}: the analyst does not have a precise query in mind and she explores data in iterative steps in order to find potentially interesting results. Traditionally, an exploratory analysis scenario on spatial data is described as follows: the analyst visualizes a subset of data using a query in an visualization environment (e.g., Tableau\footnote{\it http://www.tableau.com},
+Exhibit\footnote{\it http://www.simile-widgets.org/exhibit/},
+Spotfire\footnote{\it http://spotfire.tibco.com}). The result will be illustrated on a geographical map. Then she investigates on different parts of the data by zooming in/out and panning the map in order to discover patterns and trends of interest. The analyst may iterate on this process several times by issuing different queries and focusing on different aspects of data.
 
-In this work, we formulate the problem of "information highlighting using implicit feedback collected over time", i.e.,
-highlight few spatial points based on implicit interests of the analysts in order to guide her
-towards what she should concentrate on in consecutive iterations of the analysis process.
+The large size of spatial data make the analyst feel lost during the exploration. There could be thousands of points in each neighborhood of a city, for example. Analysts require to obtain only few options (so-called "highlights") to act as a direction and be able to focus on. In the perfect scenario, these options are not randomly chosen and represent what they showed to be interested in the previous iterations.
 
-% TODO: "what to see next" question, talk about other environment 
+In this work, we formulate a solution for "information highlighting using feedback collected over time", i.e., highlight few geographical points based on implicit interests of the analyst in order to guide the user towards what he should concentrate on in consecutive iterations of the analysis process.
+
+% TODO: argumentar sobre análise temporal
 
 \subsection{Case Study}
 
-We discuss a real-world example to show the functionality of our approach in practice.
+Now, we will present a case study in order to show the functionality of our approach in practice.
 
-{\bf Example.} {\em Lucas is planning to spend few days in Paris, France. His appreciation of French culture makes him interested in new experiences in the city. He decides to rent a home-stay from Airbnb website\footnote{\it http://www.airbnb.com}. He likes to discover the city, hence he is open to any type of lodging in any region with an interest to stay in the city center. The website returns $4000$ different locations. As he has no other preferences, an exhaustive investigation needs scanning each location independently which is nearly infeasible. While he is scanning few first options, he shows interest in the region of ``Champ de Mars'' (near Eiffel Tower), but he forgets or doesn't feel necessary to click a point there. By discovering IDRs on his mouse moves over the home-stays in Paris, our system can quickly detect his interest in the region and short-list a small subset of locations (i.e., highlights) accordingly to be recommended to Lucas.}
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=\textwidth]{imagens/regions}
+	\caption{The process of exploring Paris home-stays.}
+	\label{fig:regions}
+\end{figure}
 
-% TODO add temporal analysis to it, remove IDRs (to complex to use now, maybe after model definition)
+{\bf Example.} {\em Lucas is planning to spend few days in Paris, France. His appreciation of French culture makes him interested in new experiences in the city. He decides to rent a home-stay from Airbnb website\footnote{\it http://www.airbnb.com}. He likes to discover the city, hence he is open to any type of lodging in any region with an interest to stay in the city center. The website returns $4000$ different locations. As he has no other preferences, an exhaustive investigation needs scanning each location independently which is nearly infeasible. While he is scanning few first options, he shows interest in the region of ``Champ de Mars'' (near Eiffel Tower), but he forgets or doesn't feel necessary to click a point there. By collecting feedback on his mouse moves over the home-stays in Paris, our system can quickly detect his interest in the region and short-list a small subset of locations (i.e., highlights) accordingly to be recommended to Lucas.}
 
-We follow the above example to describe how temporal analyses can be effectively
-applied in the highlighting of interesting information based on previous experience
-in the next sections.
+We follow the above example to describe how implicit feedback is collected in action. Figure \ref{fig:regions} shows Lucas' steps to explore home-stays in Paris. Figure \ref{fig:regions}.A shows his mouse movements in different time stages. In this example, we consider $g = 3$ and capture Lucas' feedback in three different time segments (progressing from Figures \ref{fig:regions}.B to \ref{fig:regions}.D). It shows that Lucas started his search around Eiffel Tower and Arc de Triomphe (Figure \ref{fig:regions}.B) and gradually showed interest in south (Figure \ref{fig:regions}.C) and north (Figure \ref{fig:regions}.D) as well. All intersections between those regions are discovered (hatching regions in Figure \ref{fig:regions}.E) which will constitute the set of {\em Interesting Dense Regions} (Figure \ref{fig:regions}.F), i.e., IDR1 to IDR4.
+
+What if Lucas wanted to come back to Paris, France next year? He will have to repeat the same exploratory analyse, unless he remember the exact location of home-stays he showed interest last year. Using our system, he won't need to remember, because his preferences were collected and can be used to highlight a subset of similar home-stays.
 
 \section{Objectives}
 
@@ -54,7 +45,7 @@ In this section, we define the general and specific objectives of our work.
 \subsection{General Objectives}
 
 \begin{itemize}
-	\item Introduce a time-aware guidance approach for spatial data\ldots
+	\item Introduce a time-aware guidance approach for spatial data exploration\ldots
 	\item Elaborate how temporal analyses can be effectively applied in data exploration\ldots
 	\item Present the results of our guidance approach\ldots
 \end{itemize}
@@ -65,15 +56,8 @@ In this section, we define the general and specific objectives of our work.
 	\item Present our proposed guidance approach\ldots
 	\item Describe our data model used for temporal analyses\ldots
 	\item Describe our concept of IDR used for collecting feedback\ldots
-	\item TODO\ldots
 \end{itemize}
 
 \section{Organization}
 
-The next sections is as follow: in the Chapter 2 we discuss the background of this work.
-Chapter 3 defines the data model.
-Chapter 4 presents how the feedback is collected during exploration.
-Chapter 5 presents how temporal analysis is applied.
-Chapter 6 presents how highlight interesting points in order to guide the user using collected feedback and results from temporal analysis.
-Chapter 7 shows experiments and its results.
-Chapter 8 presents some conclusions and future directions.
+The next sections is as follow: in the Chapter 2 we discuss the background of this work. Chapter 3 defines the data model. Chapter 4 presents how the feedback is collected during exploration. Chapter 5 presents how temporal analysis is applied. Chapter 6 presents how highlight interesting points in order to guide the user using collected feedback and results from temporal analysis. Chapter 7 shows experiments and its results. Chapter 8 presents some conclusions and future directions.
