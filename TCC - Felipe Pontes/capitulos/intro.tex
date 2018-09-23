@@ -1,7 +1,6 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-% TODO: improve with citations and goals
 More than ever we are overwhelmed by the amount of information has been created.
 When we compare how much data has been created over the past years, we realize
 it is already increasing exponentially.
@@ -21,6 +20,8 @@ Right in the middle of this scenario we may find data that comes along with lati
 Spatial data can be very insightful, for instance, a check-in at the airport by your sister
 in the morning of your birthday, probably it means you will have a surprise.
 
+% TODO: talk about how we explore spatial data (in map, Tableau etc) and how it take us to the problem definition
+
 \section{Problem Definition}
 
 The large size of spatial data make the analyst feel lost during the exploration.
@@ -32,23 +33,15 @@ In this work, we formulate the problem of "information highlighting using implic
 highlight few spatial points based on implicit interests of the analysts in order to guide her
 towards what she should concentrate on in consecutive iterations of the analysis process.
 
+% TODO: "what to see next" question, talk about other environment 
+
 \subsection{Case Study}
 
 We discuss a real-world example to show the functionality of our approach in practice.
 
-\textbf{Example.} \textit{George is a software engineer with a very good taste for food.
-	He likes to go to restaurants every month, try new restaurants and he
-	already knows almost every place in his city, Parnamirim. So now George is looking
-	for places in the nearby city, Natal. Before GeoGuide, George founds himself losing
-	a lot of time choosing restaurant instead of actually going to them. Another interesting fact about him is he
-	changes his preferences with the seasons, therefore it represent another challenge for him during the
-	Yelp exploration. For example, in the winter George prefers places close to his
-	home or his work and in the summer, he prefers places which offers sea food.
-	By using GeoGuide during the past year to get to know almost every place in his city,
-	when George starts to looking for places in the nearby city, GeoGuide already
-	understands the behavior of how George's preferences changes over the seasons and highlight
-	suggestions of places most likely to be interesting for him according to
-	the moment of the year.}
+{\bf Example.} {\em Lucas is planning to spend few days in Paris, France. His appreciation of French culture makes him interested in new experiences in the city. He decides to rent a home-stay from Airbnb website\footnote{\it http://www.airbnb.com}. He likes to discover the city, hence he is open to any type of lodging in any region with an interest to stay in the city center. The website returns $4000$ different locations. As he has no other preferences, an exhaustive investigation needs scanning each location independently which is nearly infeasible. While he is scanning few first options, he shows interest in the region of ``Champ de Mars'' (near Eiffel Tower), but he forgets or doesn't feel necessary to click a point there. By discovering IDRs on his mouse moves over the home-stays in Paris, our system can quickly detect his interest in the region and short-list a small subset of locations (i.e., highlights) accordingly to be recommended to Lucas.}
+
+% TODO add temporal analysis to it, remove IDRs (to complex to use now, maybe after model definition)
 
 We follow the above example to describe how temporal analyses can be effectively
 applied in the highlighting of interesting information based on previous experience
