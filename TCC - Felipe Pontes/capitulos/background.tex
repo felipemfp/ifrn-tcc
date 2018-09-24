@@ -8,16 +8,46 @@ This section gives an overview of related work in literature about feedback expl
 The literature in spatial data analysis has a focus on {\em efficiency} of exploratory interactions. The common approach is to design pre-computed index with enable efficient retrieval of spatial data (e.g., \cite{lins2013nanocubes}). However,
 we should also put attention in the {\em value} of spatial data, because is very common to see an analyst getting lost in the huge amount of geographical points. In order to overcome this challenge, visualization environments (e.g., Tableau\footnote{\it http://www.tableau.com}, Exhibit\footnote{\it http://www.simile-widgets.org/exhibit/}, Spotfire\footnote{\it  http://spotfire.tibco.com}) offer features to manipulate data (e.g., filters, aggregate queries, etc).
 
-Our proposed visualization environment leverage the spatial data analysis by exploiting collected feedback during the analyst exploration to highlight subsets of geographical points. In the literature, are several instances of feedback exploitation to guide the analysts in further analysis steps (e.g., \cite{boley2013one}).
+Our proposed spatial-temporal model leverage the spatial data analysis by exploiting collected feedback during the analyst exploration to highlight subsets of geographical points. In the literature, are several instances of feedback exploitation to guide the analysts in further analysis steps. \todo{REWRITE THE FOLLOWING} The common approach is a top-$k$ processing methodology in order to prune the search space based on the explicit feedback and recommend a small subset of interesting results of size~$k$. A clear distinction of our work is that it doesn't aim for pruning, but leveraging the actual data with potential interesting results that the analyst may miss due to the huge volume of spatial data. While in top-$k$ processing algorithms, analyst choices are limited to $k$, we offer the freedom of choice where highlights get seamlessly updated with new analyst choices.
 
+\todo{TALK ABOUT EACH ONE}
 There exist few instances of information-highlighting methods in the literature \cite{Liang2010,Robinson2011,wongsuphasawat2016voyager,willett2007scented}. All these methods are {\em objective} and do not apply to the context of spatial guidance where user feedback is involved. In terms of recommendation, few approaches focus on spatial dimension \cite{Bao2015,Levandoski:2012} while the context and result diversification are missing.
 
+\todo{TALK ABOUT EACH ONE}
 There are currently several instances which combine temporal analysis with spatial data in the literature \cite{baculo2017,balahadia2017,chidean2018,ghahramani2018,kamath2013,lopestexeira2018,ma2017,mijovic2016,tomoki2010,nara2007,zhan2017,zheng2018}. Those are applications of temporal analysis in specific context, which does not involve user feedback, but represent how temporal analysis could be insightful.
 
 \section{GeoGuide}
 
-GeoGuide \cite{omidvarTehrani2017} is a spatial data visualization environment which keep track of user preferences during exploration in order to use this collected data to highlight subsets of geographical points that may be interesting to the analyst.
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{imagens/framework}
+  \caption{GeoGuide Framework}
+  \label{fig:framework}
+  \vspace{-10pt}
+\end{figure}
 
-GeoGuide use both explicit and implicit feedback. Explicit feedback is when the user is analyzing the attributes of a point (e.g., the house description in a AirBnb context) and explicitly ask for similar (yet diverse) points to the current selected one. Implicit feedback is tracked using the mouse movements, eye/gaze tracking etc.
+GeoGuide \cite{omidvarTehrani2017} is a spatial data visualization environment which keep track of user preferences during exploration in order to use collected feedback to highlight subsets of geographical points that may be interesting to the analyst. Figure \ref{fig:framework} illustrates the main components of GeoGuide architecture which we will present in the next subsections.
+
+\subsection{Preprocessing}
+
+GeoGuide requires a preprocessing step in order to create a index which will be used during highlighting. The index is a comparative table between every points with two quality metrics, i.e., relevance and diversity.
+
+\subsubsection{Relevance}
+
+Relevance represent how a point $a$ is similar to a point $b$ in the current dataset.
+
+\subsubsection{Diversity}
+
+Diversity represent how distant is the region where a point $a$ is to a region where point $b$ is located. It allow the analyst to explore different regions, but yet work with points relevant to his interest.
+
+\subsection{Tracking User Preferences}
+
+In order to keep track of user preferences, GeoGuide use both explicit and implicit feedback. Explicit feedback is when the user is analyzing the attributes of a point (e.g., the house description in a Airbnb context) and explicitly ask for similar (yet diverse) points to the current selected one. Implicit feedback is tracked using the mouse movements, eye/gaze tracking etc.
+
+\subsection{Highlighting Spatial Data}
+
+GeoGuide combine both preprocessed index and user preferences to highlight a subset of spatial data.
+
+\vspace{25pt}
 
 In this work, we will leverage GeoGuide into two new concepts: $i$. interesting dense regions and $ii$. understanding how the user preferences change over time.
