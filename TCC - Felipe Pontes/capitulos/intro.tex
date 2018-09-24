@@ -17,9 +17,7 @@ Spotfire\footnote{\it http://spotfire.tibco.com}). The result will be illustrate
 
 The large size of spatial data make the analyst feel lost during the exploration. There could be thousands of points in each neighborhood of a city, for example. Analysts require to obtain only few options (so-called "highlights") to act as a direction and be able to focus on. In the perfect scenario, these options are not randomly chosen and represent what they showed to be interested in the previous iterations.
 
-In this work, we formulate a solution for ``information highlighting using feedback collected over time'', i.e., highlight few geographical points based on implicit interests of the analyst in order to guide the user towards what he should concentrate on in consecutive iterations of the analysis process.
-
-% TODO: argumentar sobre análise temporal
+In this work, we formulate a solution for ``information highlighting using feedback collected over time'', i.e., highlight few geographical points based on interests of the analyst in order to guide the her towards what she should concentrate on in consecutive iterations of the analysis process.
 
 \subsection{Case Study}
 
@@ -37,6 +35,8 @@ Now, we will present a case study in order to show the functionality of our appr
 We follow the above example to describe how implicit feedback is collected in action. Figure \ref{fig:regions} shows Lucas' steps to explore home-stays in Paris. Figure \ref{fig:regions}.A shows his mouse movements in different time stages. In this example, we consider $g = 3$ and capture Lucas' feedback in three different time segments (progressing from Figures \ref{fig:regions}.B to \ref{fig:regions}.D). It shows that Lucas started his search around Eiffel Tower and Arc de Triomphe (Figure \ref{fig:regions}.B) and gradually showed interest in south (Figure \ref{fig:regions}.C) and north (Figure \ref{fig:regions}.D) as well. All intersections between those regions are discovered (hatching regions in Figure \ref{fig:regions}.E) which will constitute the set of {\em Interesting Dense Regions} (Figure \ref{fig:regions}.F), i.e., IDR1 to IDR4.
 
 What if Lucas wanted to come back to Paris, France next year? He will have to repeat the same exploratory analyse, unless he remember the exact location of home-stays he showed interest last year. Using our system, he won't need to remember, because his preferences were collected and can be used to highlight a subset of similar home-stays.
+
+In the context of exploratory analysis, the analyst may change his preferences between session (e.g., in the winter, Lucas may want to be close to the Eiffel Tower, but in the summer, he may not). In order to tackle this challenge we also apply a temporal analyse to identify patterns in how the analyst preferences change between sessions which allow our highlighting method to be more precise and consistent to the analyst interest.
 
 \section{Objectives}
 
