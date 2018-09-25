@@ -53,17 +53,16 @@ Relevance represent how a point $a$ is similar to a point $b$ in the current dat
 
 \subsubsection{Diversity}
 
-Diversity represent how distant is the region where a point $a$ is to the region where point $b$ is located. It allow the analyst to explore different regions, but still work with relevant points to his interest.
+Diversity represent how distant is the region where a point $a$ is to the region where point $b$ is located. It allows the analyst to explore different regions, but still work with relevant points to his interest.
 
 \subsection{Tracking User Preferences}
 
-In order to keep track of user preferences, GeoGuide use both explicit and implicit feedback. Explicit feedback is when the user is analyzing the attributes of a point (e.g., the house description in a Airbnb context) and explicitly ask to explore similar points to the current selected one. Implicit feedback is tracked using the mouse movements, gaze tracking and metrics like ``how long the user was analysing the profile of a point''.
+In order to keep track of user preferences, GeoGuide use both explicit and implicit feedback. Explicit feedback is when the user is analyzing the attributes of a point (e.g., the house description in a Airbnb context) and explicitly ask to explore similar points to the current selected one. Implicit feedback is tracked using the mouse movements, gaze tracking and metrics like ``how long the user was analyzing the profile of a point''.
 
 \subsection{Highlighting Spatial Data}
 
-GeoGuide combine both preprocessed index and user preferences to highlight a subset of spatial data according to the analyst preferences. GeoGuide highlighting feature prove to be efficient in terms of ``how many steps the analyst takes until complete a task of finding a point in a request location''. Using GeoGuide the analysts were able to complete the task using in average 10.7 steps, while using Tableau, they took about 43 steps.
+GeoGuide combine both preprocessed index and collected feedback to highlight a subset of spatial data according to the analyst preferences. GeoGuide highlighting feature prove to be efficient in terms of ``how many steps the analyst takes until complete a task of finding a point in a request location''. Using GeoGuide the analysts were able to complete the task using in average 10.7 steps, while using Tableau, they took about 43 steps.
 
 \vspace{25pt}
 
 \noindent In this work, we will leverage GeoGuide into two new concepts: $i$. interesting dense regions and $ii$. understanding how the user preferences change over time.
-
