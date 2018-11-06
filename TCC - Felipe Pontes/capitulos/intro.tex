@@ -19,44 +19,44 @@ Contudo, a vasto tamanho do conjunto de dados espacias faz com que o analista se
 
 Neste trabalho, formulamos uma solução para ``realçamento de dados usando feedback coletado ao longo do tempo''. Em outras palavras, buscamos realçar alguns pontos geográficos baseado nos interesses do analista afim de guiá-lo na direção ao que ele deve se concentrar nas iterações seguintes do processo de análise.
 
-\subsection{Case Study}
+\subsection{Caso de Estudo}
 
-Now, we will present a case study in order to show the functionality of our approach in practice.
+Nessa seção, vamos apresentar um caso de estudo afim de demostrar a funcionalidade da nossa abordagem na prática.
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\textwidth]{imagens/regions}
-	\caption{The process of exploring Paris home-stays.}
+	\caption{O processo de explorar estadias em Paris.}
 	\label{fig:regions}
 \end{figure}
 
-{\bf Example.} {\em Lucas is planning to spend few days in Paris, France. His appreciation of French culture makes him interested in new experiences in the city. He decides to rent a home-stay from Airbnb website\footnote{\it http://www.airbnb.com}. He likes to discover the city, hence he is open to any type of lodging in any region with an interest to stay in the city center. The website returns $4000$ different locations. As he has no other preferences, an exhaustive investigation needs scanning each location independently which is nearly infeasible. While he is scanning few first options, he shows interest in the region of ``Champ de Mars'' (near Eiffel Tower), but he forgets or doesn't feel necessary to click a point there. By collecting feedback on his mouse moves over the home-stays in Paris, our system can quickly detect his interest in the region and short-list a small subset of locations (i.e., highlights) accordingly to be recommended to Lucas.}
+{\bf Exemplo.} {\em Lucas está planejando passar alguns dias em Paris, França. Sua apreciação pela cultura francesa faz como que ele tenha interesse em novas experiências na cidade. Ele decidiu por alugar uma estadia pelo Airbnb \footnote{\it http://www.airbnb.com}. Ele gosta de descobrir a cidade, portanto ele é aberto a qualquer tipo de estadia em qualquer região com um leve interesse em ficar perto do centro da cidade. O sistema retorna $4000$ opções diferentes. Como ele não tem outras preferências, uma investigação exaustiva para avaliar cada região da cidade independentemente é necessário, o que é quase impossível. Enquanto estava avaliando algumas opções, ele demostrou interesse na região de  ``Champ de Mars'' (próximo à Torre Eiffel), mas ele esqueceu ou não achou necessário clicar num ponto nessa região. Coletando o feedback do seus movimentos com o mouse no mapa de estadias em Paris, nosso sistema consegue rapidamente detectar o interesse dele na região supracitada e apresentar uma quantidade pequena de opções recomendadas para Lucas.}
 
-We follow the above example to describe how implicit feedback is collected in action. Figure \ref{fig:regions} shows Lucas' steps to explore home-stays in Paris. Figure \ref{fig:regions}.A shows his mouse movements in different time stages. In this example, we consider $g = 3$ and capture Lucas' feedback in three different time segments (progressing from Figures \ref{fig:regions}.B to \ref{fig:regions}.D). It shows that Lucas started his search around Eiffel Tower and Arc de Triomphe (Figure \ref{fig:regions}.B) and gradually showed interest in south (Figure \ref{fig:regions}.C) and north (Figure \ref{fig:regions}.D) as well. All intersections between those regions are discovered (hatching regions in Figure \ref{fig:regions}.E) which will constitute the set of {\em Interesting Dense Regions} (Figure \ref{fig:regions}.F), i.e., IDR1 to IDR4.
+Seguimos o exemplo acima para descrever como feedback implícito é coletado na prática. Imagem \ref{fig:regions} mostra os passos de Lucas para explorar estadias em Paris. Imagem \ref{fig:regions}.A mostra os movimentos do mouse dele em diferentes intervalos de tempo. Nesse exemplo, consideramos $g = 3$ e coleta o feedback de Lucas em 3 diferentes intervalos de tempo (evoluindo das Imagens \ref{fig:regions}.B até \ref{fig:regions}.D). Isso mostra que Lucas começou sua busca perto da Torre Eiffel e {\em Arc de Triomphe} (Imagem \ref{fig:regions}.B) e gradualmente mostrou também interesse no sul (Imagem \ref{fig:regions}.C) e norte (Imagem \ref{fig:regions}.D). Todas as interseções entre essas regiões são descobertas (regiões tachadas na Imagem \ref{fig:regions}.E), o que representa um conjunto de Regiões de Denso Interesse (IDR, em inglês, {\em Interesting Dense Regions}), isto é IDR1 até IDR4.
 
-What if Lucas wanted to come back to Paris, France next year? He will have to repeat the same exploratory analyse, unless he remember the exact location of home-stays he showed interest last year. Using our system, he won't need to remember, because his preferences were collected and can be used to highlight a subset of similar home-stays.
+E se Lucas quiser voltar para Paris próximo ano? Ele teria que repetir a mesma anális exploratória, a não ser que ele lembre a localização exata das estadias que ele mostrou no ano passado. Usando nosso sistema, ele não precisaria lembrar, porque suas preferências foram coletadas e poderiam ser usadas para realçar um subconjunto similar ao do ano anterior.
 
-In the context of exploratory analysis, the analyst may change his preferences between session (e.g., in the winter, Lucas may want to be close to the Eiffel Tower, but in the summer, he may not). In order to tackle this challenge we also apply a temporal analyse to identify patterns in how the analyst preferences change between sessions which allow our highlighting method to be more precise and consistent to the analyst interest.
+No contexto da análise explorátoria, o analista talvez mude suas preferências entre as sessões (por exemplo, no inverno, Lucas talvez queira ficar próximo ao Torre Eiffel, mas no verão, ele talvez não queira). Afim de atacar esse desafio, também implementamos uma análise temporal para identificar padrões em como as preferências do analistas mudam entre as sessões o que permite nosso método de realçamento ser mais preciso e consistente com o interesse do analista.
 
-\section{Objectives}
+\section{Objetivos}
 
-In this section, we define the general and specific objectives of our work.
+Nessa seção, definimos os objetivos gerais e específicos do nosso trabalho.
 
-\subsection{General Objectives}
-
-\begin{itemize}
-	\item Introduce a time-aware guidance approach for spatial data exploration;
-	\item Elaborate how temporal analyses can be effectively applied in data exploration;
-\end{itemize}
-
-\subsection{Specific Objectives}
+\subsection{Objetivos Gerais}
 
 \begin{itemize}
-	\item Describe our data model used for temporal analyses;
-	\item Describe our concept of {\em Interesting Dense Regions} used for collecting feedback;
-	\item Present the results of our guidance approach.
+	\item Propor uma abordagem de orientação para exploração de dados espaciais considerando o contexto temporal;
+	\item Elaborar como análise temporal pode ser efetivamente aplicada na exploração de dados.
 \end{itemize}
 
-\section{Organization}
+\subsection{Objetivos Específicos}
 
-The next chapters is as follow: in the Chapter \ref{chap:background} we discuss the background of this work. Chapter \ref{chap:model} defines the data model. Chapter \ref{chap:collecting} presents how the feedback is collected during exploration. Chapter \ref{chap:applying} presents how temporal analysis is applied. Chapter \ref{chap:guiding} presents how highlight interesting points in order to guide the user using collected feedback and results from temporal analysis. Chapter \ref{chap:experiments} shows experiments and its results. Chapter \ref{chap:conclusion} presents some conclusions and future directions.
+\begin{itemize}
+	\item Descrever nosso modelo de dados usado para análise temporal;
+	\item Descrever nosso conceito de em Região de Denso Interesse usado para captura de feedback;
+	\item Apresentar resultados para nossa abordagem;
+\end{itemize}
+
+\section{Organização}
+
+Os próximos capítulos estão organizados na seguinte maneira: no Capítulo \ref{chap:background} discutimos o estado da arte por trás desse trabalho; Capítulo \ref{chap:model} define o modelo de dados; Capítulo \ref{chap:collecting} apresenta como é feito a coleta de feedback durante a análise exploratória; Capítulo \ref{chap:applying} demostra como a análise temporal é aplicada; Capítulo \ref{chap:guiding} apresenta como é realizado o realçamento de pontos de interesse do usuário afim de guiá-lo com base no feedback coletado; Capítulo \ref{chap:experiments} descreve os experimentos e seus resultados; Capítulo \ref{chap:conclusion} conclui e propôe futuros trabalhos.
