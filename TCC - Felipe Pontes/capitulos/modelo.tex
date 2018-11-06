@@ -1,0 +1,40 @@
+\chapter{Definição do Modelo}
+\label{chap:modelo}
+
+Neste capítulo, entendemos as Regiões Densas Interessantes e definimos o modelo espaço-temporal.
+
+\section{Regiões Densas Interessantes}
+
+Uma Região Densa Interessante (IDR, do inglês \em{Interesting Dense Region}) é uma região espacial com uma alta probabilidade de conter pontos de interesse do analista. IDR são coletadas e definidas durante o processamento do feedback do usuário. Diferentemente da literatura que predominantemente foca em intereções explícitos (como clicar no botão, abrir o perfil do ponto), investigamos o feedback implícito.
+
+Durante a exploração iterativa de dados espaciais, é comum o caso que o analista avalia algumas regiões de interesse, mas esquece de dá um feedback explícito sobre aquela região. O ato do usuário olhar para essa região pode ser capturado através do rastreio da movimentos oculares e, como \citeonline{arapakis2014user} mostra, esse método possui uma forte relação com a atenção do usuário.
+
+Entretanto o rastreamento dos movimentos oculares fere várias questões de privacidade, assim sendo optamos pela alternativa de rastrear os deslocamentos do cursor do mouse. \citeonline{arapakis2014understanding} argumenta que esse método possui uma forte relação com o engajamento do usuário. Intuitivamente, um ponto espacial recebe um feedback positivo se o cursor do mouse se desloca próximo a ele frequentemente.
+
+Continua...
+
+\section{Spatial layer}
+
+Each point in a dataset ($p \in \mathcal{P}$) is described using its coordinates (latitude and longitude) and also associated with a set of attributes ($dom(p)$). For instance, TODO
+
+\section{Interesting Dense Regions}
+
+TODO
+
+We have IDRs per iteration/session where implicit feedback is captured such mouse moves (or eye gaze). In the beginning, each IDRs is a group of raw points described using its coordinates (latitude and longitude) and a timestamp (the unix timestamp it was captured). These raw points once captured will enter the clustering (for now, ST-DBSCAN) phase to generate the IDR itself with a profile. The profile is built based on the spatial layer and it should represent a summary of its contained points from the spatial layer.
+
+\begin{itemize}
+	\item A profile has summary of its spatial points number attributes. For each number attribute in $dom(p)$, we calculate the average, median and standard deviation based on the points contained in the IDR.
+
+	\item A profile has a word rank $R$ of the terms in the text attributes of its spatial points. For each text attribute in $dom(p)$, we evaluate the most used terms in order to create a word rank \cite{kumar2017}.
+
+	\item A profile has a map $M$ between the $<name, value>$ of categoricals attributes and its relevance in $dom(p)$.
+
+	\item TODO: datetime attributes
+
+	\item A profile has a meta property with values such the count of points in the IDR.
+\end{itemize}
+
+\section{Highlighting}
+
+TODO
