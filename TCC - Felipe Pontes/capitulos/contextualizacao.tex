@@ -5,7 +5,7 @@ Este capítulo dá uma visão geral sobre os trabalhos relacionados sobre explor
 
 \section{Trabalhos Relacionados}
 
-A literatura na análise de dados espaciais possue um foco no eficiência das interações exploratórias. A abordagem comum é projetar índeces pre-processados, o quais permitem a consulta eficiente de dados espaciais \cite{lins2013nanocubes}. No entanto, também devemos direcionar nossa atenção para o {\em valor} dos dados espaciais, porque é muito comum encontrar um analista se perdendo numa enorme quantidade de pontos geográficos. Para solucionar esse problemas, ambientes de visuação, como, por exemplo, Tableau\footnote{\it http://www.tableau.com}, Exhibit\footnote{\it http://www.simile-widgets.org/exhibit/}, Spotfire\footnote{\it  http://spotfire.tibco.com}, oferecem funcionalidades para manipular os dados como filtros, consultas agregadores entre outras.
+A literatura na análise de dados espaciais possue um foco no eficiência das interações exploratórias. A abordagem comum é projetar índeces preprocessados, o quais permitem a consulta eficiente de dados espaciais \cite{lins2013nanocubes}. No entanto, também devemos direcionar nossa atenção para o {\em valor} dos dados espaciais, porque é muito comum encontrar um analista se perdendo numa enorme quantidade de pontos geográficos. Para solucionar esse problemas, ambientes de visuação, como, por exemplo, Tableau\footnote{\it http://www.tableau.com}, Exhibit\footnote{\it http://www.simile-widgets.org/exhibit/}, Spotfire\footnote{\it  http://spotfire.tibco.com}, oferecem funcionalidades para manipular os dados como filtros, consultas agregadores entre outras.
 
 \subsection{Exploração de Feedback}
 
@@ -13,7 +13,7 @@ Nosso modelo espaço-temporal aprimora o processo de análise de dados espaciais
 
 \subsection{Métodos de Destacamento de Informação}
 
-\todo{TALK ABOUT EACH ONE}
+\todo{fala de cada um}
 
 Há trabalhos na literatura sobre métodos de destacamento de informações, por exemplo: \citeonline{Liang2010,Robinson2011,wongsuphasawat2016voyager,willett2007scented}. Entretanto todos esses métodos são {\em objetivos} e não são aplicáveis para o contexto de orientação espacial onde o feedback do usuário é envolvido. Em termos de recomendação, algumas abordagens focam na dimensão espacial \cite{Bao2015,Levandoski:2012} enquanto o contexto e a diversidade do resultado é deixado de lado.
 
@@ -45,15 +45,17 @@ GeoGuide  \cite{omidvarTehrani2017} é um ambiente de visualização de dados es
 
 \subsection{Preprocessamento}
 
-GeoGuide precisa de um passo de preprocessamento para criar o índice que serão usados durante a fase de destacamento. O índice é uma tabela comparativa entre todos os pontos usando duas métricas de qualidade: relevância e diversidade.
+GeoGuide precisa de um passo de preprocessamento para criar os índices que serão usados durante a fase de destacamento. O índice é uma tabela comparativa entre todos os pontos usando duas métricas de qualidade: relevância e diversidade.
 
-\subsubsection{Relevância}
+\subsubsection{Relevância e Diversidade}
 
 Relevância representa o quão similar é o ponto $a$ com o ponto $b$ num conjunto de dados. GeoGuide use a relevância para destacar pontos similares ao feedback do analista.
 
-\subsubsection{Diversidade}
+% \subsubsection{Diversidade}
 
 Diversade representa quão distante o ponto $a$ está localizado do ponto $b$. GeoGuide usa a diversidade para permitir ao analista explorar diferentes regiões, mas ainda assim trabalhar com pontos relevantes ao seu interesse.
+
+\todo{"acho que dá pra explorar mais esse parágrafo com exemplos..."}
 
 \subsection{Preferências do Usuário}
 
