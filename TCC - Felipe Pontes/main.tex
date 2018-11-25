@@ -20,28 +20,31 @@
 \usepackage{url}
 \usepackage{abnt-alf}
 \usepackage{abntcite}
-\usepackage{algorithm}
-\usepackage{algorithmic}
-%\usepackage{alg} 
+% \usepackage{algorithm}
+% \usepackage{algorithmic}
+% \usepackage{algorithm2e}
+\usepackage[vlined, portuguese, onelanguage]{algorithm2e}
+% \usepackage{alg} 
 %\usepackage{hyperref}
 
 
+
 % Redefinicao de instrucoes
-\floatname{algorithm}{Algoritmo}
-\renewcommand{\algorithmicrequire}{\textbf{Entrada:}}
-\renewcommand{\algorithmicensure}{\textbf{Saida:}}
-\renewcommand{\algorithmicend}{\textbf{fim}}
-\renewcommand{\algorithmicif}{\textbf{se}}
-\renewcommand{\algorithmicthen}{\textbf{entao}}
-\renewcommand{\algorithmicelse}{\textbf{senaoo}}
-\renewcommand{\algorithmicfor}{\textbf{para}}
-\renewcommand{\algorithmicforall}{\textbf{para todo}}
-\renewcommand{\algorithmicdo}{\textbf{faca}}
-\renewcommand{\algorithmicwhile}{\textbf{enquanto}}
-\renewcommand{\algorithmicloop}{\textbf{loop}}
-\renewcommand{\algorithmicrepeat}{\textbf{repetir}}
-\renewcommand{\algorithmicuntil}{\textbf{ate que}}
-\renewcommand{\algorithmiccomment}[1]{\% #1}
+% \floatname{algorithm}{Algoritmo}
+% \renewcommand{\algorithmicrequire}{\textbf{Entrada:}}
+% \renewcommand{\algorithmicensure}{\textbf{Saida:}}
+% \renewcommand{\algorithmicend}{\textbf{fim}}
+% \renewcommand{\algorithmicif}{\textbf{se}}
+% \renewcommand{\algorithmicthen}{\textbf{entao}}
+% \renewcommand{\algorithmicelse}{\textbf{senaoo}}
+% \renewcommand{\algorithmicfor}{\textbf{para}}
+% \renewcommand{\algorithmicforall}{\textbf{para todo}}
+% \renewcommand{\algorithmicdo}{\textbf{faca}}
+% \renewcommand{\algorithmicwhile}{\textbf{enquanto}}
+% \renewcommand{\algorithmicloop}{\textbf{loop}}
+% \renewcommand{\algorithmicrepeat}{\textbf{repetir}}
+% \renewcommand{\algorithmicuntil}{\textbf{ate que}}
+% \renewcommand{\algorithmiccomment}[1]{\% #1}
 
 
 % Definicao da lista de simbolos
@@ -93,10 +96,11 @@
 
 
 % \listofalgorithms: comando que imprime a lista de algoritmos
-\renewcommand{\listalgorithmname}{Lista de algoritmos}
+% \renewcommand{\listalgorithmname}{Lista de algoritmos}
 
 
 \newcommand{\myThesis}{Um Modelo Espaço-Temporal para Explorar Regiões Densas Interessantes}
+\newcommand{\myThesisEnglish}{An Spatial-Temporal Model for Exploring Interesting Dense Regions}
 \newcommand{\myName}{Felipe Mateus Freire Pontes}
 \newcommand{\mySupervisorName}{Dr. Plácido Antônio de Souza Neto}
 \newcommand{\myDeriveryDate}{Dezembro, 2018}
@@ -134,7 +138,7 @@
 \include{extra-includes/Epigrafe}
 
 % Resumo em l���ngua vernacula (arquivo extra-includes/Resumo.tex)
-% \include{extra-includes/Resumo}
+\include{extra-includes/Resumo}
 
 % Abstract, resumo em l���ngua estrangeira (arquivo Include/Abstract.tex)
 \include{extra-includes/Abstract}
@@ -149,11 +153,11 @@
 \listadeabreviaturas
 
 % Lista de símbolos
-%	\listadesimbolos
+	% \listadesimbolos
 
 % Lista de algoritmos (se houver)
 % Devem ser inclu���dos os pacotes algorithm e algorithmic
-% \listofalgorithms
+\listofalgorithms
 
 % Sum���rio
 \sumario

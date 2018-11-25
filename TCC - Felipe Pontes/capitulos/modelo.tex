@@ -5,13 +5,13 @@
 
 \todo{"Através de uma sequência de imagens, mostre como você usa o conceito de polígonos para crir as IDRs e depois sobrepor durante o tempo para identificar as diferências"}
 
-Neste capítulo, entendemos o que são as chamadas Regiões Densas Interessantes e definimos o modelo espaço-temporal.
+Neste capítulo, entendemos o que são as chamadas Regiões Densas Interessantes e definimos o modelo espaço-temporal e sua aplicabilidade.
 
 \section{Regiões Densas Interessantes}
 
 \abrv[IDR \qquad Interesting Dense Region]{}
 
-Uma Região Densa Interessante (do inglês {\em Interesting Dense Region}, IDR) é uma região espacial com uma alta probabilidade de conter pontos de interesse do analista. IDR são coletadas e definidas durante o processamento do feedback do usuário. Diferentemente da literatura que predominantemente foca em interações explícitas, como clicar no botão, abrir o perfil do ponto, investigamos o feedback implícito.
+Uma Região Densa Interessante (do inglês {\em Interesting Dense Region}, IDR) é uma região espacial com uma alta probabilidade de conter pontos de interesse do analista. IDR são coletadas e definidas durante o processamento do feedback do usuário. Diferentemente da literatura que predominantemente foca em interações explícitas, como clicar no botão, investigamos o feedback implícito.
 
 Durante a exploração iterativa de dados espaciais, é comum o caso que o analista avalia algumas regiões de interesse, mas esquece de dá um feedback explícito sobre aquela região. O ato do usuário olhar para essa região pode ser capturado através do rastreio da movimentos oculares e, como \citeonline{arapakis2014user} comprova, esse método possui uma forte relação com a atenção do usuário.
 
@@ -20,9 +20,33 @@ Entretanto o rastreamento dos movimentos oculares fere várias questões de priv
 O objetivo de descobrir IDRs é para obter preferências do analista que nunca foram expressadas explicitamente. Para tal, baseamos em dois conceitos:
 
 \begin{itemize}
-	\item \textbf{Conceito 1}: uma região é mais interessante ao analista, se for densa. Por exemplo, o analista movimenta seu mouse naquela regiãos várias vezes.
+	\item \textbf{Conceito 1}: uma região é mais interessante ao analista, se for densa. Por exemplo, o analista movimenta seu mouse naquela região várias vezes.
 	\item \textbf{Conceito 2}: é possível que o analista movimente seu mouse em qualquer lugar do mapa. Isso não deve significar que todo lugar no mapa tem a mesma significância.
 \end{itemize}
+
+Com base nesses conceitos, o processo de descobrimento das IDRs pode ser descrito pelo Algoritmo \ref{algo:idr}.
+
+\begin{algorithm}[t]
+	\DontPrintSemicolon
+	\KwIn{Tempo atual $t_c$, pontos dos movimentos do mouse $\mathcal{M}$}
+	\KwOut{IDRs encontradas $\mathcal{S}$}
+	$\mathcal{S} \gets \emptyset$\;
+	$g \gets ${\em número de intervalos}\;
+	\For{$i \in [0,g]$}
+	{
+		   $\mathcal{M}_i \gets \{m = \langle x,y,t \rangle | (\frac{t_c}{g} \times i) \leq t \leq (\frac{t_c}{g} \times (i+1))\}$\;
+		   $\mathcal{C}_i \gets \mathit{mine\_clusters}(\mathcal{M}_i)$\label{ln:mine}\;
+		   $\mathcal{O}_i \gets \mathit{find\_polygons}(\mathcal{C}_i)$\label{ln:poly}\;
+	}
+	\lFor{$\mathcal{O}_i, \mathcal{O}_j$ onde $i,j \in [0,g]$ e $i \neq j$}
+	{
+		   $\mathcal{S}.\mathit{append}(\mathit{intersect}(\mathcal{O}_i, \mathcal{O}_j))$
+	}
+	% $\mathcal{H} \gets \mathit{discover\_highlights}(\mathcal{S},k)$\label{ln:geoguide}\;
+	\Return{$\mathcal{S}$}\; 
+	\caption{Descobrimento de IDRs}
+	\label{algo:idr}
+\end{algorithm}
 
 
 \subsection{Perfil}
@@ -65,8 +89,6 @@ Na Tabela \ref{table:atributos}, os atributos {\em latitude} e {\em longitude} s
 
 Esses 4 tipos são comumente encontrados em conjuntos de dados espacias, portanto o perfil da IDR precisa representar de maneira resumida esses atributos em relação aos pontos nela contidos. Assim sendo, tratamos cada tipo de acordo com sua especificidade:
 
-% Os atributos {\em name} e {\em host_name} são atributos textuais. Os atributos 
-
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\columnwidth]{imagens/perfil-numericos}
@@ -92,13 +114,13 @@ Esses 4 tipos são comumente encontrados em conjuntos de dados espacias, portant
 \end{figure}
 
 \begin{enumerate}
-	\item Numéricos: os atributos números encontrados me uma IDR são sumarizados usando funções estatísticas como média, desvio padrão, mínimo e máximo. Podemos ver um exemplo do resultado dessa sumarização na Figura \ref{fig:perfil-numericos}.
+	\item Numéricos: os atributos números encontrados em uma IDR são sumarizados usando funções estatísticas como média, desvio padrão, mínimo e máximo. Podemos ver um exemplo do resultado dessa sumarização na Figura \ref{fig:perfil-numericos}.
 
 	\item Textuais: os atributos textos são tratados separadamente. Para cada atributo, é feito o levantamento dos termos mais usados. Essa abordagem é utilizado por \citeonline{kumar2017} para encontrar os termos mais usados no contexto temporal. A Figura \ref{fig:perfil-textuais} apresenta o resultado para o atributo {\em name} em uma IDR.
 
 	\item Categóricos: os atributos categóricos são contabilizados num dicionário $M$ onde as chaves são uma tupla com o nome do atributo e o valor da categoria. Quanto maior a quantidade de repetições de uma categoria, mais relevante no contexto de uma IDR. A Figura \ref{fig:perfil-categoricos} mostra o resultado num conjunto de dados para os atributos {\em neighbourhood} e {\em room\_type}.
 
-	\item Temporais: os atributos temporais são normalizados para uma escala linear (a partir do ano novo para datas e a partir da meia noite para horas) a fim de ser contabilizado as ocorrências. Por exemplo, uma atributo com a data {\em 2018-12-21} é normalizado para {\em 2018, 12, 355}, isto é, numa linha temporal esse evento ocorreu no ano 2018, no 12º mês e no 355º dia. As horas são normalizados de maneira similiar, a hora {\em 08:33:22} é normalizado para {\em 8, 513, 30802}, isto é, esse evento ocorreu no 8º hora, 513º minuto e 30802º segundo. Com os valores normalizadas, criamos um histograma e encontrar os dias e os momentos do dia mais presente na IDR.
+	\item Temporais: os atributos temporais são normalizados para uma escala linear (a partir do ano novo para datas e a partir da meia noite para horas) a fim de ser contabilizado as ocorrências. Por exemplo, uma atributo com a data {\em 2018-12-21} é normalizado para {\em 2018, 12, 355}, isto é, numa linha temporal esse evento ocorreu no ano 2018, no 12º mês e no 355º dia. As horas são normalizados de maneira similiar, a hora {\em 08:33:22} é normalizado para {\em 8, 513, 30802}, isto é, esse evento ocorreu na 8º hora, 513º minuto e 30802º segundo. Com os valores normalizadas, criamos um histograma para encontrar os dias e os momentos do dia mais recorrentes para determinado evento na IDR.
 \end{enumerate}
 
 
@@ -109,3 +131,18 @@ Cada IDR é coletado num momento $t$ e seu perfil definido através dos atributo
 O perfil pode ser definido para cada IDR, mas também para um conjunto de IDRs, ou seja, é possível realizar a análise das preferências do analista em qualquer espaço de tempo (minutos, horas, dias, semanas etc).
 
 Assim sendo é através das IDRs coletadas que podemos aplicar a análise temporal e evoluir o sistema de destacamente de informação do GeoGuide.
+
+\section{Contexto Espacial}
+
+O contexto espacial se refere aos aspectos geográficos como, por exemplo, em que parte da cidade o analista se interessa.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=\textwidth]{imagens/analise-contexto-espacial}
+	\caption{Evolução no contexto espacial.}
+	\label{fig:analise-contexto-espacial}
+\end{figure}
+
+\section{Contexto de Domínio}
+
+O contexto de domínio se refere aos aspectos de domínio como, por exemplo, se o analista tem mais interesse em casas com varanda ou apartamentos.
