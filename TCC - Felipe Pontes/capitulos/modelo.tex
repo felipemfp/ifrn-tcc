@@ -57,7 +57,7 @@ Esse algoritmo de descoberta de IDR é executado a cada $t$ intervalo de tempo d
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\textwidth]{imagens/regions}
-	\caption{Processo de Descoberta de IDRs.}
+	\caption{Processo de Descoberta de IDRs}
 	\label{fig:descoberta-idr}
 \end{figure}
 
@@ -101,9 +101,11 @@ Na Tabela \ref{table:atributos}, os atributos {\em latitude} e {\em longitude} s
 	\item Temporais: são atributos que representam data e/ou hora de um determinado evento, como, por exemplo, o atributo {\em last\_review} que representa quando foi publicado a última avaliação.
 \end{enumerate}
 
-Esses 4 tipos são comumente encontrados em conjuntos de dados espacias, portanto o perfil da IDR precisa representar de maneira resumida esses atributos em relação aos pontos nela contidos. Assim sendo, tratamos cada tipo de acordo com sua especificidade:
+Esses 4 tipos são comumente encontrados em conjuntos de dados espacias, portanto o perfil da IDR precisa representar de maneira resumida esses atributos em relação aos pontos nela contidos. Assim sendo, tratamos cada tipo de acordo com sua especificidade.
 
-\begin{table}[]
+O atributos classificados como numéricos encontrados em uma IDR são sumarizados usando funções estatísticas como média, desvio padrão, mínimo e máximo. Podemos ver um exemplo do resultado dessa sumarização na Tabela \ref{table:perfil-numericos}.
+
+\begin{table}[!h]
 	\centering
 	\begin{tabular}{|l|r|r|r|r|r|}
 	\hline
@@ -119,7 +121,9 @@ Esses 4 tipos são comumente encontrados em conjuntos de dados espacias, portant
 	\label{table:perfil-numericos}
 \end{table}
 
-\begin{table}[]
+Os atributos textuais são tratados individualmente. Para cada atributo, é feito o levantamento dos termos mais usados. Essa abordagem é utilizado por \citeonline{kumar2017} para encontrar os termos mais usados no contexto temporal. A Tabela \ref{table:perfil-textual} apresenta os 5 primeiros resultados para o atributo {\em name} em uma IDR.
+
+\begin{table}[!h]
 	\centering
 	\begin{tabular}{|l|r|}
 	\hline
@@ -135,7 +139,9 @@ Esses 4 tipos são comumente encontrados em conjuntos de dados espacias, portant
 	\label{table:perfil-textual}
 \end{table}
 
-\begin{table}[]
+Os atributos categóricos são contabilizados num dicionário $C$ onde as chaves são uma tupla com o nome do atributo e o valor da categoria. Quanto maior a quantidade de repetições de uma categoria, mais relevante no contexto de uma IDR. A Figura \ref{table:perfil-categoricos} mostra o resultado num conjunto de dados para os atributos {\em neighbourhood}, {\em room\_type} e {\em stars}.
+
+\begin{table}[!h]
 	\centering
 	\begin{tabular}{|l|r|}
 	\hline
@@ -153,36 +159,129 @@ Esses 4 tipos são comumente encontrados em conjuntos de dados espacias, portant
 	\label{table:perfil-categoricos}
 \end{table}
 
-\begin{enumerate}
-	\item Numéricos: os atributos números encontrados em uma IDR são sumarizados usando funções estatísticas como média, desvio padrão, mínimo e máximo. Podemos ver um exemplo do resultado dessa sumarização na Tabela \ref{table:perfil-numericos}.
+Os atributos temporais são normalizados para uma escala linear (a partir do ano novo para datas e a partir da meia noite para horas) a fim de ser contabilizado as ocorrências. Por exemplo, uma atributo com a data {\em 2018-12-21} é normalizado para {\em 2018, 12, 355}, isto é, numa linha temporal esse evento ocorreu no ano 2018, no 12º mês e no 355º dia. As horas são normalizados de maneira similiar, a hora {\em 08:33:22} é normalizado para {\em 8, 513, 30802}, isto é, esse evento ocorreu na 8º hora, 513º minuto e 30802º segundo. Com os valores normalizadas, podemos encontrar os dias e os momentos do dia mais recorrentes para determinado evento em uma IDR.
 
-	\item Textuais: os atributos textos são tratados separadamente. Para cada atributo, é feito o levantamento dos termos mais usados. Essa abordagem é utilizado por \citeonline{kumar2017} para encontrar os termos mais usados no contexto temporal. A Tabela \ref{table:perfil-textual} apresenta os 5 primeiros resultados para o atributo {\em name} em uma IDR.
+\todo{adicionar algoritmo(?)}
 
-	\item Categóricos: os atributos categóricos são contabilizados num dicionário $M$ onde as chaves são uma tupla com o nome do atributo e o valor da categoria. Quanto maior a quantidade de repetições de uma categoria, mais relevante no contexto de uma IDR. A Figura \ref{table:perfil-categoricos} mostra o resultado num conjunto de dados para os atributos {\em neighbourhood}, {\em room\_type} e {\em stars}.
+\section{Análise Temporal}
 
-	\item Temporais: os atributos temporais são normalizados para uma escala linear (a partir do ano novo para datas e a partir da meia noite para horas) a fim de ser contabilizado as ocorrências. Por exemplo, uma atributo com a data {\em 2018-12-21} é normalizado para {\em 2018, 12, 355}, isto é, numa linha temporal esse evento ocorreu no ano 2018, no 12º mês e no 355º dia. As horas são normalizados de maneira similiar, a hora {\em 08:33:22} é normalizado para {\em 8, 513, 30802}, isto é, esse evento ocorreu na 8º hora, 513º minuto e 30802º segundo. Com os valores normalizadas, podemos encontrar os dias e os momentos do dia mais recorrentes para determinado evento na IDR.
-\end{enumerate}
+Cada IDR é coletado num momento $t$ e seu perfil definido através dos atributos de domínio dos pontos contidos na região delimitada. Apesar do perfil ser definido para cada IDR, pode também ser definido para um conjunto de IDRs, ou seja, se num momento $t$ houver 3 IDRs, é possível combinar os pontos contidos nessas regiões e definir um perfil para esse momento $t$. 
 
-
-\section{Modelo Temporal}
-
-Cada IDR é coletado num momento $t$ e seu perfil definido através dos atributos de domínio dos pontos contidos na região delimitada. Dessa forma, para cada momento $t$ em qualquer espaço de tempo, sabemos as preferências do usuário tanto no contexto espacial quanto no contexto de domínio.
-
-O perfil pode ser definido para cada IDR, mas também para um conjunto de IDRs, ou seja, é possível realizar a análise das preferências do analista em qualquer espaço de tempo (minutos, horas, dias, semanas etc).
-
-Assim sendo é através das IDRs coletadas que podemos aplicar a análise temporal e evoluir o sistema de destacamente de informação do GeoGuide.
+Em outras palavras, é possível realizar a análise das preferências do analista em qualquer espaço de tempo (seja minutos ou dias, semanas ou meses), uma vez que o sistema coleta as preferências do usuário de maneira transparente enquanto o mesmo realiza a análise exploratória do conjunto de dados. Dessa forma, para cada momento $t$ em qualquer espaço de tempo, pode-se detectar as preferências do usuário tanto no contexto espacial, quanto no contexto de domínio.
 
 \section{Contexto Espacial}
 
-O contexto espacial se refere aos aspectos geográficos como, por exemplo, em que parte da cidade o analista se interessa.
+O contexto espacial se refere aos aspectos geográficos como, por exemplo, em que parte da cidade o analista se interessa. A Figura \ref{fig:analise-contexto-espacial} apresenta as regiões encontradas em 3 momentos sequenciais, sendo \ref{fig:analise-contexto-espacial}.C o mais recente. É possível abordar o contexto espacial em, ao menos, 3 aspectos: deslocamento, distância e área.
 
-\begin{figure}[t]
+\begin{figure}[]
 	\centering
 	\includegraphics[width=\textwidth]{imagens/analise-contexto-espacial}
-	\caption{Evolução no contexto espacial.}
+	\caption{Evolução no contexto espacial}
 	\label{fig:analise-contexto-espacial}
 \end{figure}
 
+\subsection{Deslocamento}
+
+Identificar padrões no deslocamento das IDRs pode ser eficiente para entender o processo que o analista realizou para resolver determinada tarefa. Com esse conhecimento, o sistema pode otimizar a análise exploratória para o analista numa tarefa similar ou para outros analistas que estejam realizando a mesma tarefa. Por exemplo, na Figura \ref{fig:analise-contexto-espacial}, os padrões de deslocamento estão indicados pelas setas curvilíneas. No primeiro momento (\ref{fig:analise-contexto-espacial}.A), naturalmente não é possível identificar uma movimentação, mas as regiões encontradas nesse momento servem como ponto de partida da análise. No segundo momento (\ref{fig:analise-contexto-espacial}.B), percebe-se um deslocamento: o analista, que antes explorou regiões ao norte, norteste e oeste, agora tem sua atenção voltada para o norte e centro-oeste. Já no terceiro momento (\ref{fig:analise-contexto-espacial}.B), pode-se identificar um padrão de deslocamento para região central.
+
+\subsection{Distância}
+
+A distância entre as IDRs, indicadas na Figura \ref{fig:analise-contexto-espacial} pelas retas tracejadas do centro de cada região até o centro do conjunto, revela o quão distribuido está a análise do usuário. Na Figura \ref{fig:analise-contexto-espacial}.A, ponto de partida da análise, o analista não sabe exatamente onde procurar, então ele avalia várias regiões na cidade, resultando em conjunto de IDRs bem distribuído. Com o passar das iteraçãos, o espaço de procura do analista tende a diminuir, ou seja, as IDRs identificadas tendem a serem mais próximas como pode ser observado na sequência \ref{fig:analise-contexto-espacial}.B-C.
+
+\subsection{Área}
+
+A área de cada IDRs, indicados na Figura \ref{fig:analise-contexto-espacial} pelos polígonos definidos, indica o quão concentrado está a análise do usuário. No primeiro momento (\ref{fig:analise-contexto-espacial}.A), as áreas das IDRs são consideravelmente maiores, o que pode indicar um comportamento de reconhecimento, ou seja, o analista está realizando um processo de reconhecimento do conjunto de dados a fim de se direcionar para próxima iteração. No segundo momento (\ref{fig:analise-contexto-espacial}.B), as áreas das regiões diminuiram, o que pode apontar que a análise está mais precisa e direcionada. No momento seguinte (\ref{fig:analise-contexto-espacial}.C), é notável a evolução do analista para chegar objetivo, visto que seu interesse, representado pelas IDRs, está mais concentrado indicando que o analista sabe onde e o qué está procurando.
+
+% \closesubsection
+
 \section{Contexto de Domínio}
 
-O contexto de domínio se refere aos aspectos de domínio como, por exemplo, se o analista tem mais interesse em casas com varanda ou apartamentos.
+O contexto de domínio se refere aos aspectos de domínio como, por exemplo, se o analista tem mais interesse em casas com varanda ou apartamentos. A análise é feita considerando os perfis das regiões, ou seja, como os atributos, de cada tipo, são relevantes ao analista ao decorrer das iterações.
+
+% \subsection{Numéricos}
+
+Os atributos numéricos se apresentam relevantes quando a diferença do valor médio tende a zero, assim como seu desvio padrão com o passar das iterações. Por exemplo, na Figura \ref{fig:analise-atributo-numerico}, observa-se que após 11 iterações ($t$), o atributo {\em preço} se mostrou relevante ao analista, uma vez que seu valor médio se tornou linear, em outras palavras, com diferenças mínimas entre as iterações, e seu desvio padrão quase 0.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{imagens/analise-atributo-numerico}
+	\caption{Evolução de atributo numérico}
+	\label{fig:analise-atributo-numerico}
+\end{figure}
+
+Diferentemente dos atributos numéricos que podem ser analisados pelas diferenças nas suas estatísticas, os atributos textuais e categóricos precisam ser analisados através de sua evolução no decorrer das iterações. Para tal, contrói-se um vetor de feedback $F$ que é atualizado à cada iteração com base nos perfis das IDRs descobertas.
+
+Considera-se um {\em valor de incremento} $\delta$ para atualizar $F$. Se $v_1$ para atributo $a_1$ é encontrado $x$ vezes na IDR, aumenta-se por $x\delta$ o valor de \textless{}$a_1, v_1$\textgreater{} em $F$. Durante a atualização, os valores em $F$ só podem ser incrementados, ou seja, nunca são diretamente diminuidos.
+
+\begin{table}[!h]
+	\centering
+	\begin{tabular}{|c|c|}
+	\hline
+	\textbf{Categoria}                      & \textbf{Quantidade} \\ \hline
+	\textless{}Beds, 1\textgreater{}        & 3                   \\ \hline
+	\textless{}Beds, 2\textgreater{}        & 1                   \\ \hline
+	\textless{}Beds,+2\textgreater{}        & 0                   \\ \hline
+	\textless{}Balcony, Yes\textgreater{}   & 4                   \\ \hline
+	\textless{}Balcony, No\textgreater{}    & 0                   \\ \hline
+	\textless{}Air-cond., Yes\textgreater{} & 1                   \\ \hline
+	\textless{}Air-cond., No\textgreater{}  & 3                   \\ \hline
+	\textless{}Rating, 1\textgreater{}      & 0                   \\ \hline
+	\textless{}Rating, 2\textgreater{}      & 0                   \\ \hline
+	\textless{}Rating, 3\textgreater{}      & 0                   \\ \hline
+	\textless{}Rating, 4\textgreater{}      & 1                   \\ \hline
+	\textless{}Rating, 5\textgreater{}      & 3                   \\ \hline
+	\end{tabular}
+	\caption{Exemplo de perfil de atributos categóricos}
+	\label{table:attribs}
+\end{table}
+
+Usando como exemplo o perfil de atributos categóricos apresentado na Tabela \ref{table:attribs} de um conjunto de dados sobre estadias, o vetor de feedback atualizado na primeira iteração pode ser observado na Tabela \ref{table:feedback}. Como o atributo ``Beds'' recebe o valor ``1'' três vezes, o valor da célula \textless{}$Beds, 1$\textgreater{} é incrementado três vezes por $\delta$. O mesmo processo é repetido para todos atributo-valores dos perfis. É importante notar que nem todas as células de $F$ são necessariamente atualizadas durante o processo, como nesse exemplo, 5 células de 12 permaneceram sem atualização.
+
+Por especificar um valor de incremento, é possível atualizar e normalizar o vetor de feedback usando uma função Softmax. $F$ é sempre normalizado de maneira que seus valores somados sejam $1.0$. Sendo $\delta = 1.0$, os valores normalizados do vetor $F$ são ilustrados na terceira coluna da Tabela \ref{table:feedback}. Os maiores valores indicam os atributos mais relevantes.
+
+Os valores normalizados do vetor $F$ representa as preferências do analista. Por exemplo, os valores na Tabela \ref{table:feedback} depois da atualização mostram que o analista tem bastante interesse em ter uma varanda ({\em balcony}) em sua estadia, uma vez que o valor \textless{}$Balcony, Yes$\textgreater{} é 0.25, isto é, o maior. Apesar de apenas considerar apenas diferenças positivas, a função Softmax reduz valores das células que não foram relevantes a cada iteração ao passo que outras células são incrementadas.
+
+É importante frisar que valores ``0'' no vetor $F$ não significa a menor relevância, mas {\em irrelevância}. Por exemplo, considerando a célula \textless{}$Rating, 2$\textgreater{} na Tabela \ref{table:feedback}, o valor ``0'' para essa célula indica que o analista não demostrou interesse nessa característica. É possível que em iterações futuras, o analista demostre interesse em estadias de 2 estrelas (potencialmente por causa do preço), nesse caso o valor dessa célula deixaria de ser 0. Entretanto, células que representam relavâncias menores são identificados com valores que tendem a 0. Por exemplo, o valor 0.06 para célula \textless{}$Rating, 4$\textgreater{} mostra uma preferência inferior à uma estadia de 4 estrelas se comparado com as de 5 estrelas.
+
+\begin{table}[]
+	\centering
+	\begin{tabular}{|c|c|c|}
+	\hline
+	\textbf{Atributo-valor}               & \textbf{Atualização} & \textbf{Normalizado} \\ \hline
+	\textless{}Beds, 1\textgreater{}                   & $+3\delta$                       & 0.19                 \\ \hline
+	\textless{}Beds, 2\textgreater{}                 & $+\delta$                       & 0.06                 \\ \hline
+	\textless{}Beds, +2\textgreater{}                  & {\em (sem atualização)}                       & 0.00                    \\ \hline
+	\textless{}Balcony, Yes\textgreater{}                   & $+4\delta$                      & {\bf 0.25}                 \\ \hline
+	\textless{}Balcony, No\textgreater{}                    & {\em (sem atualização)}                        & 0.00                    \\ \hline
+	\textless{}Air-cond., Yes\textgreater{}               & $+\delta$                       & 0.06                 \\ \hline
+	\textless{}Air-cond., No\textgreater{}                & $+3\delta$                       & 0.19                 \\ \hline
+	\textless{}Rating, 1\textgreater{}                    & {\em (sem atualização)}                       & 0.00                    \\ \hline
+	\textless{}Rating, 2\textgreater{}                     & {\em (sem atualização)}                        & 0.00                    \\ \hline
+	\textless{}Rating, 3\textgreater{}                    & {\em (sem atualização)}                        & 0.00                   \\ \hline
+	\textless{}Rating, 4\textgreater{}                   & $+\delta$                       & {\bf 0.06}                 \\ \hline
+	\textless{}Rating, 5\textgreater{}                     & $+3\delta$                      & 0.19                 \\ \hline
+	\end{tabular}
+	\caption{Atualizando vetor de feedback}
+	\label{table:feedback}
+\end{table}
+
+
+O vetor de feedback para atributos textuais difere apenas na sua inicialização. Como os perfis para atributos textuais são construídos separadamente, é preciso combinar os valores de cada atributo no único vetor. Por exemplo, se a frequência das palavras no atributo textual {\em name} é representado na Tabela \ref{table:perfil-textual} e do atributo {\em description} na Tabela \ref{table:perfil-textual-2}, no vetor de feedback haveria células como \textless{}$confort, 33$\textgreater{}, \textless{}$mobilier, 32$\textgreater{} e \textless{}$champs, 29$\textgreater{}, ou seja, as células contemplam todos os atributos textuais.
+
+\begin{table}[!h]
+	\centering
+	\begin{tabular}{|l|r|}
+	\hline
+	\multicolumn{2}{|c|}{\textbf{Atributo: description}} \\ \hline
+	\textbf{Termo}     & \textbf{Ocorrências}     \\ \hline
+	confort             & 33                       \\ \hline
+	mobilier            & 32                       \\ \hline
+	appartement             & 22                       \\ \hline
+	décoré               & 21                       \\ \hline
+	adorable               & 18                       \\ \hline
+	\end{tabular}
+	\caption{Exemplo parcial de perfil do atributo textual}
+	\label{table:perfil-textual-2}
+\end{table}
+
+No caso dos atributos temporais, detectar padrões de preferências é mais complicado visto a natureza do dado temporal.
