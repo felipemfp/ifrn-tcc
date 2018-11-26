@@ -190,7 +190,7 @@ A distância entre as IDRs, indicadas na Figura \ref{fig:analise-contexto-espaci
 
 \subsection{Área}
 
-A área de cada IDRs, indicados na Figura \ref{fig:analise-contexto-espacial} pelos polígonos definidos, indica o quão concentrado está a análise do usuário. No primeiro momento (\ref{fig:analise-contexto-espacial}.A), as áreas das IDRs são consideravelmente maiores, o que pode indicar um comportamento de reconhecimento, ou seja, o analista está realizando um processo de reconhecimento do conjunto de dados a fim de se direcionar para próxima iteração. No segundo momento (\ref{fig:analise-contexto-espacial}.B), as áreas das regiões diminuiram, o que pode apontar que a análise está mais precisa e direcionada. No momento seguinte (\ref{fig:analise-contexto-espacial}.C), é notável a evolução do analista para chegar objetivo, visto que seu interesse, representado pelas IDRs, está mais concentrado indicando que o analista sabe onde e o qué está procurando.
+A área de cada IDR, indicadas na Figura \ref{fig:analise-contexto-espacial} pelos polígonos definidos, indica o quão concentrado está a análise do usuário. No primeiro momento (\ref{fig:analise-contexto-espacial}.A), as áreas das IDRs são consideravelmente maiores, o que pode indicar um comportamento de reconhecimento, ou seja, o analista está realizando um processo de reconhecimento do conjunto de dados a fim de se direcionar para próxima iteração. No segundo momento (\ref{fig:analise-contexto-espacial}.B), as áreas das regiões diminuiram, o que pode apontar que a análise está mais precisa e direcionada. No momento seguinte (\ref{fig:analise-contexto-espacial}.C), é notável a evolução do analista direção ao objetivo da sua tarefa, visto que seu interesse, representado pelas IDRs, está mais concentrado indicando que o analista sabe onde e o qué está procurando.
 
 % \closesubsection
 
@@ -239,9 +239,9 @@ Usando como exemplo o perfil de atributos categóricos apresentado na Tabela \re
 
 Por especificar um valor de incremento, é possível atualizar e normalizar o vetor de feedback usando uma função Softmax. $F$ é sempre normalizado de maneira que seus valores somados sejam $1.0$. Sendo $\delta = 1.0$, os valores normalizados do vetor $F$ são ilustrados na terceira coluna da Tabela \ref{table:feedback}. Os maiores valores indicam os atributos mais relevantes.
 
-Os valores normalizados do vetor $F$ representa as preferências do analista. Por exemplo, os valores na Tabela \ref{table:feedback} depois da atualização mostram que o analista tem bastante interesse em ter uma varanda ({\em balcony}) em sua estadia, uma vez que o valor \textless{}$Balcony, Yes$\textgreater{} é 0.25, isto é, o maior. Apesar de apenas considerar apenas diferenças positivas, a função Softmax reduz valores das células que não foram relevantes a cada iteração ao passo que outras células são incrementadas.
+Os valores normalizados do vetor $F$ representa as preferências do analista. Por exemplo, os valores na Tabela \ref{table:feedback} depois da atualização mostram que o analista tem bastante interesse em ter uma varanda ({\em balcony}) em sua estadia, uma vez que o valor \textless{}$Balcony, Yes$\textgreater{} é 0.25, isto é, o maior. Apesar de apenas considerar diferenças positivas, a função Softmax reduz valores das células que não foram relevantes a cada iteração ao passo que outras células são incrementadas.
 
-É importante frisar que valores ``0'' no vetor $F$ não significa a menor relevância, mas {\em irrelevância}. Por exemplo, considerando a célula \textless{}$Rating, 2$\textgreater{} na Tabela \ref{table:feedback}, o valor ``0'' para essa célula indica que o analista não demostrou interesse nessa característica. É possível que em iterações futuras, o analista demostre interesse em estadias de 2 estrelas (potencialmente por causa do preço), nesse caso o valor dessa célula deixaria de ser 0. Entretanto, células que representam relavâncias menores são identificados com valores que tendem a 0. Por exemplo, o valor 0.06 para célula \textless{}$Rating, 4$\textgreater{} mostra uma preferência inferior à uma estadia de 4 estrelas se comparado com as de 5 estrelas.
+É importante frisar que valores ``0'' no vetor $F$ não significa a menor relevância, mas {\em irrelevância}. Por exemplo, considerando a célula \textless{}$Rating, 2$\textgreater{} na Tabela \ref{table:feedback}, o valor ``0'' para essa célula indica que o analista não demostrou interesse nessa característica. É possível que em iterações futuras, o analista demostre interesse em estadias de 2 estrelas (potencialmente por causa do preço), nesse caso o valor dessa célula deixaria de ser 0. Entretanto, células que representam relavâncias menores são identificados com valores que tendem a 0. Por exemplo, o valor 0.06 para célula \textless{}$Rating, 4$\textgreater{} mostra uma preferência por uma estadia de 4 estrelas inferior se comparado com as de 5 estrelas.
 
 \begin{table}[]
 	\centering
@@ -284,4 +284,17 @@ O vetor de feedback para atributos textuais difere apenas na sua inicialização
 	\label{table:perfil-textual-2}
 \end{table}
 
-No caso dos atributos temporais, detectar padrões de preferências é mais complicado visto a natureza do dado temporal.
+No caso dos atributos temporais, detectar padrões de preferências é mais complicado visto a natureza do dado temporal. A primeira abordagem é intepretar os perfis temporais ao longo das iterações como na Figura \ref{fig:analise-atributo-temporal}, ou seja, como um gráfico de dispersão onde o eixo $x$ são as iterações $t$, o eixo $y$ é a linha temporal dos eventos para determinado atributo e o tamanho do ponto é a frequência do evento. A Figura \ref{fig:analise-atributo-temporal} apresenta os resultados para o atributo {\em last\_review} em um conjunto de dados de estadias após 7 iterações ($t$).
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{imagens/analise-atributo-temporal}
+	\caption{Evolução de atributo temporal}
+	\label{fig:analise-atributo-temporal}
+\end{figure}
+
+Nas primeiras iterações ($t <= 4$), pode-se perceber que o analista não demostra nenhum preferência específica para o atributo {\em last\_review}, visto que os dados estão bem destribuídos. A partir da 5º iteração, é notável a concentração do interesse do analista em avaliações ({\em reviews}) enviadas entre final de fevereiro e começo de março.
+
+A segunda abordagem a ser utilizada para identificar padrões de preferências do analista sobre atributos temporais é considerar os valores máximos e mínimos para construir uma janela de interesse. Por exemplo, na Figura \ref{fig:analise-atributo-temporal}, podemos dizer que a janela de interesse do usuário no evento {\em last\_review} a partir de 7º iteração é 15 de fevereiro de 2018 até 15 de março de 2018, portanto eventos que ocorreram entre essas datas são mais relevantes ao analista.
+
+É importante notar no exemplo da Figura \ref{fig:analise-atributo-temporal} a granularidade da linha temporal do atributo em questão é de dias. A granularidade durante a análise pode ser variável, ou seja, se adequar a janela de interesse do usuário, ou fixa, como nesse exemplo. Isso só é possível de maneira eficiente, pois os atributos temporais são normalizados durante a construção do perfil em 6 granularidade: anos, meses, dias, horas, minutos e segundos.
