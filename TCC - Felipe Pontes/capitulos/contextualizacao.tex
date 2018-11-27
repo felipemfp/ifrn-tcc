@@ -39,11 +39,14 @@ Existem várias instâncias na literatura que combinam análise temporal com dad
 	\vspace{-10pt}
 \end{figure}
 
-GeoGuide  \cite{omidvarTehrani2017} é um ambiente de visualização de dados espaciais que coleta as preferências do usuário durante a exploração para destacar subconjuntos de pontos geográficos que podem ser interessantes ao analista. Figura \ref{fig:framework} ilustra os principais componentes da arquitetura do GeoGuide que apresentaremos nas próximas subseções.
+\abrv[TADS -- Tecnologia em Análise e Desenvolvimento de Sistemas]{}
+\abrv[IFRN -- Instituto Federal do Rio Grande do Norte]{}
+
+GeoGuide \cite{omidvarTehrani2017} é fruto de um projeto de pesquisa realizado por alunos do curso Tecnologia em Análise e Desenvolvimento de Sistemas (TADS) no Instituto Federal do Rio Grande do Norte (IFRN) em colaboração com a Universidade de Grenoble. Esse projeto se trata de um ambiente de visualização de dados espaciais que coleta as preferências do usuário durante a exploração para destacar subconjuntos de pontos geográficos que podem ser interessantes ao analista. Figura \ref{fig:framework} ilustra os principais componentes da arquitetura do GeoGuide que apresentaremos nas próximas subseções.
 
 \subsection{Preprocessamento}
 
-GeoGuide precisa de um passo de preprocessamento para criar os índices que serão usados durante a fase de destacamento. O índice é uma tabela comparativa entre todos os pontos usando duas métricas de qualidade: relevância e diversidade. Os valores calculados são normalizados no intervalo de $0$ à $1$.
+GeoGuide realiza um passo de preprocessamento para criar os índices que serão usados durante a fase de destacamento. O índice é uma tabela comparativa entre todos os pontos usando duas métricas de qualidade: relevância e diversidade. Os valores calculados são normalizados no intervalo de $0$ à $1$.
 
 \subsubsection{Relevância e Diversidade}
 
@@ -90,4 +93,4 @@ GeoGuide combina o índice preprocessado e o feedback coletado para destacar sub
 % \endsubsection
 
 \closesubsection
-Neste trabalho, potencializamos GeoGuide à dois novos conceitos: $i$. regiões densas interessantes e $ii$. análise temporal das preferências do usuário.
+Neste trabalho, potencializamos GeoGuide à dois novos conceitos: $i$. regiões densas interessantes e $ii$. análise temporal das preferências do usuário. Esses dois conceitos serão explorados no próximo capítulo.
