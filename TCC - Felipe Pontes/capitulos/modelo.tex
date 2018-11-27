@@ -1,30 +1,30 @@
-\chapter{Modelo Espaço-Temporal}
+\chapter{Modelo Espaço-Temporal aplicado ao GeoGuide}
 \label{chap:modelo}
 
 \todo{"Você precisa definir primeiramente um polígono através de imagens"}
 
 \todo{"Através de uma sequência de imagens, mostre como você usa o conceito de polígonos para crir as IDRs e depois sobrepor durante o tempo para identificar as diferências"}
 
-Neste capítulo, entendemos o que são as chamadas Regiões Densas Interessantes e definimos o modelo espaço-temporal e sua aplicabilidade.
+Neste capítulo, explica-se o que são as chamadas Regiões Densas Interessantes e define-se o modelo espaço-temporal e sua aplicabilidade.
 
 \section{Regiões Densas Interessantes}
 
-\abrv[IDR \qquad Interesting Dense Region]{}
+\abrv[IDR -- Interesting Dense Region]{}
 
-Uma Região Densa Interessante (do inglês {\em Interesting Dense Region}, IDR) é uma região espacial com uma alta probabilidade de conter pontos de interesse do analista. IDR são coletadas e definidas durante o processamento do feedback do usuário. Diferentemente da literatura que predominantemente foca em interações explícitas, como clicar no botão, investigamos o feedback implícito.
+Uma Região Densa Interessante (do inglês {\em Interesting Dense Region}, IDR) é uma região espacial com uma alta probabilidade de conter pontos de interesse do analista. IDRs são coletadas e definidas durante o processamento do feedback do usuário. Diferentemente da literatura que predominantemente foca em interações explícitas, como clicar no botão, esta proposta investiga o feedback implícito.
 
 Durante a exploração iterativa de dados espaciais, é comum o caso que o analista avalia algumas regiões de interesse, mas esquece de dá um feedback explícito sobre aquela região. O ato do usuário olhar para essa região pode ser capturado através do rastreio da movimentos oculares e, como \citeonline{arapakis2014user} comprova, esse método possui uma forte relação com a atenção do usuário.
 
-Entretanto o rastreamento dos movimentos oculares fere várias questões de privacidade, assim sendo optamos pela alternativa de rastrear os deslocamentos do cursor do mouse. \citeonline{arapakis2014understanding} argumenta que esse método possui uma forte relação com o engajamento do usuário. Intuitivamente, um ponto espacial recebe um feedback positivo se o cursor do mouse se desloca próximo a ele frequentemente.
+Entretanto o rastreamento dos movimentos oculares fere várias questões de privacidade, assim sendo foi adotado a alternativa de rastrear os deslocamentos do cursor do mouse. \citeonline{arapakis2014understanding} argumenta que esse método possui uma forte relação com o engajamento do usuário. Intuitivamente, um ponto espacial recebe um feedback positivo se o cursor do mouse se desloca próximo a ele frequentemente.
 
-O objetivo de descobrir IDRs é para obter preferências do analista que nunca foram expressadas explicitamente. Para tal, baseamos em dois conceitos:
+O objetivo de descobrir IDRs é para obter as preferências do analista que nunca foram expressadas explicitamente. Para tal, leva-se em consideração em dois conceitos:
 
 \begin{itemize}
-	\item \textbf{Conceito 1}: uma região é mais interessante ao analista, se for densa. Por exemplo, o analista movimenta seu mouse naquela região várias vezes.
+	\item \textbf{Conceito 1}: uma região é mais interessante ao analista, se for densa, ou seja, o analista movimenta seu mouse naquela região várias vezes.
 	\item \textbf{Conceito 2}: é possível que o analista movimente seu mouse em qualquer lugar do mapa. Isso não deve significar que todo lugar no mapa tem a mesma significância.
 \end{itemize}
 
-Com base nesses conceitos, o processo de descobrimento das IDRs pode ser descrito pelo Algoritmo \ref{algo:idr}. Adicionamos pontos para $\mathcal{M}$ a cada $200ms$ para evitar pontos redundantes. De acordo com Conceito 1 e com o próposito de identificar comportamentos recorrentes, o algoritmo começa particionando $\mathcal{M}$ em $g$ segmentos consecutivos $\mathcal{M_0}$ até $\mathcal{M_g}$. O primeiro segmento começa no momento zero (quando a iteração iniciou) e o último termina em $t_c$, ou seja, no tempo atual que o algoritmo é executado. De acordo com o Conceito 2, encontramos os clusters em cada segmento de $\mathcal{M}$ usando uma variação da abordagem DB-SCAN \cite{Ester:1996}. Por fim, encontramos e retornamos as interseções desses clusters como IDRs.
+Com base nesses conceitos, o processo de descobrimento das IDRs pode ser descrito pelo Algoritmo \ref{algo:idr}. Pontos são adicionados em $\mathcal{M}$ a cada $200ms$ para evitar pontos redundantes. De acordo com Conceito 1 e com o próposito de identificar comportamentos recorrentes, o algoritmo começa particionando $\mathcal{M}$ em $g$ segmentos consecutivos $\mathcal{M_0}$ até $\mathcal{M_g}$. O primeiro segmento começa no momento zero (quando a iteração iniciou) e o último termina em $t_c$, ou seja, no tempo atual que o algoritmo é executado. De acordo com o Conceito 2, formam-se os clusters em cada segmento de $\mathcal{M}$ usando uma variação da abordagem DB-SCAN \cite{Ester:1996}. Por fim, as interseções desses clusters são encontradas e retornadas como IDRs.
 
 \begin{algorithm}[t]
 	\DontPrintSemicolon
@@ -48,11 +48,11 @@ Com base nesses conceitos, o processo de descobrimento das IDRs pode ser descrit
 	\label{algo:idr}
 \end{algorithm}
 
-Para clusterizar os pontos em cada segmento de tempo (linha \ref{ln:mine} do Algoritmo \ref{algo:idr}), usamos ST-DBSCAN, uma variação do DB-SCAN que leva em consideração atributos espaciais e temporais para clusterizar pontos com base na densidade \cite{Birant:2007}. Para cada subconjunto de pontos dos movimentos do mouse $\mathcal{M}_i$, $i \in [0,g]$, ST-DBSCAN começa com um ponto aleatório $m_0 \in \mathcal{M}_i$ e coleta todos os pontos alcançaveis (de acordo com a densidade) de $m_0$ usando uma métrica de distância. Como os pontos dos movimentos do mouse ocorrem em um espaço bidimensional (ou seja, monitor do computador), optamos por usar a distância euclidiana como nossa métrica. Se $m_0$ for identificado como objeto {\em core}, uma cluster será gerado. Caso contrário, se $m_0$ é uma objeto de borda, nenhum ponto é alcançável de $m_0$ e o algoritmo buscará outro ponto aleatório em $\mathcal{M}_i$. Esse processo é repetido até que todos os pontos sejam processados.
+Para clusterizar os pontos em cada segmento de tempo (linha \ref{ln:mine} do Algoritmo \ref{algo:idr}), é utilizado o ST-DBSCAN, uma variação do DB-SCAN que leva em consideração atributos espaciais e temporais para clusterizar pontos com base na densidade \cite{Birant:2007}. Para cada subconjunto de pontos dos movimentos do mouse $\mathcal{M}_i$, $i \in [0,g]$, ST-DBSCAN começa com um ponto aleatório $m_0 \in \mathcal{M}_i$ e coleta todos os pontos alcançaveis (de acordo com a densidade) de $m_0$ usando uma métrica de distância. Como os pontos dos movimentos do mouse ocorrem em um espaço bidimensional (ou seja, monitor do computador), a distância euclidiana foi selecionada como métrica. Se $m_0$ for identificado como objeto {\em core}, uma cluster será gerado. Caso contrário, se $m_0$ é uma objeto de borda, nenhum ponto é alcançável de $m_0$ e o algoritmo buscará outro ponto aleatório em $\mathcal{M}_i$. Esse processo é repetido até que todos os pontos sejam processados.
 
-Uma vez que os clusters são formados para cada subconjunto de $\mathcal{M}$, encontramos suas interseções para determinar as regiões recorrentes. Para obter as interseções, precisamos definir nitidamente as fronteiras dos clusters (linha \ref{ln:poly}). Portanto para cada cluster, nós encontramos seu respectivo polígono que engloba todos os pontos. Para isso, utilizamos o algoritmo Quickhull, um método, com abordagem similar ao Quicksort, que calcula o invólucro convexo para um determinado conjunto de pontos num plano bidimensional \cite{Barber:1996}.
+Uma vez que os clusters são formados para cada subconjunto de $\mathcal{M}$, encontra-se suas interseções para determinar as regiões recorrentes. Para obter as interseções, é preciso definir nitidamente as fronteiras dos clusters (linha \ref{ln:poly}). Portanto para cada cluster, é construído seu respectivo polígono que engloba todos os pontos. Para isso, é utilizado o algoritmo Quickhull, um método, com abordagem similar ao Quicksort, que calcula o invólucro convexo para um determinado conjunto de pontos num plano bidimensional \cite{Barber:1996}.
 
-Esse algoritmo de descoberta de IDR é executado a cada $t$ intervalo de tempo durante uma análise exploratória. Dessa forma, enquanto o analista está explorando o conjunto de dados, nosso sistema está coletando de maneira transparente suas preferências. Na Figura \ref{fig:descoberta-idr}, vemos uma iteração de coleta e execução desse algoritmo onde $g = 3$, ou seja, o feedback é coletado em 3 segmentos diferentes de tempo. Os movimentos do mouse realizados pelo analista nesses 3 segmentos são demostrados na Figura \ref{fig:descoberta-idr}.A. Para cada segmento, os pontos coletados dos movimentos do mouse são clusterizados e convertidos em polígonos convexos (Figura \ref{fig:descoberta-idr}.B-D, respectivamente). Por fim, os polígonos são sobrepostos (Figura \ref{fig:descoberta-idr}.E) e as interseções encontradas são definidas como IDRs (IDR1-4 na Figura \ref{fig:descoberta-idr}.F).
+Esse algoritmo de descoberta de IDR é executado a cada $t$ intervalo de tempo durante uma análise exploratória. Dessa forma, enquanto o analista está explorando o conjunto de dados, suas preferências estão sendo coletadas de maneira. Na Figura \ref{fig:descoberta-idr}, observa-se uma iteração de coleta e execução desse algoritmo onde $g = 3$, ou seja, o feedback é coletado em 3 segmentos diferentes de tempo. Os movimentos do mouse realizados pelo analista nesses 3 segmentos são demostrados na Figura \ref{fig:descoberta-idr}.A. Para cada segmento, os pontos coletados dos movimentos do mouse são clusterizados e convertidos em polígonos convexos (Figura \ref{fig:descoberta-idr}.B-D, respectivamente). Por fim, os polígonos são sobrepostos (Figura \ref{fig:descoberta-idr}.E) e as interseções encontradas são definidas como IDRs (IDR1-4 na Figura \ref{fig:descoberta-idr}.F).
 
 \begin{figure}[t]
 	\centering
@@ -65,7 +65,7 @@ Esse algoritmo de descoberta de IDR é executado a cada $t$ intervalo de tempo d
 
 \subsection{Perfil}
 
-Uma IDR descreve uma região espacial no conjunto de dados do analista coletada num determinado tempo $t$. Cada região representa as preferências do analista no momento $t$ no contexto espacial, ou seja, {\em onde} o analista está interessado. Para entender, {\em em quê} o analista está interessado, em outras palavras, as preferências sobre o contexto de domínio, definimos o perfil de cada região.
+Uma IDR descreve uma região espacial no conjunto de dados do analista coletada num determinado tempo $t$. Cada região representa as preferências do analista no momento $t$ no contexto espacial, ou seja, {\em onde} o analista está interessado. Para entender, {\em em quê} o analista está interessado, em outras palavras, as preferências sobre o contexto de domínio, é definido o perfil de cada região.
 
 \begin{table}[]
 	\centering
@@ -92,7 +92,7 @@ Uma IDR descreve uma região espacial no conjunto de dados do analista coletada 
 
 O perfil é a sumarização dos atributos dos pontos contidos numa IDR. Cada ponto em um conjunto de dados ($p \in \mathcal{P}$) é descrito por suas coordenadas espaciais e uma série de atributos de domínio $dom(p)$. A Tabela \ref{table:atributos} apresenta um exemplo dos atributos de um ponto no conjunto de dados do Airbnb.
 
-Na Tabela \ref{table:atributos}, os atributos {\em latitude} e {\em longitude} são as coordenadas espaciais, enquanto que todos os outros atributos caracterizam os atributos de domínio. Dentre os atributos de domínio, podemos encontrar 4 tipos de dados:
+Na Tabela \ref{table:atributos}, os atributos {\em latitude} e {\em longitude} são as coordenadas espaciais, enquanto que todos os outros atributos caracterizam os atributos de domínio. Dentre os atributos de domínio, pode-se encontrar 4 tipos de dados:
 
 \begin{enumerate}
 	\item Numéricos: são atributos que representam valores numéricos, como, por exemplo, os atributos {\em price}, {\em minimun\_nights}, {\em number\_of\_reviews}, {\em reviews\_per\_month} e {\em availability\_365}.
@@ -101,9 +101,9 @@ Na Tabela \ref{table:atributos}, os atributos {\em latitude} e {\em longitude} s
 	\item Temporais: são atributos que representam data e/ou hora de um determinado evento, como, por exemplo, o atributo {\em last\_review} que representa quando foi publicado a última avaliação.
 \end{enumerate}
 
-Esses 4 tipos são comumente encontrados em conjuntos de dados espacias, portanto o perfil da IDR precisa representar de maneira resumida esses atributos em relação aos pontos nela contidos. Assim sendo, tratamos cada tipo de acordo com sua especificidade.
+Esses 4 tipos de dados são comumente encontrados em conjuntos de dados espacias, portanto o perfil da IDR precisa representar de maneira resumida esses atributos em relação aos pontos nela contidos. Assim sendo, cada tipo é tradado de acordo com sua especificidade.
 
-O atributos classificados como numéricos encontrados em uma IDR são sumarizados usando funções estatísticas como média, desvio padrão, mínimo e máximo. Podemos ver um exemplo do resultado dessa sumarização na Tabela \ref{table:perfil-numericos}.
+O atributos classificados como numéricos encontrados em uma IDR são sumarizados usando funções estatísticas como média, desvio padrão, mínimo e máximo. Observa-se um exemplo do resultado dessa sumarização na Tabela \ref{table:perfil-numericos}.
 
 \begin{table}[!h]
 	\centering
@@ -121,7 +121,7 @@ O atributos classificados como numéricos encontrados em uma IDR são sumarizado
 	\label{table:perfil-numericos}
 \end{table}
 
-Os atributos textuais são tratados individualmente. Para cada atributo, é feito o levantamento dos termos mais usados. Essa abordagem é utilizado por \citeonline{kumar2017} para encontrar os termos mais usados no contexto temporal. A Tabela \ref{table:perfil-textual} apresenta os 5 primeiros resultados para o atributo {\em name} em uma IDR.
+Os atributos textuais são tratados individualmente. Para cada atributo, é feito o levantamento dos termos mais usados. Essa abordagem é utilizado por \citeonline{kumar2017} para encontrar os termos mais frequentes no contexto temporal. A Tabela \ref{table:perfil-textual} apresenta os 5 primeiros resultados para o atributo {\em name} em uma IDR.
 
 \begin{table}[!h]
 	\centering
@@ -139,7 +139,7 @@ Os atributos textuais são tratados individualmente. Para cada atributo, é feit
 	\label{table:perfil-textual}
 \end{table}
 
-Os atributos categóricos são contabilizados num dicionário $C$ onde as chaves são uma tupla com o nome do atributo e o valor da categoria. Quanto maior a quantidade de repetições de uma categoria, mais relevante no contexto de uma IDR. A Figura \ref{table:perfil-categoricos} mostra o resultado num conjunto de dados para os atributos {\em neighbourhood}, {\em room\_type} e {\em stars}.
+Os atributos categóricos são contabilizados num dicionário $C$ onde as chaves são uma tupla com o nome do atributo e o valor da categoria. Quanto maior a quantidade de repetições de uma categoria, mais relevante essa categoria é no contexto de uma IDR. A Tabela \ref{table:perfil-categoricos} mostra o resultado num conjunto de dados para os atributos {\em neighbourhood}, {\em room\_type} e {\em stars}.
 
 \begin{table}[!h]
 	\centering
@@ -159,17 +159,17 @@ Os atributos categóricos são contabilizados num dicionário $C$ onde as chaves
 	\label{table:perfil-categoricos}
 \end{table}
 
-Os atributos temporais são normalizados para uma escala linear (a partir do ano novo para datas e a partir da meia noite para horas) a fim de ser contabilizado as ocorrências. Por exemplo, uma atributo com a data {\em 2018-12-21} é normalizado para {\em 2018, 12, 355}, isto é, numa linha temporal esse evento ocorreu no ano 2018, no 12º mês e no 355º dia. As horas são normalizados de maneira similiar, a hora {\em 08:33:22} é normalizado para {\em 8, 513, 30802}, isto é, esse evento ocorreu na 8º hora, 513º minuto e 30802º segundo. Com os valores normalizadas, podemos encontrar os dias e os momentos do dia mais recorrentes para determinado evento em uma IDR.
+Os atributos temporais são normalizados para uma escala linear (a partir do ano novo para datas e a partir da meia noite para horas) a fim de ser contabilizado as ocorrências. Por exemplo, uma atributo com a data {\em 2018-12-21} é normalizado para {\em 2018, 12, 355}, isto é, numa linha temporal esse evento ocorreu no ano 2018, no 12º mês e no 355º dia. As horas são normalizados de maneira similiar, a hora {\em 08:33:22} é normalizado para {\em 8, 513, 30802}, isto é, esse evento ocorreu na 8º hora, 513º minuto e 30802º segundo. Com os valores normalizadas, pode-se encontrar os dias e os momentos do dia mais recorrentes para determinado evento em uma IDR.
 
 \todo{adicionar algoritmo(?)}
 
-\section{Análise Temporal}
+\section{Análise de Variação Temporal}
 
 Cada IDR é coletado num momento $t$ e seu perfil definido através dos atributos de domínio dos pontos contidos na região delimitada. Apesar do perfil ser definido para cada IDR, pode também ser definido para um conjunto de IDRs, ou seja, se num momento $t$ houver 3 IDRs, é possível combinar os pontos contidos nessas regiões e definir um perfil para esse momento $t$. 
 
 Em outras palavras, é possível realizar a análise das preferências do analista em qualquer espaço de tempo (seja minutos ou dias, semanas ou meses), uma vez que o sistema coleta as preferências do usuário de maneira transparente enquanto o mesmo realiza a análise exploratória do conjunto de dados. Dessa forma, para cada momento $t$ em qualquer espaço de tempo, pode-se detectar as preferências do usuário tanto no contexto espacial, quanto no contexto de domínio.
 
-\section{Contexto Espacial}
+\subsection{Contexto Espacial}
 
 O contexto espacial se refere aos aspectos geográficos como, por exemplo, em que parte da cidade o analista se interessa. A Figura \ref{fig:analise-contexto-espacial} apresenta as regiões encontradas em 3 momentos sequenciais, sendo \ref{fig:analise-contexto-espacial}.C o mais recente. É possível abordar o contexto espacial em, ao menos, 3 aspectos: deslocamento, distância e área.
 
@@ -180,34 +180,34 @@ O contexto espacial se refere aos aspectos geográficos como, por exemplo, em qu
 	\label{fig:analise-contexto-espacial}
 \end{figure}
 
-\subsection{Deslocamento}
+\subsubsection{Deslocamento de IDR}
 
 Identificar padrões no deslocamento das IDRs pode ser eficiente para entender o processo que o analista realizou para resolver determinada tarefa. Com esse conhecimento, o sistema pode otimizar a análise exploratória para o analista numa tarefa similar ou para outros analistas que estejam realizando a mesma tarefa. Por exemplo, na Figura \ref{fig:analise-contexto-espacial}, os padrões de deslocamento estão indicados pelas setas curvilíneas. No primeiro momento (\ref{fig:analise-contexto-espacial}.A), naturalmente não é possível identificar uma movimentação, mas as regiões encontradas nesse momento servem como ponto de partida da análise. No segundo momento (\ref{fig:analise-contexto-espacial}.B), percebe-se um deslocamento: o analista, que antes explorou regiões ao norte, norteste e oeste, agora tem sua atenção voltada para o norte e centro-oeste. Já no terceiro momento (\ref{fig:analise-contexto-espacial}.B), pode-se identificar um padrão de deslocamento para região central.
 
-\subsection{Distância}
+\subsubsection{Distância entre IDRs}
 
 A distância entre as IDRs, indicadas na Figura \ref{fig:analise-contexto-espacial} pelas retas tracejadas do centro de cada região até o centro do conjunto, revela o quão distribuido está a análise do usuário. Na Figura \ref{fig:analise-contexto-espacial}.A, ponto de partida da análise, o analista não sabe exatamente onde procurar, então ele avalia várias regiões na cidade, resultando em conjunto de IDRs bem distribuído. Com o passar das iteraçãos, o espaço de procura do analista tende a diminuir, ou seja, as IDRs identificadas tendem a serem mais próximas como pode ser observado na sequência \ref{fig:analise-contexto-espacial}.B-C.
 
-\subsection{Área}
+\subsubsection{Área de IDR}
 
 A área de cada IDR, indicadas na Figura \ref{fig:analise-contexto-espacial} pelos polígonos definidos, indica o quão concentrado está a análise do usuário. No primeiro momento (\ref{fig:analise-contexto-espacial}.A), as áreas das IDRs são consideravelmente maiores, o que pode indicar um comportamento de reconhecimento, ou seja, o analista está realizando um processo de reconhecimento do conjunto de dados a fim de se direcionar para próxima iteração. No segundo momento (\ref{fig:analise-contexto-espacial}.B), as áreas das regiões diminuiram, o que pode apontar que a análise está mais precisa e direcionada. No momento seguinte (\ref{fig:analise-contexto-espacial}.C), é notável a evolução do analista direção ao objetivo da sua tarefa, visto que seu interesse, representado pelas IDRs, está mais concentrado indicando que o analista sabe onde e o qué está procurando.
 
 % \closesubsection
 
-\section{Contexto de Domínio}
+\subsection{Contexto de Domínio}
 
 O contexto de domínio se refere aos aspectos de domínio como, por exemplo, se o analista tem mais interesse em casas com varanda ou apartamentos. A análise é feita considerando os perfis das regiões, ou seja, como os atributos, de cada tipo, são relevantes ao analista ao decorrer das iterações.
 
 % \subsection{Numéricos}
-
-Os atributos numéricos se apresentam relevantes quando a diferença do valor médio tende a zero, assim como seu desvio padrão com o passar das iterações. Por exemplo, na Figura \ref{fig:analise-atributo-numerico}, observa-se que após 11 iterações ($t$), o atributo {\em preço} se mostrou relevante ao analista, uma vez que seu valor médio se tornou linear, em outras palavras, com diferenças mínimas entre as iterações, e seu desvio padrão quase 0.
-
-\begin{figure}[!h]
+\begin{figure}[]
 	\centering
 	\includegraphics[width=\textwidth]{imagens/analise-atributo-numerico}
 	\caption{Evolução de atributo numérico}
 	\label{fig:analise-atributo-numerico}
 \end{figure}
+
+Os atributos numéricos se apresentam relevantes quando a variação do valor médio tende a zero, assim como seu desvio padrão com o passar das iterações. Por exemplo, na Figura \ref{fig:analise-atributo-numerico}, observa-se que após 11 iterações ($t$), o atributo {\em preço} se mostrou relevante ao analista, uma vez que seu valor médio se tornou linear, em outras palavras, com diferenças mínimas entre as iterações, e seu desvio padrão quase 0.
+
 
 Diferentemente dos atributos numéricos que podem ser analisados pelas diferenças nas suas estatísticas, os atributos textuais e categóricos precisam ser analisados através de sua evolução no decorrer das iterações. Para tal, contrói-se um vetor de feedback $F$ que é atualizado à cada iteração com base nos perfis das IDRs descobertas.
 
@@ -266,7 +266,7 @@ Os valores normalizados do vetor $F$ representa as preferências do analista. Po
 \end{table}
 
 
-O vetor de feedback para atributos textuais difere apenas na sua inicialização. Como os perfis para atributos textuais são construídos separadamente, é preciso combinar os valores de cada atributo no único vetor. Por exemplo, se a frequência das palavras no atributo textual {\em name} é representado na Tabela \ref{table:perfil-textual} e do atributo {\em description} na Tabela \ref{table:perfil-textual-2}, no vetor de feedback haveria células como \textless{}$confort, 33$\textgreater{}, \textless{}$mobilier, 32$\textgreater{} e \textless{}$champs, 29$\textgreater{}, ou seja, as células contemplam todos os atributos textuais.
+O vetor de feedback para atributos textuais difere apenas na sua inicialização. Como os perfis para atributos textuais são construídos separadamente, é preciso combinar os valores de cada atributo no único vetor. Por exemplo, se a frequência das palavras no atributo textual {\em name} é representado na Tabela \ref{table:perfil-textual} e do atributo {\em description} na Tabela \ref{table:perfil-textual-2}, no vetor de feedback haveria células como \textless{}$confort, 33$\textgreater{}, \textless{}$mobilier, 32$\textgreater{} e \textless{}$champs, 29$\textgreater{}, ou seja, as células presentes no vetor contemplam todos os atributos textuais.
 
 \begin{table}[!h]
 	\centering
@@ -295,6 +295,6 @@ No caso dos atributos temporais, detectar padrões de preferências é mais comp
 
 Nas primeiras iterações ($t <= 4$), pode-se perceber que o analista não demostra nenhum preferência específica para o atributo {\em last\_review}, visto que os dados estão bem destribuídos. A partir da 5º iteração, é notável a concentração do interesse do analista em avaliações ({\em reviews}) enviadas entre final de fevereiro e começo de março.
 
-A segunda abordagem a ser utilizada para identificar padrões de preferências do analista sobre atributos temporais é considerar os valores máximos e mínimos para construir uma janela de interesse. Por exemplo, na Figura \ref{fig:analise-atributo-temporal}, podemos dizer que a janela de interesse do usuário no evento {\em last\_review} a partir de 7º iteração é 15 de fevereiro de 2018 até 15 de março de 2018, portanto eventos que ocorreram entre essas datas são mais relevantes ao analista.
+A segunda abordagem a ser utilizada para identificar padrões de preferências do analista sobre atributos temporais é considerar os valores máximos e mínimos para construir uma janela de interesse. Por exemplo, na Figura \ref{fig:analise-atributo-temporal}, pode-se dizer que a janela de interesse do usuário no evento {\em last\_review} a partir de 7º iteração é 15 de fevereiro de 2018 até 15 de março de 2018, portanto eventos que ocorreram entre essas datas são mais relevantes ao analista.
 
 É importante notar no exemplo da Figura \ref{fig:analise-atributo-temporal} a granularidade da linha temporal do atributo em questão é de dias. A granularidade durante a análise pode ser variável, ou seja, se adequar a janela de interesse do usuário, ou fixa, como nesse exemplo. Isso só é possível de maneira eficiente, pois os atributos temporais são normalizados durante a construção do perfil em 6 granularidade: anos, meses, dias, horas, minutos e segundos.
