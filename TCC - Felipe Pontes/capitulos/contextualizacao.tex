@@ -21,7 +21,7 @@ Há trabalhos na literatura sobre métodos de destacamento de informações, por
 
 Existem várias instâncias na literatura que combinam análise temporal com dados espaciais, como \citeonline{baculo2017,balahadia2017,chidean2018,ghahramani2018,kamath2013,lopestexeira2018,ma2017,mijovic2016,tomoki2010,nara2007,zhan2017,zheng2018}. Essas aplicações de análise temporal são em contextos específicos, os quais não envolvem feedback do usuário, mas representam como análise temporal pode ser perspicaz e proveitosa.
 
-\citeonline{baculo2017} e \citeonline{balahadia2017} fazem uso de dados públicos de Manila, capital das Filipinas, combinando dados espaciais, análise temporal e modelos preditivos e mostrando resultados que podem ser utilizados para preparação de um plano de gestão pública eficaz. \citeonline{ma2017} e \citeonline{zheng2018} também fazem análises realistas de como eventos, como protestos, impactam nas trajetórias de táxis, cujos resultados podem auxiliar no controle de tráfego urbano e nos planos de serviços de transporte da cidade. Ambos realizam ricas análises, as quais contribuiram como inspiração neste trabalho.
+\citeonline{baculo2017} e \citeonline{balahadia2017} fazem uso de dados públicos de Manila, capital das Filipinas, combinando dados espaciais, análise temporal e modelos preditivos e mostrando resultados que podem ser utilizados para preparação de um plano de gestão pública eficaz. \citeonline{ma2017} e \citeonline{zheng2018} também fazem análises realistas de como eventos, como protestos, impactam nas trajetórias de táxis, cujos resultados podem auxiliar no controle de tráfego urbano e nos planos de serviços de transporte da cidade. Ambos realizam ricas análises, as quais contribuíram como inspiração neste trabalho.
 
 \citeonline{chidean2018} apresenta como detectar padrões espaço-temporais no contexto do uso de energia eólica na Península Ibérica usando o algoritmo {\em Second-Order Data-Coupled Clustering}. Apesar do estudo detalhado, esse trabalho não contempla um contexto de análise exploratória.
 
@@ -46,9 +46,9 @@ GeoGuide \cite{omidvarTehrani2017} é fruto de um projeto de pesquisa realizado 
 
 Neste trabalho, o GeoGuide é potencializado à dois novos conceitos: $i$. regiões densas interessantes e $ii$. análise temporal das preferências do usuário. Esses dois conceitos serão explorados no próximo capítulo.
 
-\subsection{Preprocessamento}
+\subsection{Pré-processamento}
 
-GeoGuide realiza um passo de preprocessamento para criar os índices que serão usados durante a fase de destacamento. O índice é uma tabela comparativa entre todos os pontos usando duas métricas de qualidade: relevância e diversidade. Os valores calculados são normalizados no intervalo de $0.0$ à $1.0$.
+GeoGuide realiza um passo de pré-processamento para criar os índices que serão usados durante a fase de destacamento. O índice é uma tabela comparativa entre todos os pontos usando duas métricas de qualidade: relevância e diversidade. Os valores calculados são normalizados no intervalo de $0.0$ à $1.0$.
 
 \subsubsection{Relevância e Diversidade}
 
@@ -78,16 +78,16 @@ Relevância representa o quão similar é o ponto $a$ com o ponto $b$ num conjun
 	\label{table:exemplo-indice}
 \end{table}
 
-Na Figura \ref{fig:exemplo-pontos}, tem-se, por exemplo, pontos geográficos que representam viagens de taxi. Cada ponto (1, 2, 3 e 4), possui seus atributos: preço da viagem, duração da viagem e a quantidade de passageiros; e sua localização geográfica. Na tabela \ref{table:exemplo-indice}, ilustra-se o exemplo do índice calculado diante dos pontos apresentados na Figura \ref{fig:exemplo-pontos}. Percebe-se que os pontos mais similares entre si são os pontos 2 e 4, enquanto que 2 e 3 são os mais distantes, ou seja, possuem o maior valor de diversidade.
+Na Figura \ref{fig:exemplo-pontos}, tem-se, por exemplo, pontos geográficos que representam viagens de táxi. Cada ponto (1, 2, 3 e 4), possui seus atributos: preço da viagem, duração da viagem e a quantidade de passageiros; e sua localização geográfica. Na tabela \ref{table:exemplo-indice}, ilustra-se o exemplo do índice calculado diante dos pontos apresentados na Figura \ref{fig:exemplo-pontos}. Percebe-se que os pontos mais similares entre si são os pontos 2 e 4, enquanto que 2 e 3 são os mais distantes, ou seja, possuem o maior valor de diversidade.
 
 
 \subsection{Preferências do Usuário}
 
-Para coletar as preferências do usuário, GeoGuide usa ambos feedback implícito e explícito. Feedback explícito é quando o usuário está analisando os atributos de um ponto, por exemplo a descrição de uma casa no Airbnb, e explicitamente pede para explorar pontos similares ao selecionado. Feedback implícito é coletado atráves da captura dos movimentos do mouse e métricas como  ``quanto tempo o usuário passou analisando o perfil de um ponto''.
+Para coletar as preferências do usuário, GeoGuide usa ambos feedback implícito e explícito. Feedback explícito é quando o usuário está analisando os atributos de um ponto, por exemplo a descrição de uma casa no Airbnb, e explicitamente pede para explorar pontos similares ao selecionado. Feedback implícito é coletado através da captura dos movimentos do mouse e métricas como  ``quanto tempo o usuário passou analisando o perfil de um ponto''.
 
 \subsection{Destacamento de Dados Espaciais}
 
-GeoGuide combina o índice preprocessado e o feedback coletado para destacar subconjuntos de dados espaciais de acordo com as preferências do analista. O processo de destacamento provou ser eficiente em termos de ``quantos passos o analista leva até completar a tarefa de encontrar um ponto com um determinado perfil''. Usando GeoGuide, analistas foram capazes de completar a tarefa usando, em média, 10.7 passos, enquanto que usando Tableau, foram necessários 43 passos \cite{omidvarTehrani2017}.
+GeoGuide combina o índice pré-processado e o feedback coletado para destacar subconjuntos de dados espaciais de acordo com as preferências do analista. O processo de destacamento provou ser eficiente em termos de ``quantos passos o analista leva até completar a tarefa de encontrar um ponto com um determinado perfil''. Usando GeoGuide, analistas foram capazes de completar a tarefa usando, em média, 10.7 passos, enquanto que usando Tableau, foram necessários 43 passos \cite{omidvarTehrani2017}.
 
 % \vspace{25pt}
 % \endsubsection
