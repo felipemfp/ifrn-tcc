@@ -417,7 +417,7 @@ Trabalho de conclusão de curso apresentado ao Curso Superior de Tecnologia em A
 {
 	\pretextualchapter{Lista de símbolos}
 	{\setlength{\parindent}{0cm}
-	\@starttoc{los}}
+  \@starttoc{los}}  
 }
 % Como a entrada sera impressa
 \newcommand\l@simbolo[2]{\par #1}
@@ -428,20 +428,27 @@ Trabalho de conclusão de curso apresentado ao Curso Superior de Tecnologia em A
 % \abrv[entrada na lista de simbolos]{abreviatura}:
 % Escreve a sigla/abreviatura no texto e uma entrada na lista de abreviaturas e siglas.
 % Se o parametro opcional e omitido, usa-se o parametro obrigatorio.
-\newcommand{\abrv}[2][]
+\newcommand{\abrv}[2]
 {%
-	\ifthenelse{\equal{#1}{}}
-	{\addcontentsline{loab}{abreviatura}{#2}}
-	{\addcontentsline{loab}{abreviatura}{#1}}#2
-}
+	% \ifthenelse{\equal{#1}{}}
+	% {\addcontentsline{loab}{abreviatura}{#2}}
+	{\addcontentsline{loab}{abreviatura}{#1 #2}}{#1}}
 % Para aceitar comandos com @ (at) no nome
 \makeatletter 
 % \listadeabreviaturas: comando que imprime a lista de abreviaturas e siglas
 \newcommand{\listadeabreviaturas}
 {
-	\pretextualchapter{Lista de abreviaturas e siglas}
-	{\setlength{\parindent}{0cm}
-	\@starttoc{loab}}
+  % \pretextualchapter{Lista de abreviaturas e siglas}
+  \begin{siglas}
+    \@OnehalfSpacing
+    % % {\setlength{\parindent}{0cm}
+    \item[IDR] \textit{Interesting Dense Region}
+    \item[IFRN] Instituto Federal do Rio Grande do Norte
+    \item[TADS] Tecnologia em Análise e Desenvolvimento de Sistemas
+    % \@starttoc{loab}
+  \end{siglas}
+	% {\setlength{\parindent}{0cm}
+  % }
 }
 % Como a entrada sera impressa
 \newcommand\l@abreviatura[2]{\par #1}
@@ -503,7 +510,8 @@ Trabalho de conclusão de curso apresentado ao Curso Superior de Tecnologia em A
   \cleardoublepage
   % ---
 
-  \include{extra-includes/Abreviaturas}
+  \listadeabreviaturas
+  \cleardoublepage
 
   % ---
   % inserir o sumario
