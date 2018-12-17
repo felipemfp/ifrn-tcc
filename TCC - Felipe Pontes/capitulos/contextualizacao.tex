@@ -5,7 +5,7 @@ Este capítulo dá uma visão geral sobre os trabalhos relacionados acerca de ex
 
 \section{Trabalhos Relacionados}
 
-A literatura na análise de dados espaciais possui um foco na eficiência das iterações exploratórias. A abordagem comum é projetar índices pré-processados, os quais permitem a consulta eficiente de dados espaciais \cite{lins2013nanocubes}. No entanto, também é preciso direcionar a atenção para o {\em valor} dos dados espaciais, porque é muito comum encontrar um analista se perdendo numa enorme quantidade de pontos geográficos. Para solucionar esse problema, ambientes de visualização, como, por exemplo, Tableau\footnote{\it http://www.tableau.com}, Exhibit\footnote{\it http://www.simile-widgets.org/exhibit/}, Spotfire\footnote{\it  http://spotfire.tibco.com}, oferecem funcionalidades para manipular os dados como filtros, consultas agregadores, entre outras. Entretanto essas funcionalidades não se mostram eficazes, visto que nessas ferramentas o pesquisador precisa saber exatamente o que procura. Este trabalho combina a exploração de feedback, métodos de destacamento de informações e análise temporal a fim de otimizar a análise exploratória.
+A literatura na análise de dados espaciais possui um foco na eficiência das iterações exploratórias. A abordagem comum é projetar índices pré-processados, os quais permitem a consulta eficiente de dados espaciais \cite{lins2013nanocubes}. No entanto, também é preciso direcionar a atenção para o {\em valor} dos dados espaciais, porque é muito comum encontrar um analista se perdendo numa enorme quantidade de pontos geográficos. Para solucionar esse problema, ambientes de visualização, como, por exemplo, Tableau\footnote{\em http://www.tableau.com}, Exhibit\footnote{\em http://www.simile-widgets.org/exhibit/}, Spotfire\footnote{\em  http://spotfire.tibco.com}, oferecem funcionalidades para manipular os dados como filtros, consultas agregadores, entre outras. Entretanto essas funcionalidades não se mostram eficazes, visto que nessas ferramentas o pesquisador precisa saber exatamente o que procura. Este trabalho combina a exploração de feedback, métodos de destacamento de informações e análise temporal a fim de otimizar a análise exploratória.
 
 \subsection{Exploração de Feedback}
 
@@ -32,11 +32,12 @@ Existem várias instâncias na literatura que combinam análise temporal com dad
 \section{GeoGuide}
 
 \begin{figure}[t]
-	\centering
-	\includegraphics[width=\columnwidth]{imagens/framework}
 	\caption{Componentes do GeoGuide}
 	\label{fig:framework}
+	\centering
+	\includegraphics[width=\columnwidth]{imagens/framework}
 	\vspace{-10pt}
+	\fonte{\citeonline{omidvarTehrani2017}}
 \end{figure}
 
 \abrv[TADS -- Tecnologia em Análise e Desenvolvimento de Sistemas]{}
@@ -53,16 +54,18 @@ GeoGuide realiza um passo de pré-processamento para criar os índices que serã
 \subsubsection{Relevância e Diversidade}
 
 \begin{figure}[t]
-	\centering
-	\includegraphics[width=\columnwidth]{imagens/exemplo-de-pontos}
 	\caption{Exemplo de pontos geográficos com seus atributos}
 	\label{fig:exemplo-pontos}
-	\vspace{-10pt}
+	\centering
+	\includegraphics[width=\columnwidth]{imagens/exemplo-de-pontos}
+	\mfonte
 \end{figure}
 
 Relevância representa o quão similar é o ponto $a$ com o ponto $b$ num conjunto de dados. GeoGuide usa a relevância para destacar pontos similares ao feedback do analista. Diversidade representa quão distante o ponto $a$ está localizado do ponto $b$. GeoGuide usa a diversidade para permitir ao analista explorar diferentes regiões, mas ainda assim trabalhar com pontos relevantes ao seu interesse.
 
 \begin{table}[!h]
+	\caption{Exemplo de Índice de Relevância e Diversidade para pontos na Figura \ref{fig:exemplo-pontos}}
+	\label{table:exemplo-indice}
 	\centering
 	\begin{tabular}{|c|c|r|r|}
 	\hline
@@ -74,8 +77,7 @@ Relevância representa o quão similar é o ponto $a$ com o ponto $b$ num conjun
 	2                                      & 4                                     & 1.0                                      & 0.48                                      \\ \hline
 	3                                      & 4                                     & 0.2                                      & 0.3                                       \\ \hline
 	\end{tabular}
-	\caption{Exemplo de Índice de Relevância e Diversidade para pontos na Figura \ref{fig:exemplo-pontos}}
-	\label{table:exemplo-indice}
+	\mfonte
 \end{table}
 
 Na Figura \ref{fig:exemplo-pontos}, tem-se, por exemplo, pontos geográficos que representam viagens de táxi. Cada ponto (1, 2, 3 e 4), possui seus atributos: preço da viagem, duração da viagem e a quantidade de passageiros; e sua localização geográfica. Na tabela \ref{table:exemplo-indice}, ilustra-se o exemplo do índice calculado diante dos pontos apresentados na Figura \ref{fig:exemplo-pontos}. Percebe-se que os pontos mais similares entre si são os pontos 2 e 4, enquanto que 2 e 3 são os mais distantes, ou seja, possuem o maior valor de diversidade.
