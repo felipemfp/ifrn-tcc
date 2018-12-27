@@ -30,22 +30,22 @@ Com base nesses conceitos, o processo de descobrimento das IDRs pode ser descrit
 	\label{algo:idr}
 	\begin{algorithm}[H]
 		\DontPrintSemicolon
-		\KwIn{Tempo atual $t_c$, pontos dos movimentos do mouse $\mathcal{M}$}
-		\KwOut{IDRs encontradas $\mathcal{S}$}
+		\Entrada{Tempo atual $t_c$, pontos dos movimentos do mouse $\mathcal{M}$}
+		\Saida{IDRs encontradas $\mathcal{S}$}
 		$\mathcal{S} \gets \emptyset$\;
 		$g \gets ${\em número de segmentos}\;
-		\For{$i \in [0,g]$}
+		\Para{$i \in [0,g]$}
 		{
 			   $\mathcal{M}_i \gets \{m = \langle x,y,t \rangle | (\frac{t_c}{g} \times i) \leq t \leq (\frac{t_c}{g} \times (i+1))\}$\;
 			   $\mathcal{C}_i \gets \mathit{mine\_clusters}(\mathcal{M}_i)$\label{ln:mine}\;
 			   $\mathcal{O}_i \gets \mathit{find\_polygons}(\mathcal{C}_i)$\label{ln:poly}\;
 		}
-		\lFor{$\mathcal{O}_i, \mathcal{O}_j$ onde $i,j \in [0,g]$ e $i \neq j$}
+		\lPara{$\mathcal{O}_i, \mathcal{O}_j$ onde $i,j \in [0,g]$ e $i \neq j$}
 		{
 			   $\mathcal{S}.\mathit{append}(\mathit{intersect}(\mathcal{O}_i, \mathcal{O}_j))$
 		}
 		% $\mathcal{H} \gets \mathit{discover\_highlights}(\mathcal{S},k)$\label{ln:geoguide}\;
-		\Return{$\mathcal{S}$}\; 
+		\Retorna{$\mathcal{S}$}\; 
 	\end{algorithm}
 	\mfonte
 \end{quadro}
@@ -209,6 +209,7 @@ O contexto de domínio se refere aos aspectos de domínio como, por exemplo, se 
 
 % \subsection{Numéricos}
 \begin{figure}[]
+	% \caption*{Gráfico}
 	\caption{Evolução de atributo numérico}
 	\label{fig:analise-atributo-numerico}
 	\centering
