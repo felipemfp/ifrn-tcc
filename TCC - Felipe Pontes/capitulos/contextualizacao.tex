@@ -1,25 +1,25 @@
 \chapter{Contextualização}
 \label{chap:contextualizacao}
 
-Este capítulo dá uma visão geral sobre os trabalhos relacionados acerca de exploração de feedback, métodos de destacamento de informações e aplicação de análises temporais. Também é apresentado o sistema que está sendo estendido neste trabalho.
+Este capítulo dá uma visão geral sobre os trabalhos relacionados acerca de exploração de {\em feedback}, métodos de destacamento de informações e aplicação de análises temporais. Também é apresentado o sistema que está sendo estendido neste trabalho.
 
 \section{Trabalhos Relacionados}
 
-A literatura na análise de dados espaciais possui um foco na eficiência das iterações exploratórias. A abordagem comum é projetar índices pré-processados, os quais permitem a consulta eficiente de dados espaciais \cite{lins2013nanocubes}. No entanto, também é preciso direcionar a atenção para o {\em valor} dos dados espaciais, porque é muito comum encontrar um analista se perdendo numa enorme quantidade de pontos geográficos. Para solucionar esse problema, ambientes de visualização, como, por exemplo, Tableau\footnote{\em http://www.tableau.com}, Exhibit\footnote{\em http://www.simile-widgets.org/exhibit/}, Spotfire\footnote{\em  http://spotfire.tibco.com}, oferecem funcionalidades para manipular os dados como filtros, consultas agregadores, entre outras. Entretanto essas funcionalidades não se mostram eficazes, visto que nessas ferramentas o pesquisador precisa saber exatamente o que procura. Este trabalho combina a exploração de feedback, métodos de destacamento de informações e análise temporal a fim de otimizar a análise exploratória.
+A literatura na análise de dados espaciais possui um foco na eficiência das iterações exploratórias. A abordagem comum é projetar índices pré-processados, os quais permitem a consulta eficiente de dados espaciais \cite{lins2013nanocubes}. No entanto, também é preciso direcionar a atenção para o {\em valor} dos dados espaciais, porque é muito comum encontrar um analista se perdendo numa enorme quantidade de pontos geográficos. Para solucionar esse problema, ambientes de visualização, como, por exemplo, Tableau\footnote{\em http://www.tableau.com}, Exhibit\footnote{\em http://www.simile-widgets.org/exhibit/}, Spotfire\footnote{\em  http://spotfire.tibco.com}, oferecem funcionalidades para manipular os dados como filtros, consultas agregadores, entre outras. Entretanto essas funcionalidades não se mostram eficazes, visto que nessas ferramentas o pesquisador precisa saber exatamente o que procura. Este trabalho combina a exploração de {\em feedback}, métodos de destacamento de informações e análise temporal a fim de otimizar a análise exploratória.
 
 \subsection{Exploração de Feedback}
 
-O modelo espaço-temporal proposto aprimora o processo de análise de dados espaciais destacando subconjuntos de pontos geográficos com base no feedback coletado durante a exploração do analista. Na literatura, há vários trabalhos sobre exploração de feedback para orientar o analista nas futuras iterações da análise como, por exemplo, \citeonline{boley2013one}. A abordagem comum é uma metodologia {\em top-$k$} para reduzir o escopo da consulta baseado no feedback explícito e recomendar um pequeno subconjunto de resultados interessantes de tamanho $k$. Uma clara distinção do presente trabalho é que não busca-se reduzir o escopo, mas alavancar o conjunto de dados com resultados potencialmente interessantes que o analista talvez não tenha notado devido ao enorme volume de dados espaciais. Enquanto as escolhas do analista são limitadas por $k$ em algoritmos de {\em top-$k$} processamento, a abordagem proposta oferece a liberdade de escolha ao mesmo tempo que pontos geográficos vão sendo transparentemente destacados com base nas novas escolhas do analista.
+O modelo espaço-temporal proposto aprimora o processo de análise de dados espaciais destacando subconjuntos de pontos geográficos com base no {\em feedback} coletado durante a exploração do analista. Na literatura, há vários trabalhos sobre exploração de {\em feedback} para orientar o analista nas futuras iterações da análise como, por exemplo, \citeonline{boley2013one}. A abordagem comum é uma metodologia {\em top-$k$} para reduzir o escopo da consulta baseado no {\em feedback} explícito e recomendar um pequeno subconjunto de resultados interessantes de tamanho $k$. Uma clara distinção do presente trabalho é que não busca-se reduzir o escopo, mas alavancar o conjunto de dados com resultados potencialmente interessantes que o analista talvez não tenha notado devido ao enorme volume de dados espaciais. Enquanto as escolhas do analista são limitadas por $k$ em algoritmos de {\em top-$k$} processamento, a abordagem proposta oferece a liberdade de escolha ao mesmo tempo que pontos geográficos vão sendo transparentemente destacados com base nas novas escolhas do analista.
 
 \subsection{Métodos de Destacamento de Informação}
 
 \todo{fala de cada um}
 
-Há trabalhos na literatura sobre métodos de destacamento de informações, por exemplo: \citeonline{Liang2010,Robinson2011,wongsuphasawat2016voyager,willett2007scented}. Entretanto todos esses métodos são {\em objetivos} e não são aplicáveis para o contexto de orientação espacial onde o feedback do usuário é envolvido. Em termos de recomendação, algumas abordagens focam na dimensão espacial \cite{Bao2015,Levandoski:2012} enquanto o contexto e a diversidade do resultado é deixado de lado.
+Há trabalhos na literatura sobre métodos de destacamento de informações, por exemplo: \citeonline{Liang2010,Robinson2011,wongsuphasawat2016voyager,willett2007scented}. Entretanto todos esses métodos são {\em objetivos} e não são aplicáveis para o contexto de orientação espacial onde o {\em feedback} do usuário é envolvido. Em termos de recomendação, algumas abordagens focam na dimensão espacial \cite{Bao2015,Levandoski:2012} enquanto o contexto e a diversidade do resultado é deixado de lado.
 
 \subsection{Aplicações de Análise Temporal}
 
-Existem várias instâncias na literatura que combinam análise temporal com dados espaciais, como \citeonline{baculo2017,balahadia2017,chidean2018,ghahramani2018,kamath2013,lopestexeira2018,ma2017,mijovic2016,tomoki2010,nara2007,zhan2017,zheng2018}. Essas aplicações de análise temporal são em contextos específicos, os quais não envolvem feedback do usuário, mas representam como análise temporal pode ser perspicaz e proveitosa.
+Existem várias instâncias na literatura que combinam análise temporal com dados espaciais, como \citeonline{baculo2017,balahadia2017,chidean2018,ghahramani2018,kamath2013,lopestexeira2018,ma2017,mijovic2016,tomoki2010,nara2007,zhan2017,zheng2018}. Essas aplicações de análise temporal são em contextos específicos, os quais não envolvem {\em feedback} do usuário, mas representam como análise temporal pode ser perspicaz e proveitosa.
 
 \citeonline{baculo2017} e \citeonline{balahadia2017} fazem uso de dados públicos de Manila, capital das Filipinas, combinando dados espaciais, análise temporal e modelos preditivos e mostrando resultados que podem ser utilizados para preparação de um plano de gestão pública eficaz. \citeonline{ma2017} e \citeonline{zheng2018} também fazem análises realistas de como eventos, como protestos, impactam nas trajetórias de táxis, cujos resultados podem auxiliar no controle de tráfego urbano e nos planos de serviços de transporte da cidade. Ambos realizam ricas análises, as quais contribuíram como inspiração neste trabalho.
 
@@ -54,24 +54,24 @@ GeoGuide realiza um passo de pré-processamento para criar os índices que serã
 	\caption{Exemplo de pontos geográficos com seus atributos}
 	\label{fig:exemplo-pontos}
 	\centering
-	\includegraphics[width=\columnwidth]{imagens/exemplo-de-pontos}
+	\includegraphics[width=10cm]{imagens/exemplo-de-pontos}
 	\mfonte
 \end{figure}
 
-Relevância representa o quão similar é o ponto $a$ com o ponto $b$ num conjunto de dados. GeoGuide usa a relevância para destacar pontos similares ao feedback do analista. Diversidade representa quão distante o ponto $a$ está localizado do ponto $b$. GeoGuide usa a diversidade para permitir ao analista explorar diferentes regiões, mas ainda assim trabalhar com pontos relevantes ao seu interesse.
+Relevância representa o quão similar é o ponto $a$ com o ponto $b$ num conjunto de dados. GeoGuide usa a relevância para destacar pontos similares ao {\em feedback} do analista. Diversidade representa quão distante o ponto $a$ está localizado do ponto $b$. GeoGuide usa a diversidade para permitir ao analista explorar diferentes regiões, mas ainda assim trabalhar com pontos relevantes ao seu interesse.
 
-\begin{table}[!h]
+\begin{table}[]
 	\caption{Exemplo de Índice de Relevância e Diversidade para pontos na Figura \ref{fig:exemplo-pontos}}
 	\label{table:exemplo-indice}
 	\centering
-	\begin{tabular}{|c|c|r|r|}
+	\begin{tabular}{llll}
 	\hline
-	\multicolumn{1}{|c|}{\textbf{Ponto A}} & \multicolumn{1}{c|}{\textbf{Ponto B}} & \multicolumn{1}{c|}{\textbf{Relevância}} & \multicolumn{1}{c|}{\textbf{Diversidade}} \\ \hline
-	1                                      & 2                                     & 0.8                                      & 0.9                                       \\ \hline
-	1                                      & 3                                     & 0.25                                     & 0.2                                       \\ \hline
-	1                                      & 4                                     & 0.9                                      & 0.45                                      \\ \hline
-	2                                      & 3                                     & 0.2                                      & 1.0                                       \\ \hline
-	2                                      & 4                                     & 1.0                                      & 0.48                                      \\ \hline
+	\textbf{Ponto A} & \textbf{Ponto B} & \textbf{Relevância} & \textbf{Diversidade} \\ \hline
+	1                                      & 2                                     & 0.8                                      & 0.9                                       \\ 
+	1                                      & 3                                     & 0.25                                     & 0.2                                       \\ 
+	1                                      & 4                                     & 0.9                                      & 0.45                                      \\ 
+	2                                      & 3                                     & 0.2                                      & 1.0                                       \\ 
+	2                                      & 4                                     & 1.0                                      & 0.48                                      \\ 
 	3                                      & 4                                     & 0.2                                      & 0.3                                       \\ \hline
 	\end{tabular}
 	\mfonte
@@ -82,11 +82,11 @@ Na Figura \ref{fig:exemplo-pontos}, tem-se, por exemplo, pontos geográficos que
 
 \subsection{Preferências do Usuário}
 
-Para coletar as preferências do usuário, GeoGuide usa ambos feedback implícito e explícito. Feedback explícito é quando o usuário está analisando os atributos de um ponto, por exemplo a descrição de uma casa no Airbnb, e explicitamente pede para explorar pontos similares ao selecionado. Feedback implícito é coletado através da captura dos movimentos do mouse e métricas como  ``quanto tempo o usuário passou analisando o perfil de um ponto''.
+Para coletar as preferências do usuário, GeoGuide usa ambos {\em feedback} implícito e explícito. {\em Feedback} explícito é quando o usuário está analisando os atributos de um ponto, por exemplo a descrição de uma casa no Airbnb, e explicitamente pede para explorar pontos similares ao selecionado. {\em Feedback} implícito é coletado através da captura dos movimentos do mouse e métricas como  ``quanto tempo o usuário passou analisando o perfil de um ponto''.
 
 \subsection{Destacamento de Dados Espaciais}
 
-GeoGuide combina o índice pré-processado e o feedback coletado para destacar subconjuntos de dados espaciais de acordo com as preferências do analista. O processo de destacamento provou ser eficiente em termos de ``quantos passos o analista leva até completar a tarefa de encontrar um ponto com um determinado perfil''. Usando GeoGuide, analistas foram capazes de completar a tarefa usando, em média, 10.7 passos, enquanto que usando Tableau, foram necessários 43 passos \cite{omidvarTehrani2017}.
+GeoGuide combina o índice pré-processado e o {\em feedback} coletado para destacar subconjuntos de dados espaciais de acordo com as preferências do analista. O processo de destacamento provou ser eficiente em termos de ``quantos passos o analista leva até completar a tarefa de encontrar um ponto com um determinado perfil''. Usando GeoGuide, analistas foram capazes de completar a tarefa usando, em média, 10.7 passos, enquanto que usando Tableau, foram necessários 43 passos \cite{omidvarTehrani2017}.
 
 % \vspace{25pt}
 % \endsubsection

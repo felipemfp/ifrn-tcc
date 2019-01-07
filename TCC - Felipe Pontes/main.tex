@@ -213,6 +213,7 @@ Trabalho de conclusão de curso apresentado ao Curso Superior de Tecnologia em A
 
 \makeatletter
 \renewcommand{\fonte}[2][\fontename]{%
+	% \captionsetup{singlelinecheck=off,justification=raggedright}
   \memlegendinfo{#2}%
   \par
 \begingroup
@@ -224,7 +225,8 @@ Trabalho de conclusão de curso apresentado ao Curso Superior de Tecnologia em A
 \makeatother
 
 \newcommand{\mfonte}[0]{%
-  \fonte{Elaboração própria em \DTMfetchyear{mdate}}}
+  \fonte{Elaboração própria em \DTMfetchyear{mdate}}
+}
 
 \newcommand{\mcaption}[1]
 {%
@@ -490,7 +492,7 @@ Trabalho de conclusão de curso apresentado ao Curso Superior de Tecnologia em A
 
   \include{extra-includes/Agradecimentos}
 
-  \include{extra-includes/Epigrafe}
+  % \include{extra-includes/Epigrafe}
 
   \include{extra-includes/Resumo}
   \include{extra-includes/Abstract}

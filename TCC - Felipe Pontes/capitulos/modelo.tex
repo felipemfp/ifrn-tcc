@@ -9,18 +9,19 @@ Neste capítulo, explica-se o que são as chamadas Regiões Densas Interessantes
 
 \section{Regiões Densas Interessantes}
 
-Uma Região Densa Interessante (do inglês {\em Interesting Dense Region}, \abrv{IDR}{Interesting Dense Region}) é uma região espacial com uma alta probabilidade de conter pontos de interesse do analista. IDRs são coletadas e definidas durante o processamento do feedback do usuário. Diferentemente da literatura que predominantemente foca em interações explícitas, como clicar no botão, esta proposta investiga o feedback implícito.
+Uma Região Densa Interessante (do inglês {\em Interesting Dense Region}, \abrv{IDR}{Interesting Dense Region}) é uma região espacial com uma alta probabilidade de conter pontos de interesse do analista. IDRs são coletadas e definidas durante o processamento do {\em feedback} do usuário. Diferentemente da literatura que predominantemente foca em interações explícitas, como clicar no botão, esta proposta investiga o {\em feedback} implícito.
 
-Durante a exploração iterativa de dados espaciais, é comum o caso que o analista avalia algumas regiões de interesse, mas esquece de dar um feedback explícito sobre aquela região. O ato do usuário olhar para essa região pode ser capturado através do rastreio dos movimentos oculares e, como \citeonline{arapakis2014user} comprova, esse método possui uma forte relação com a atenção do usuário.
+Durante a exploração iterativa de dados espaciais, é comum o caso que o analista avalia algumas regiões de interesse, mas esquece de dar um {\em feedback} explícito sobre aquela região. O ato do usuário olhar para essa região pode ser capturado através do rastreio dos movimentos oculares e, como \citeonline{arapakis2014user} comprova, esse método possui uma forte relação com a atenção do usuário.
 
-Entretanto, o rastreamento dos movimentos oculares fere várias questões de privacidade. Assim sendo, foi adotado a alternativa de rastrear os deslocamentos do cursor do mouse. \citeonline{arapakis2014understanding} argumenta que esse método possui uma forte relação com o engajamento do usuário. Intuitivamente, um ponto espacial recebe um feedback positivo se o cursor do mouse se desloca próximo a ele frequentemente.
+Entretanto, o rastreamento dos movimentos oculares fere várias questões de privacidade. Assim sendo, foi adotado a alternativa de rastrear os deslocamentos do cursor do mouse. \citeonline{arapakis2014understanding} argumenta que esse método possui uma forte relação com o engajamento do usuário. Intuitivamente, um ponto espacial recebe um {\em feedback} positivo se o cursor do mouse se desloca próximo a ele frequentemente.
 
 O objetivo de descobrir IDRs é para obter as preferências do analista que nunca foram expressadas explicitamente. Para tal, leva-se em consideração dois conceitos:
 
-\begin{itemize}
-	\item \textbf{Conceito 1}: uma região é mais interessante ao analista, se for densa, ou seja, o analista movimenta seu mouse naquela região várias vezes.
-	\item \textbf{Conceito 2}: é possível que o analista movimente seu mouse em qualquer lugar do mapa. Isso não deve significar que todo lugar no mapa tem a mesma relevância.
-\end{itemize}
+\begin{enumerate}[label=\alph*)]
+	\tightlist
+	\item conceito 1: uma região é mais interessante ao analista, se for densa, ou seja, o analista movimenta seu mouse naquela região várias vezes.
+	\item conceito 2: é possível que o analista movimente seu mouse em qualquer lugar do mapa. Isso não deve significar que todo lugar no mapa tem a mesma relevância.
+\end{enumerate}
 
 Com base nesses conceitos, o processo de descobrimento das IDRs pode ser descrito pelo Algoritmo \ref{algo:idr}. Pontos são adicionados em $\mathcal{M}$ a cada $200ms$ para evitar pontos redundantes. De acordo com Conceito 1 e com o propósito de identificar comportamentos recorrentes, o algoritmo começa particionando $\mathcal{M}$ em $g$ segmentos consecutivos $\mathcal{M_0}$ até $\mathcal{M_g}$. O primeiro segmento começa no momento zero (quando a iteração iniciou) e o último termina em $t_c$, ou seja, no tempo atual que o algoritmo é executado. De acordo com o Conceito 2, formam-se os clusters em cada segmento de $\mathcal{M}$ usando uma variação da abordagem DBSCAN \cite{Ester:1996}. Por fim, as interseções desses clusters são encontradas e retornadas como IDRs.
 
@@ -54,7 +55,7 @@ Para clusterizar os pontos em cada segmento de tempo (linha \ref{ln:mine} do alg
 
 Uma vez que os clusters são formados para cada subconjunto de $\mathcal{M}$, encontra-se suas interseções para determinar as regiões recorrentes. Para obter as interseções é preciso definir nitidamente as fronteiras dos clusters (linha \ref{ln:poly}). Portanto para cada cluster, é construído seu respectivo polígono que engloba todos os pontos. Para isso, é utilizado o algoritmo Quickhull, um método com abordagem similar ao Quicksort, que calcula o invólucro convexo para um determinado conjunto de pontos num plano bidimensional \cite{Barber:1996}.
 
-Esse algoritmo de descoberta de IDR é executado a cada $t$ intervalo de tempo durante uma análise exploratória. Dessa forma, enquanto o analista está explorando o conjunto de dados, suas preferências estão sendo coletadas continuamente. Na Figura \ref{fig:descoberta-idr}, observa-se uma iteração de coleta e execução desse algoritmo onde $g = 3$, ou seja, o feedback é coletado em 3 segmentos diferentes de tempo. Os movimentos do mouse realizados pelo analista nesses 3 segmentos são demonstrados na Figura \ref{fig:descoberta-idr}.A. Para cada segmento, os pontos coletados dos movimentos do mouse são clusterizados e convertidos em polígonos convexos (Figura \ref{fig:descoberta-idr}.B-D, respectivamente). Por fim, os polígonos são sobrepostos (Figura \ref{fig:descoberta-idr}.E) e as interseções encontradas são definidas como IDRs (IDR1-4 na Figura \ref{fig:descoberta-idr}.F).
+Esse algoritmo de descoberta de IDR é executado a cada $t$ intervalo de tempo durante uma análise exploratória. Dessa forma, enquanto o analista está explorando o conjunto de dados, suas preferências estão sendo coletadas continuamente. Na Figura \ref{fig:descoberta-idr}, observa-se uma iteração de coleta e execução desse algoritmo onde $g = 3$, ou seja, o {\em feedback} é coletado em 3 segmentos diferentes de tempo. Os movimentos do mouse realizados pelo analista nesses 3 segmentos são demonstrados na Figura \ref{fig:descoberta-idr}.A. Para cada segmento, os pontos coletados dos movimentos do mouse são clusterizados e convertidos em polígonos convexos (Figura \ref{fig:descoberta-idr}.B-D, respectivamente). Por fim, os polígonos são sobrepostos (Figura \ref{fig:descoberta-idr}.E) e as interseções encontradas são definidas como IDRs (IDR1-4 na Figura \ref{fig:descoberta-idr}.F).
 
 \begin{figure}[t]
 	\caption{Processo de descoberta de IDRs}
@@ -70,7 +71,7 @@ Esse algoritmo de descoberta de IDR é executado a cada $t$ intervalo de tempo d
 
 Uma IDR descreve uma região espacial no conjunto de dados do analista coletada num determinado tempo $t$. Cada região representa as preferências do analista no momento $t$ no contexto espacial, ou seja, {\em onde} o analista está interessado. Para entender, {\em em que} o analista está interessado, em outras palavras, as preferências sobre o contexto de domínio, é definido o perfil de cada região.
 
-\begin{table}[]
+\begin{quadro}[]
 	\caption{Exemplo de atributos de um ponto que representa uma estadia}
 	\label{table:atributos}
 	\centering
@@ -92,18 +93,18 @@ Uma IDR descreve uma região espacial no conjunto de dados do analista coletada 
 		\textbf{last\_review}        & 2015-11-14T09:07:02+00:00      \\ \hline
 	\end{tabular}
 	\mfonte
-\end{table}
+\end{quadro}
 
 O perfil é a sumarização dos atributos dos pontos contidos numa IDR. Cada ponto em um conjunto de dados ($p \in \mathcal{P}$) é descrito por suas coordenadas espaciais e uma série de atributos de domínio $dom(p)$. A Tabela \ref{table:atributos} apresenta um exemplo dos atributos de um ponto no conjunto de dados do Airbnb.
 
 Na Tabela \ref{table:atributos}, os atributos {\em latitude} e {\em longitude} são as coordenadas espaciais, enquanto que todos os outros atributos caracterizam os atributos de domínio. Dentre os atributos de domínio pode-se encontrar 4 tipos de dados:
 
-\begin{enumerate}
+\begin{enumerate}[label=\alph*)]
 	\tightlist
-	\item Numéricos: são atributos que representam valores numéricos, como, por exemplo, os atributos {\em price}, {\em minimum\_nights}, {\em number\_of\_reviews}, {\em reviews\_per\_month} e {\em availability\_365}.
-	\item Textuais: são atributos que representam valores textuais, como, por exemplo, os atributos {\em name} e {\em host\_name}.
-	\item Categóricos: são atributos que representam valores tanto numéricos quanto textuais, mas que se repetem pouco em todo o conjunto. Por exemplo, o atributo {\em stars} possui apenas cinco valores em todo o conjunto. Os atributos {\em room\_type} e {\em neighbourhood} também possuem um número finito de opções, por isso são classificados como categóricos.
-	\item Temporais: são atributos que representam data e/ou hora de um determinado evento, como, por exemplo, o atributo {\em last\_review} que representa quando foi publicado a última avaliação.
+	\item numéricos: são atributos que representam valores numéricos, como, por exemplo, os atributos {\em price}, {\em minimum\_nights}, {\em number\_of\_reviews}, {\em reviews\_per\_month} e {\em availability\_365}.
+	\item textuais: são atributos que representam valores textuais, como, por exemplo, os atributos {\em name} e {\em host\_name}.
+	\item categóricos: são atributos que representam valores tanto numéricos quanto textuais, mas que se repetem pouco em todo o conjunto. Por exemplo, o atributo {\em stars} possui apenas cinco valores em todo o conjunto. Os atributos {\em room\_type} e {\em neighbourhood} também possuem um número finito de opções, por isso são classificados como categóricos.
+	\item temporais: são atributos que representam data e/ou hora de um determinado evento, como, por exemplo, o atributo {\em last\_review} que representa quando foi publicado a última avaliação.
 \end{enumerate}
 
 Esses 4 tipos de dados são comumente encontrados em conjuntos de dados espaciais, portanto o perfil da IDR precisa representar de maneira resumida esses atributos em relação aos pontos nela contidos. Assim sendo, cada tipo é tratado de acordo com sua especificidade.
@@ -114,14 +115,14 @@ O atributos classificados como numéricos encontrados em uma IDR são sumarizado
 	\caption{Exemplo de perfil dos atributos numéricos de uma IDR}
 	\label{table:perfil-numericos}
 	\centering
-	\begin{tabular}{|l|r|r|r|r|r|}
+	\begin{tabular}{llllll}
 	\hline
-	\multicolumn{1}{|c|}{\textbf{Atributo}} & \multicolumn{1}{c|}{\textbf{Total}} & \multicolumn{1}{c|}{\textbf{Média}} & \multicolumn{1}{c|}{\textbf{$\sigma$}} & \multicolumn{1}{c|}{\textbf{Mínimo}} & \multicolumn{1}{c|}{\textbf{Máximo}} \\ \hline
-	price                                   & 73                                       & 106,68                              & 62,62                                       & 40                                   & 401                                  \\ \hline
-	minimum\_nights                         & 73                                       & 2,36                                & 1,60                                        & 1                                    & 7                                    \\ \hline
-	number\_of\_reviews                     & 73                                       & 17,86                               & 27,85                                       & 0                                    & 120                                  \\ \hline
-	reviews\_per\_month                     & 55                                       & 1,64                                & 1,53                                        & 0,08                                 & 7,27                                 \\ \hline
-	calculated\_host\_listings\_count       & 73                                       & 4,05                                & 10,83                                       & 1                                    & 56                                   \\ \hline
+	\textbf{Atributo} & \textbf{Total} & \textbf{Média} & \textbf{Desvio Padrão} &\textbf{Mínimo} & \textbf{Máximo} \\ \hline
+	price                                   & 73                                       & 106,68                              & 62,62                                       & 40                                   & 401                                  \\ 
+	minimum\_nights                         & 73                                       & 2,36                                & 1,60                                        & 1                                    & 7                                    \\ 
+	number\_of\_reviews                     & 73                                       & 17,86                               & 27,85                                       & 0                                    & 120                                  \\ 
+	reviews\_per\_month                     & 55                                       & 1,64                                & 1,53                                        & 0,08                                 & 7,27                                 \\ 
+	calculated\_host\_listings\_count       & 73                                       & 4,05                                & 10,83                                       & 1                                    & 56                                   \\ 
 	availability\_365                       & 73                                       & 179,64                              & 154,48                                      & 0                                    & 365                                  \\ \hline
 	\end{tabular}
 	\mfonte
@@ -133,14 +134,13 @@ Os atributos textuais são tratados individualmente. Para cada atributo é feito
 	\caption{Exemplo parcial de perfil do atributo textual de uma IDR}
 	\label{table:perfil-textual}
 	\centering
-	\begin{tabular}{|l|r|}
+	\begin{tabular}{ll}
 	\hline
-	\multicolumn{2}{|c|}{\textbf{Atributo: name}} \\ \hline
-	\textbf{Termo}     & \textbf{Ocorrências}     \\ \hline
-	champs             & 29                       \\ \hline
-	elysées            & 18                       \\ \hline
-	studio             & 14                       \\ \hline
-	near               & 13                       \\ \hline
+	\textbf{Termo (atributo: {\em name})}     & \textbf{Ocorrências}     \\ \hline
+	champs             & 29                       \\ 
+	elysées            & 18                       \\ 
+	studio             & 14                       \\ 
+	near               & 13                       \\ 
 	flat               & 11                       \\ \hline
 	\end{tabular}
 	\mfonte
@@ -152,16 +152,16 @@ Os atributos categóricos são contabilizados num dicionário $C$ onde as chaves
 	\caption{Exemplo de perfil dos atributos categóricos de uma IDR}
 	\label{table:perfil-categoricos}
 	\centering
-	\begin{tabular}{|l|r|}
+	\begin{tabular}{ll}
 	\hline
 	\textbf{Categoria}                                            & \textbf{Quantidade} \\ \hline
-	\textless{}neighbourhood, "Batignolles-Monceau"\textgreater{} & 73                  \\ \hline
-	\textless{}room\_type, "Entire home/apt"\textgreater{}        & 69                  \\ \hline
-	\textless{}room\_type, "Private room"\textgreater{}           & 4                   \\ \hline
-	\textless{}stars, 1\textgreater{}                             & 6                   \\ \hline
-	\textless{}stars, 2\textgreater{}                             & 7                   \\ \hline
-	\textless{}stars, 3\textgreater{}                             & 29                  \\ \hline
-	\textless{}stars, 4\textgreater{}                             & 20                  \\ \hline
+	\textless{}neighbourhood, "Batignolles-Monceau"\textgreater{} & 73                  \\ 
+	\textless{}room\_type, "Entire home/apt"\textgreater{}        & 69                  \\ 
+	\textless{}room\_type, "Private room"\textgreater{}           & 4                   \\ 
+	\textless{}stars, 1\textgreater{}                             & 6                   \\ 
+	\textless{}stars, 2\textgreater{}                             & 7                   \\ 
+	\textless{}stars, 3\textgreater{}                             & 29                  \\ 
+	\textless{}stars, 4\textgreater{}                             & 20                  \\ 
 	\textless{}stars, 5\textgreater{}                             & 11                  \\ \hline
 	\end{tabular}
 	\mfonte
@@ -220,7 +220,7 @@ O contexto de domínio se refere aos aspectos de domínio como, por exemplo, se 
 Os atributos numéricos se apresentam relevantes quando a variação do valor médio tende a zero, assim como seu desvio padrão com o passar das iterações. Por exemplo, na Figura \ref{fig:analise-atributo-numerico}, observa-se que após 11 iterações ($t$), o atributo {\em preço} se mostrou relevante ao analista, uma vez que seu valor médio se tornou linear, em outras palavras, com diferenças mínimas entre as iterações, e seu desvio padrão quase 0.
 
 
-Diferentemente dos atributos numéricos que podem ser analisados pelas diferenças nas suas estatísticas, os atributos textuais e categóricos precisam ser analisados através de sua evolução no decorrer das iterações. Para tal, constrói-se um vetor de feedback $F$ que é atualizado à cada iteração com base nos perfis das IDRs descobertas.
+Diferentemente dos atributos numéricos que podem ser analisados pelas diferenças nas suas estatísticas, os atributos textuais e categóricos precisam ser analisados através de sua evolução no decorrer das iterações. Para tal, constrói-se um vetor de {\em feedback} $F$ que é atualizado à cada iteração com base nos perfis das IDRs descobertas.
 
 Considera-se um {\em valor de incremento} $\delta$ para atualizar $F$. Se $v_1$ para atributo $a_1$ é encontrado $x$ vezes na IDR, aumenta-se por $x\delta$ o valor de \textless{}$a_1, v_1$\textgreater{} em $F$. Durante a atualização, os valores em $F$ só podem ser incrementados, ou seja, nunca são diretamente diminuídos.
 
@@ -228,71 +228,70 @@ Considera-se um {\em valor de incremento} $\delta$ para atualizar $F$. Se $v_1$ 
 	\caption{Exemplo de perfil de atributos categóricos}
 	\label{table:attribs}
 	\centering
-	\begin{tabular}{|c|c|}
+	\begin{tabular}{ll}
 	\hline
 	\textbf{Categoria}                      & \textbf{Quantidade} \\ \hline
-	\textless{}Beds, 1\textgreater{}        & 3                   \\ \hline
-	\textless{}Beds, 2\textgreater{}        & 1                   \\ \hline
-	\textless{}Beds,+2\textgreater{}        & 0                   \\ \hline
-	\textless{}Balcony, Yes\textgreater{}   & 4                   \\ \hline
-	\textless{}Balcony, No\textgreater{}    & 0                   \\ \hline
-	\textless{}Air-cond., Yes\textgreater{} & 1                   \\ \hline
-	\textless{}Air-cond., No\textgreater{}  & 3                   \\ \hline
-	\textless{}Rating, 1\textgreater{}      & 0                   \\ \hline
-	\textless{}Rating, 2\textgreater{}      & 0                   \\ \hline
-	\textless{}Rating, 3\textgreater{}      & 0                   \\ \hline
-	\textless{}Rating, 4\textgreater{}      & 1                   \\ \hline
+	\textless{}Beds, 1\textgreater{}        & 3                   \\
+	\textless{}Beds, 2\textgreater{}        & 1                   \\ 
+	\textless{}Beds,+2\textgreater{}        & 0                   \\ 
+	\textless{}Balcony, Yes\textgreater{}   & 4                   \\ 
+	\textless{}Balcony, No\textgreater{}    & 0                   \\ 
+	\textless{}Air-cond., Yes\textgreater{} & 1                   \\ 
+	\textless{}Air-cond., No\textgreater{}  & 3                   \\ 
+	\textless{}Rating, 1\textgreater{}      & 0                   \\ 
+	\textless{}Rating, 2\textgreater{}      & 0                   \\ 
+	\textless{}Rating, 3\textgreater{}      & 0                   \\ 
+	\textless{}Rating, 4\textgreater{}      & 1                   \\ 
 	\textless{}Rating, 5\textgreater{}      & 3                   \\ \hline
 	\end{tabular}
 	\mfonte
 \end{table}
 
-Usando como exemplo o perfil de atributos categóricos apresentado na Tabela \ref{table:attribs} de um conjunto de dados sobre estadias, o vetor de feedback atualizado na primeira iteração pode ser observado na Tabela \ref{table:feedback}. Como o atributo ``Beds'' recebe o valor ``1'' três vezes, o valor da célula \textless{}$Beds, 1$\textgreater{} é incrementado três vezes por $\delta$. O mesmo processo é repetido para todos atributo-valores dos perfis. É importante notar que nem todas as células de $F$ são necessariamente atualizadas durante o processo, como nesse exemplo, 5 células de 12 permaneceram sem atualização.
+Usando como exemplo o perfil de atributos categóricos apresentado na Tabela \ref{table:attribs} de um conjunto de dados sobre estadias, o vetor de {\em feedback} atualizado na primeira iteração pode ser observado na Tabela \ref{table:feedback}. Como o atributo ``Beds'' recebe o valor ``1'' três vezes, o valor da célula \textless{}$Beds, 1$\textgreater{} é incrementado três vezes por $\delta$. O mesmo processo é repetido para todos atributo-valores dos perfis. É importante notar que nem todas as células de $F$ são necessariamente atualizadas durante o processo, como nesse exemplo, 5 células de 12 permaneceram sem atualização.
 
-Por especificar um valor de incremento, é possível atualizar e normalizar o vetor de feedback usando uma função Softmax. $F$ é sempre normalizado de maneira que seus valores somados sejam $1.0$. Sendo $\delta = 1.0$, os valores normalizados do vetor $F$ são ilustrados na terceira coluna da Tabela \ref{table:feedback}. Os maiores valores indicam os atributos mais relevantes.
+Por especificar um valor de incremento, é possível atualizar e normalizar o vetor de {\em feedback} usando uma função Softmax. $F$ é sempre normalizado de maneira que seus valores somados sejam $1.0$. Sendo $\delta = 1.0$, os valores normalizados do vetor $F$ são ilustrados na terceira coluna da Tabela \ref{table:feedback}. Os maiores valores indicam os atributos mais relevantes.
 
 Os valores normalizados do vetor $F$ representa as preferências do analista. Por exemplo, os valores na Tabela \ref{table:feedback} depois da atualização mostram que o analista tem bastante interesse em ter uma varanda ({\em balcony}) em sua estadia, uma vez que o valor \textless{}$Balcony, Yes$\textgreater{} é 0.25, isto é, o maior. Apesar de apenas considerar diferenças positivas, a função Softmax reduz valores das células que não foram relevantes a cada iteração ao passo que outras células são incrementadas.
 
 É importante frisar que valores ``0'' no vetor $F$ não significa a menor relevância, mas {\em irrelevância}. Por exemplo, considerando a célula \textless{}$Rating, 2$\textgreater{} na Tabela \ref{table:feedback}, o valor ``0'' para essa célula indica que o analista não demonstrou interesse nessa característica. É possível que em iterações futuras, o analista demonstre interesse em estadias de 2 estrelas (potencialmente por causa do preço), nesse caso o valor dessa célula deixaria de ser 0. Entretanto, células que representam relevâncias menores são identificados com valores que tendem a 0. Por exemplo, o valor 0.06 para célula \textless{}$Rating, 4$\textgreater{} mostra uma preferência por uma estadia de 4 estrelas inferior se comparado com as de 5 estrelas.
 
 \begin{table}[]
-	\caption{Atualizando vetor de feedback}
+	\caption{Atualizando vetor de {\em feedback}}
 	\label{table:feedback}
 	\centering
-	\begin{tabular}{|c|c|c|}
+	\begin{tabular}{lll}
 	\hline
 	\textbf{Atributo-valor}               & \textbf{Atualização} & \textbf{Normalizado} \\ \hline
-	\textless{}Beds, 1\textgreater{}                   & $+3\delta$                       & 0.19                 \\ \hline
-	\textless{}Beds, 2\textgreater{}                 & $+\delta$                       & 0.06                 \\ \hline
-	\textless{}Beds, +2\textgreater{}                  & {\em (sem atualização)}                       & 0.00                    \\ \hline
-	\textless{}Balcony, Yes\textgreater{}                   & $+4\delta$                      & {\textbf 0.25}                 \\ \hline
-	\textless{}Balcony, No\textgreater{}                    & {\em (sem atualização)}                        & 0.00                    \\ \hline
-	\textless{}Air-cond., Yes\textgreater{}               & $+\delta$                       & 0.06                 \\ \hline
-	\textless{}Air-cond., No\textgreater{}                & $+3\delta$                       & 0.19                 \\ \hline
-	\textless{}Rating, 1\textgreater{}                    & {\em (sem atualização)}                       & 0.00                    \\ \hline
-	\textless{}Rating, 2\textgreater{}                     & {\em (sem atualização)}                        & 0.00                    \\ \hline
-	\textless{}Rating, 3\textgreater{}                    & {\em (sem atualização)}                        & 0.00                   \\ \hline
-	\textless{}Rating, 4\textgreater{}                   & $+\delta$                       & {\textbf 0.06}                 \\ \hline
+	\textless{}Beds, 1\textgreater{}                   & $+3\delta$                       & 0.19                 \\ 
+	\textless{}Beds, 2\textgreater{}                 & $+\delta$                       & 0.06                 \\ 
+	\textless{}Beds, +2\textgreater{}                  & {\em (sem atualização)}                       & 0.00                    \\ 
+	\textless{}Balcony, Yes\textgreater{}                   & $+4\delta$                      & 0.25                 \\ 
+	\textless{}Balcony, No\textgreater{}                    & {\em (sem atualização)}                        & 0.00                    \\ 
+	\textless{}Air-cond., Yes\textgreater{}               & $+\delta$                       & 0.06                 \\ 
+	\textless{}Air-cond., No\textgreater{}                & $+3\delta$                       & 0.19                 \\ 
+	\textless{}Rating, 1\textgreater{}                    & {\em (sem atualização)}                       & 0.00                    \\ 
+	\textless{}Rating, 2\textgreater{}                     & {\em (sem atualização)}                        & 0.00                    \\ 
+	\textless{}Rating, 3\textgreater{}                    & {\em (sem atualização)}                        & 0.00                   \\ 
+	\textless{}Rating, 4\textgreater{}                   & $+\delta$                       & 0.06                 \\ 
 	\textless{}Rating, 5\textgreater{}                     & $+3\delta$                      & 0.19                 \\ \hline
 	\end{tabular}
 	\mfonte
 \end{table}
 
 
-O vetor de feedback para atributos textuais difere apenas na sua inicialização. Como os perfis para atributos textuais são construídos separadamente, é preciso combinar os valores de cada atributo no único vetor. Por exemplo, se a frequência das palavras no atributo textual {\em name} é representado na Tabela \ref{table:perfil-textual} e do atributo {\em description} na Tabela \ref{table:perfil-textual-2}, no vetor de feedback haveria células como \textless{}$confort, 33$\textgreater{}, \textless{}$mobilier, 32$\textgreater{} e \textless{}$champs, 29$\textgreater{}, ou seja, as células presentes no vetor contemplam todos os atributos textuais.
+O vetor de {\em feedback} para atributos textuais difere apenas na sua inicialização. Como os perfis para atributos textuais são construídos separadamente, é preciso combinar os valores de cada atributo no único vetor. Por exemplo, se a frequência das palavras no atributo textual {\em name} é representado na Tabela \ref{table:perfil-textual} e do atributo {\em description} na Tabela \ref{table:perfil-textual-2}, no vetor de {\em feedback} haveria células como \textless{}$confort, 33$\textgreater{}, \textless{}$mobilier, 32$\textgreater{} e \textless{}$champs, 29$\textgreater{}, ou seja, as células presentes no vetor contemplam todos os atributos textuais.
 
 \begin{table}[!h]
 	\caption{Exemplo parcial de perfil do atributo textual}
 	\label{table:perfil-textual-2}
 	\centering
-	\begin{tabular}{|l|r|}
+	\begin{tabular}{ll}
 	\hline
-	\multicolumn{2}{|c|}{\textbf{Atributo: description}} \\ \hline
-	\textbf{Termo}     & \textbf{Ocorrências}     \\ \hline
-	confort             & 33                       \\ \hline
-	mobilier            & 32                       \\ \hline
-	appartement             & 22                       \\ \hline
-	décoré               & 21                       \\ \hline
+	\textbf{Termo (atributo: {\em description})}     & \textbf{Ocorrências}     \\ \hline
+	confort             & 33                       \\ 
+	mobilier            & 32                       \\ 
+	appartement             & 22                       \\ 
+	décoré               & 21                       \\ 
 	adorable               & 18                       \\ \hline
 	\end{tabular}
 	\mfonte
