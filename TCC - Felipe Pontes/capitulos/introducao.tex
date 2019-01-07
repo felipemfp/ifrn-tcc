@@ -11,28 +11,29 @@ Cada registro de dados espaciais representa uma atividade em uma precisa localiz
 
 \section{Problema}
 
-A análise de dados espaciais geralmente é realizada num contexto exploratório: o analista não tem uma consulta precisa em mente e ele explora os dados em passos iterativos a fim de encontrar resultados potencialmente interessantes. Tradicionalmente, um cenário de análise exploratória é descrito na seguinte maneira: o analista visualiza um subconjunto de dados usando uma consulta em ambiente de visualização (por exemplo: Tableau\footnote{\it http://www.tableau.com},
-Exhibit\footnote{\it http://www.simile-widgets.org/exhibit/},
-Spotfire\footnote{\it http://spotfire.tibco.com}); o resultado será ilustrado em um mapa geográfico; então o analista investiga diferentes partes do conjunto de dados movendo ou focando uma região do mapa a fim de encontrar padrões ou tendências de interesse. O analista pode iterar por esse processo várias vezes realizando consultas diferentes e focando em diferentes aspectos.
+A análise de dados espaciais geralmente é realizada num contexto exploratório: o analista não tem uma consulta precisa em mente e ele explora os dados em passos iterativos a fim de encontrar resultados potencialmente interessantes. Tradicionalmente, um cenário de análise exploratória é descrito na seguinte maneira: o analista visualiza um subconjunto de dados usando uma consulta em ambiente de visualização (por exemplo: Tableau\footnote{\em http://www.tableau.com},
+Exhibit\footnote{\em http://www.simile-widgets.org/exhibit/},
+Spotfire\footnote{\em http://spotfire.tibco.com}); o resultado será ilustrado em um mapa geográfico; então o analista investiga diferentes partes do conjunto de dados movendo ou focando uma região do mapa a fim de encontrar padrões ou tendências de interesse. O analista pode iterar por esse processo várias vezes realizando consultas diferentes e focando em diferentes aspectos.
 
 Contudo, o vasto tamanho do conjunto de dados espaciais faz com que o analista se sinta perdido durante a exploração. É possível ter milhares de pontos geográficos em cada bairro de uma cidade, por exemplo. Analistas precisam ter acesso apenas a algumas opções, chamadas de {\em ``highlights''}, que ajam como uma direção e assim permitam que ele foque no que lhe interessa na análise. No cenário perfeito, essas opções não são aleatoriamente escolhidas e representam o que o analista se mostrou interessado em iterações passadas.
 
-Este trabalho formula um modelo para permitir o ``realçamento de dados usando feedback coletado ao longo do tempo''. Em outras palavras, busca-se realçar alguns pontos geográficos baseado nos interesses do analista com o intuito de guiá-lo na direção ao que ele deve se concentrar nas iterações seguintes do processo de análise.
+Este trabalho formula um modelo para permitir o ``realçamento de dados usando {\em feedback} coletado ao longo do tempo''. Em outras palavras, busca-se realçar alguns pontos geográficos baseado nos interesses do analista com o intuito de guiá-lo na direção ao que ele deve se concentrar nas iterações seguintes do processo de análise.
 
 \subsection{Estudo de Caso}
 
 Nesta subseção, apresenta-se um estudo de caso com o objetivo de demonstrar a funcionalidade da abordagem proposta na prática.
 
 \begin{figure}[t]
-	\centering
-	\includegraphics[width=\textwidth]{imagens/caso-de-estudo}
 	\caption{Processo de explorar estadias em Paris}
 	\label{fig:regions}
+	\centering
+	\includegraphics[width=\textwidth]{imagens/caso-de-estudo}
+	\mfonte
 \end{figure}
 
-{\bf Exemplo.} {\em Benício está planejando passar alguns dias em Paris, França. Sua apreciação pela cultura francesa faz com que ele tenha interesse em novas experiências na cidade. Ele decidiu por alugar uma estadia pelo Airbnb \footnote{\it http://www.airbnb.com}. Ele gosta de descobrir a cidade, portanto ele é aberto a qualquer tipo de estadia em qualquer região com um leve interesse em ficar perto do centro da cidade. O sistema retorna $4000$ opções diferentes. Como ele não tem outras preferências, é necessário uma investigação exaustiva para avaliar cada região da cidade independentemente, o que é quase impossível. Enquanto estava avaliando algumas opções, ele demonstrou interesse na região de  ``Champ de Mars'' (próximo à Torre Eiffel), mas esqueceu ou não achou necessário clicar num ponto nesta região. Coletando o feedback do seus movimentos com o mouse no mapa de estadias em Paris, a abordagem proposta consegue de maneira transparente detectar o interesse dele na região supracitada e apresentar uma quantidade pequena de opções recomendadas para Benício.}
+\textbf{Exemplo:} Benício está planejando passar alguns dias em Paris, França. Sua apreciação pela cultura francesa faz com que ele tenha interesse em novas experiências na cidade. Ele decidiu por alugar uma estadia pelo Airbnb \footnote{\em http://www.airbnb.com}. Ele gosta de descobrir a cidade, portanto ele é aberto a qualquer tipo de estadia em qualquer região com um leve interesse em ficar perto do centro da cidade. O sistema retorna $4000$ opções diferentes. Como ele não tem outras preferências, é necessário uma investigação exaustiva para avaliar cada região da cidade independentemente, o que é quase impossível. Enquanto estava avaliando algumas opções, ele demonstrou interesse na região de  ``Champ de Mars'' (próximo à Torre Eiffel), mas esqueceu ou não achou necessário clicar num ponto nesta região. Coletando o {\em feedback} do seus movimentos com o mouse no mapa de estadias em Paris, a abordagem proposta consegue de maneira transparente detectar o interesse dele na região supracitada e apresentar uma quantidade pequena de opções recomendadas para Benício.
 
-O exemplo acima é usado para descrever como feedback implícito é coletado na prática. Imagem \ref{fig:regions} mostra os passos de Benício para explorar estadias em Paris. Imagem \ref{fig:regions}.A mostra os movimentos do mouse dele em diferentes intervalos de tempo. Nesse exemplo, o feedback de Benício é coletado em 3 diferentes intervalos de tempo (evoluindo das Imagens \ref{fig:regions}.B até \ref{fig:regions}.D). Isso mostra que Benício começou sua busca perto da Torre Eiffel e {\em Arc de Triomphe} (Imagem \ref{fig:regions}.B) e gradualmente mostrou também interesse no sul (Imagem \ref{fig:regions}.C) e norte (Imagem \ref{fig:regions}.D). Todas as interseções entre essas regiões são descobertas (regiões tachadas na Imagem \ref{fig:regions}.E), o que representa um conjunto de regiões onde o interesse de Benício está direcionado e onde, provavelmente, ele vai decidir ficar durante sua visita à Paris.
+O exemplo acima é usado para descrever como {\em feedback} implícito é coletado na prática. Imagem \ref{fig:regions} mostra os passos de Benício para explorar estadias em Paris. Imagem \ref{fig:regions}.A mostra os movimentos do mouse dele em diferentes intervalos de tempo. Nesse exemplo, o {\em feedback} de Benício é coletado em 3 diferentes intervalos de tempo (evoluindo das Imagens \ref{fig:regions}.B até \ref{fig:regions}.D). Isso mostra que Benício começou sua busca perto da Torre Eiffel e {\em Arc de Triomphe} (Imagem \ref{fig:regions}.B) e gradualmente mostrou também interesse no sul (Imagem \ref{fig:regions}.C) e norte (Imagem \ref{fig:regions}.D). Todas as interseções entre essas regiões são descobertas (regiões tachadas na Imagem \ref{fig:regions}.E), o que representa um conjunto de regiões onde o interesse de Benício está direcionado e onde, provavelmente, ele vai decidir ficar durante sua visita à Paris.
 
 E se Benício quiser voltar para Paris próximo ano? Ele teria que repetir a mesma análise exploratória, a não ser que ele lembre a localização exata das estadias interessantes a ele no ano passado. Na abordagem proposta, ele não precisaria lembrar, porque suas preferências foram coletadas e poderiam ser usadas para realçar um subconjunto similar ao do ano anterior.
 
@@ -44,20 +45,22 @@ Nesta seção, define-se os objetivos gerais e específicos do trabalho.
 
 \subsection{Objetivos Gerais}
 
-\begin{itemize}
-	\item Propor um modelo de análise espaço-temporal para orientação na exploração de dados espaciais;
-	\item Elaborar como análise temporal pode ser efetivamente aplicada na exploração de dados espaciais.
-\end{itemize}
+\begin{enumerate}[label=\alph*)]
+	\tightlist
+	\item propor um modelo de análise espaço-temporal para orientação na exploração de dados espaciais;
+	\item elaborar como análise temporal pode ser efetivamente aplicada na exploração de dados espaciais.
+\end{enumerate}
 
 \subsection{Objetivos Específicos}
 
-\begin{itemize}
-	\item Descrever o conceito de Regiões Densas Interessantes usado para captura de feedback;
-	\item Apresentar como o modelo de dados pode ser aplicado no contexto da análise exploratória;
-	\item Descrever o modelo de dados usado para análise temporal;
-	\item Investigar como o modelo proposto pode ser explorado no contexto espacial e no contexto de domínio.
-\end{itemize}
+\begin{enumerate}[label=\alph*)]
+	\tightlist
+	\item descrever o conceito de Regiões Densas Interessantes usado para captura de {\em feedback};
+	\item apresentar como o modelo de dados pode ser aplicado no contexto da análise exploratória;
+	\item descrever o modelo de dados usado para análise temporal;
+	\item investigar como o modelo proposto pode ser explorado no contexto espacial e no contexto de domínio.
+\end{enumerate}
 
 \section{Organização}
 
-Os próximos capítulos estão organizados na seguinte maneira: no Capítulo \ref{chap:contextualizacao} é discutido o estado da arte por trás desse trabalho; Capítulo \ref{chap:modelo} define o modelo de dados, apresenta como é feito a coleta de feedback durante a análise exploratória e demonstra como a análise de variação temporal pode ser aplicada. Capítulo \ref{chap:conclusao} conclui e propõe futuros trabalhos.
+Os próximos capítulos estão organizados na seguinte maneira: no Capítulo \ref{chap:contextualizacao} é discutido o estado da arte por trás desse trabalho; Capítulo \ref{chap:modelo} define o modelo de dados, apresenta como é feito a coleta de {\em feedback} durante a análise exploratória e demonstra como a análise de variação temporal pode ser aplicada. Capítulo \ref{chap:conclusao} conclui e propõe futuros trabalhos.

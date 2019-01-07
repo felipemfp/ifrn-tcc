@@ -1,51 +1,406 @@
 % Pre-ambulo
-\documentclass[a4paper, 12pt]{abnt}
+\documentclass[
+  % -- opções da classe memoir --
+  12pt,                 % tamanho da fonte
+  openright,            % capítulos começam em pág ímpar (insere página vazia caso preciso)
+  twoside,              % para impressão em recto e verso. Oposto a oneside
+  a4paper,              % tamanho do papel.
+  % -- opções da classe abntex2 --
+  sumario=abnt-6027-2012,
+  chapter=TITLE,        % títulos de capítulos convertidos em letras maiúsculas
+  section=TITLE,        % títulos de seções convertidos em letras maiúsculas
+  %subsection=TITLE,    % títulos de subseções convertidos em letras maiúsculas
+  %subsubsection=TITLE, % títulos de subsubseções convertidos em letras maiúsculas
+  % -- opções do pacote babel --
+  english,              % idioma adicional para hifenização
+  french,               % idioma adicional para hifenização
+  spanish,              % idioma adicional para hifenização
+  brazil                % o último idioma é o principal do documento
+]{abntex2}
 
-%% Pacotes para texto em Ingl�s
+% ---
+% Pacotes básicos
+% ---
+
+\usepackage{lmodern}        % Usa a fonte Latin Modern
+\usepackage{times}          % Usa a fonte Times New Roman
+\usepackage[T1]{fontenc}    % Selecao de codigos de fonte.
+\usepackage[utf8]{inputenx} % Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}    % Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}          % Controle das cores
+\usepackage{graphicx}       % Inclusão de gráficos
+\usepackage{microtype}      % para melhorias de justificação
 % \usepackage[brazil]{babel}
-% \usepackage[T1]{fontenc}
-% \usepackage[latin1]{inputenc}
- 
-%% Pacotes para texto em Portugues
-\usepackage[brazil]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[labelfont=bf]{caption}
- 
-\usepackage{dsfont}
-\usepackage{amssymb,amsmath}
+\usepackage[boxed,vlined,linesnumbered,portuguese,portuguesekw]{algorithm2e-mod}
+% ---
+
+% ---
+% Pacotes de citações
+% ---
+\usepackage[brazilian,hyperpageref]{backref}   % Paginas com as citações na bibl
+\usepackage[alf,abnt-emphasize=bf]{abntex2cite}  % Citações padrão ABNT
+
+% ---
+% CONFIGURAÇÕES DE PACOTES
+% ---
+
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+%\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+\renewcommand{\backrefpagesname}{}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+% \renewcommand*{\backrefalt}[4]{
+%   \ifcase #1 %
+%     Nenhuma citação no texto.%
+%   \or
+%     Citado na página #2.%
+%   \else
+%     Citado #1 vezes nas páginas #2.%
+%   \fi}%
+\renewcommand*{\backrefalt}[4]{}
+% ---
+
+\usepackage{textcase}
+\usepackage[useregional]{datetime2}
+\usepackage{datetime2-calc}
+\usepackage[normalem]{ulem}
+
+\usepackage[hypcap=true,justification=centering,skip=0cm]{caption}
+\usepackage[justification=centering,skip=0cm]{subcaption}
+
+% \usepackage{newpxtext}
+\captionsetup[table]{skip=0cm}
+\captionsetup[figure]{skip=0cm}
+\captionsetup[subfigure]{skip=0cm}
+
+\usepackage{hyphenat}
+\usepackage{booktabs}
+\usepackage{navigator}
+\usepackage{listings}
+
+% \usepackage{float}
 \usepackage{multirow}
-\usepackage[alf]{abntcite}
-\usepackage[pdftex]{color, graphicx}
-\usepackage{colortbl} 
-\usepackage{url}
-\usepackage{abnt-alf}
-\usepackage{abntcite}
-% \usepackage{algorithm}
-% \usepackage{algorithmic}
-% \usepackage{algorithm2e}
-\usepackage[vlined,linesnumbered, portuguese, onelanguage]{algorithm2e}
-% \usepackage{alg} 
-%\usepackage{hyperref}
+% \usepackage[all]{nowidow}
 
+\usepackage{mdframed}
 
+% \setfloatlocations{figure}{!htb}
+\setfloatlocations{figure}{!hbtp}
+\setfloatlocations{table}{!hbtp}
 
-% Redefinicao de instrucoes
-% \floatname{algorithm}{Algoritmo}
-% \renewcommand{\algorithmicrequire}{\textbf{Entrada:}}
-% \renewcommand{\algorithmicensure}{\textbf{Saida:}}
-% \renewcommand{\algorithmicend}{\textbf{fim}}
-% \renewcommand{\algorithmicif}{\textbf{se}}
-% \renewcommand{\algorithmicthen}{\textbf{entao}}
-% \renewcommand{\algorithmicelse}{\textbf{senaoo}}
-% \renewcommand{\algorithmicfor}{\textbf{para}}
-% \renewcommand{\algorithmicforall}{\textbf{para todo}}
-% \renewcommand{\algorithmicdo}{\textbf{faca}}
-% \renewcommand{\algorithmicwhile}{\textbf{enquanto}}
-% \renewcommand{\algorithmicloop}{\textbf{loop}}
-% \renewcommand{\algorithmicrepeat}{\textbf{repetir}}
-% \renewcommand{\algorithmicuntil}{\textbf{ate que}}
-% \renewcommand{\algorithmiccomment}[1]{\% #1}
+\graphicspath{ {./imagens/} }
+
+\usepackage{enumitem}
+% \setlist{itemsep=4pt,parsep=4pt,topsep=8pt,partopsep=4pt}
+% \setlist{nosep}
+
+% \floatstyle{boxed}
+% \restylefloat{figure}
+
+\usepackage[dvipsnames]{xcolor}
+
+\definecolor{tamarillo}{RGB}{163,20,20}
+\definecolor{brightturquoise}{rgb}{0.03, 0.91, 0.87}
+\definecolor{malachite}{rgb}{0.04, 0.85, 0.32}
+
+% Redefinição de instruções
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}
+}
+
+% \renewcommand{\listingscaption}{Fig.}
+% \renewcommand\theFancyVerbLine{\rm{\arabic{FancyVerbLine}}}
+
+% -----
+% Declarações de cabecalhos
+% -----
+% Cabecalho padrao
+\makepagestyle{abntbookheadings}
+% \makeevenhead{abntbookheadings}{\ABNTEXfontereduzida\thepage}{}{}
+\makeevenhead{abntbookheadings}{}{}{\ABNTEXfontereduzida\thepage}
+\makeoddhead{abntbookheadings}{}{}{\ABNTEXfontereduzida\thepage}
+%\makeheadrule{abntbookheadings}{\textwidth}{\normalrulethickness}
+
+% Cabecalho do inicio do capitulo
+\makepagestyle{abntbookchapfirst}
+\makeoddhead{abntbookchapfirst}{}{}{\ABNTEXfontereduzida\thepage}
+
+% Configura layout para elementos textuais
+\renewcommand{\textual}{%
+  \pagestyle{abntbookheadings}%
+  \aliaspagestyle{chapter}{abntbookchapfirst}% customizing chapter pagestyle
+  %\nouppercaseheads%
+  \bookmarksetup{startatroot}%
+}
+% ---
+
+\DTMsavedate{mdate}{2018-12-07}
+\date{\DTMusedate{mdate}}
+
+\title{Um Modelo Espaço-Temporal para Explorar Regiões Densas Interessantes}
+\author{Felipe Mateus Freire Pontes}
+\local{\uppercase{Natal}}
+\date{2018}
+\orientador{Plácido Antônio da Silva Neto}
+\newcommand{\examinadorA}{Jorgiano Márcio Bruno Vidal}
+\newcommand{\examinadorB}{Marília Aranha Freire}
+\instituicao{%
+  Instituto Federal do Rio Grande do Norte -- IFRN
+  \par
+  Diretoria de Gestão e Tecnologia da Informação -- DIATINF
+  \par
+  Curso de Tecnologia em Análise e Desenvolvimento de Sistemas -- TADS
+}
+\tipotrabalho{TCC (Graduação)}
+% O preambulo deve conter o tipo do trabalho, o objetivo,
+% o nome da instituição e a área de concentração
+\preambulo{%
+Trabalho de conclusão de curso apresentado ao Curso Superior de Tecnologia em Análise e Desenvolvimento de Sistemas da Diretoria Acadêmica de Gestão e Tecnologia da Informação do Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte como requisito parcial à obtenção do título de Tecnólogo em Análise e Desenvolvimento de Sistemas.
+}
+
+\makeatletter
+\hypersetup{
+  pdftitle={\@title},
+  pdfauthor={\@author},
+  pdfsubject={\imprimirpreambulo},
+  pdfkeywords={Dados Espaciais}{Análise Temporal}{Preferência do Usuário},
+  pdfcreator={LaTeX with abnTeX2},
+  colorlinks=false,
+  % linkcolor=blue,
+  % citecolor=blue,
+  % urlcolor=blue
+}
+\makeatother
+
+% ---
+% Possibilita criação de Quadros e Lista de quadros.
+% Ver https://github.com/abntex/abntex2/issues/176
+%
+\newcommand{\quadroname}{Quadro}
+\newcommand{\listofquadrosname}{Lista de quadros}
+
+\newfloat{quadro}{loq}{\quadroname}
+\newlistof{listofquadros}{loq}{\listofquadrosname}
+\newlistentry{quadro}{loq}{0}
+
+% configurações para atender às regras da ABNT
+\setfloatadjustment{quadro}{\centering}
+\counterwithout{quadro}{chapter}
+\renewcommand{\cftquadroname}{\quadroname\space}
+\renewcommand*{\cftquadroaftersnum}{\hfill--\hfill}
+
+\setfloatlocations{quadro}{!hbtp}
+
+\makeatletter
+\renewcommand*{\ext@quadro}{lof}
+\makeatother
+% ---
+
+% ---
+% Posiciona figuras e tabelas no topo da página quando adicionadas sozinhas
+% em um página em branco. Ver https://github.com/abntex/abntex2/issues/170
+\makeatletter
+\setlength{\@fptop}{5pt} % Set distance from top of page to first float
+\makeatother
+% ---
+
+\renewcommand{\fontename}{Fonte}
+\renewcommand{\ABNTEXcaptionfontedelim}{:}
+
+\makeatletter
+\renewcommand{\fonte}[2][\fontename]{%
+	% \captionsetup{singlelinecheck=off,justification=raggedright}
+  \memlegendinfo{#2}%
+  \par
+\begingroup
+    \ABNTEXfontereduzida
+    \configureseparator
+    \captiondelim{:~}
+    \@makecaption{\ABNTEXfontereduzida #1}{\ignorespaces\ABNTEXfontereduzida #2}\par
+\endgroup}
+\makeatother
+
+\newcommand{\mfonte}[0]{%
+  \fonte{Elaboração própria em \DTMfetchyear{mdate}}
+}
+
+\newcommand{\mcaption}[1]
+{%
+  \caption[#1]{%
+    #1
+  }
+}
+
+\mdfsetup{
+  leftmargin=0cm,
+  skipabove=0cm,
+  rightmargin=0cm,
+  skipbelow=0cm,
+  innertopmargin=.1cm,
+  innerrightmargin=.1cm,
+  innerleftmargin=.1cm,
+  innerbottommargin=.1cm,
+}
+
+\newlength{\MaxSizeOfLineNumbers}%
+% Adjust to maximum number of lines
+\settowidth{\MaxSizeOfLineNumbers}{99}%
+\addtolength{\MaxSizeOfLineNumbers}{2.5ex}%
+\lstset{
+  showstringspaces=false,
+  numbers=left,
+  numbersep=2.5ex,
+  xleftmargin=\MaxSizeOfLineNumbers,
+  keywordstyle=\color{blue},
+  basicstyle=\ttfamily,
+  breaklines=true,
+  stringstyle=\color{tamarillo},
+  literate=
+    {á}{{\'a}}1
+    {à}{{\`a}}1
+    {é}{{\'e}}1
+    {ê}{{\^e}}1
+    {ã}{{\~a}}1
+    {ó}{{\'o}}1
+    {ç}{{\c{c}}}1%
+}
+\renewcommand\sout[1]{}
+\usepackage[export]{adjustbox}
+
+\let\oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[2][]{%
+%   \begin{mdframed}%
+%   \begin{center}%
+    \centering%
+    \oldincludegraphics[max width=.7\linewidth,#1]{#2}%
+%   \end{center}%
+%   \end{mdframed}%
+}
+
+\setlength{\ABNTEXsignwidth}{10cm}
+
+% ---
+% Espaçamentos entre linhas e parágrafos
+% ---
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% \renewcommand{\ABNTEXchapterfont}{\bfseries}
+% \newcommand{\ABNTEXpartfont}{\ABNTEXchapterfont}
+%
+% Fontes das entradas do sumario
+%
+% \renewcommand{\cftpartfont}{\bfseries\larger}
+
+\renewcommand*{\cftchapterleader}{\hfill}
+\renewcommand*{\cftsectionleader}{\hfill}
+\renewcommand*{\cftsubsectionleader}{\hfill}
+\renewcommand*{\cftsubsubsectionleader}{\hfill}
+\renewcommand*{\cftparagraphleader}{\hfill}
+
+\setlength{\cftbeforechapterskip}{0em}
+
+%--
+% seção primária
+%--
+\renewcommand{\cftchapterfont}{\bfseries}
+\renewcommand{\cftchapterpagefont}{\normalsize\normalfont}
+%--
+% seção secundária
+%--
+\renewcommand{\cftsectionfont}{\normalfont}
+\renewcommand{\cftsectionpagefont}{\normalsize\normalfont}
+%--
+% seção terciária
+%--
+\renewcommand{\cftsubsectionfont}{\normalfont\bfseries}
+\renewcommand{\cftsubsectionpagefont}{\normalsize\normalfont}
+%--
+% seção quaternária
+%--
+\renewcommand{\cftsubsubsectionfont}{\normalfont}
+\renewcommand{\cftsubsubsectionpagefont}{\normalsize\normalfont}
+%--
+% seção quinária
+%--
+\renewcommand{\cftparagraphfont}{\normalfont\itshape}
+\renewcommand{\cftparagraphpagefont}{\normalsize\normalfont}
+
+\makeatletter
+\let\oldcontentsline\contentsline
+\def\contentsline#1#2{%
+  \expandafter\ifx\csname l@#1\endcsname\l@section
+  \expandafter\@firstoftwo
+  \else
+  \expandafter\@secondoftwo
+  \fi
+  {%
+    \oldcontentsline{#1}{\MakeTextUppercase{#2}}%
+  }{%
+  \oldcontentsline{#1}{#2}%
+}%
+}
+\makeatother
+
+% \renewcommand{\cftsubsectionfont}{\bfseries}
+% \renewcommand{\cftsubsectionpagefont}{\normalsize\cftsubsectionfont}
+
+% \renewcommand{\cftsubsubsectionfont}{\normalsize}
+% \renewcommand{\cftsubsubsectionpagefont}{\cftsubsubsectionfont}
+
+% \renewcommand{\cftparagraphfont}{\footnotesize}
+% \renewcommand{\cftparagraphpagefont}{\cftparagraphfont}
+
+%
+% Fontes das seções/capítulos
+%
+\renewcommand{\ABNTEXpartfontsize}{\normalsize}
+
+\renewcommand{\ABNTEXchapterfont}{\bfseries}
+\renewcommand{\ABNTEXchapterfontsize}{\normalsize}
+
+\renewcommand{\ABNTEXsectionfont}{\normalsize}
+\renewcommand{\ABNTEXsectionfontsize}{\normalsize}
+
+\renewcommand{\ABNTEXsubsectionfont}{\bfseries}
+\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}
+
+\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalfont}
+\renewcommand{\ABNTEXsubsubsubsectionfontsize}{\normalfont\itshape}
+
+% \newcommand{\ABNTEXsectionfont}{\ABNTEXchapterfont}
+% \newcommand{\ABNTEXsubsectionfont}{\ABNTEXsectionfont}
+% \newcommand{\ABNTEXsubsubsectionfont}{\ABNTEXsubsectionfont}
+% \newcommand{\ABNTEXsubsubsubsectionfont}{\ABNTEXsubsectionfont}
+
+% ---
+% compila o indice
+% ---
+\makeindex
+
+% \setlength{\parindent}{1pt}
+\setlength{\parskip}{0pt}
+
+\setlength{\beforechapskip}{1.0\onelineskip}
+\setlength{\afterchapskip}{1.0\onelineskip}
+
+\setlength{\beforesecskip}{1.0\onelineskip}
+\setlength{\aftersecskip}{1.0\onelineskip}
+
+\setlength{\beforesubsecskip}{1.0\onelineskip}
+\setlength{\aftersubsecskip}{1.0\onelineskip}
+
+\setlength{\textfloatsep}{1.0\onelineskip}
+\setlength{\floatsep}{1.0\onelineskip}
+\setlength{\intextsep}{1.0\onelineskip}
 
 
 % Definicao da lista de simbolos
@@ -65,7 +420,7 @@
 {
 	\pretextualchapter{Lista de símbolos}
 	{\setlength{\parindent}{0cm}
-	\@starttoc{los}}
+  \@starttoc{los}}  
 }
 % Como a entrada sera impressa
 \newcommand\l@simbolo[2]{\par #1}
@@ -76,20 +431,27 @@
 % \abrv[entrada na lista de simbolos]{abreviatura}:
 % Escreve a sigla/abreviatura no texto e uma entrada na lista de abreviaturas e siglas.
 % Se o parametro opcional e omitido, usa-se o parametro obrigatorio.
-\newcommand{\abrv}[2][]
+\newcommand{\abrv}[2]
 {%
-	\ifthenelse{\equal{#1}{}}
-	{\addcontentsline{loab}{abreviatura}{#2}}
-	{\addcontentsline{loab}{abreviatura}{#1}}#2
-}
+	% \ifthenelse{\equal{#1}{}}
+	% {\addcontentsline{loab}{abreviatura}{#2}}
+	{\addcontentsline{loab}{abreviatura}{#1 #2}}{#1}}
 % Para aceitar comandos com @ (at) no nome
 \makeatletter 
 % \listadeabreviaturas: comando que imprime a lista de abreviaturas e siglas
 \newcommand{\listadeabreviaturas}
 {
-	\pretextualchapter{Lista de abreviaturas e siglas}
-	{\setlength{\parindent}{0cm}
-	\@starttoc{loab}}
+  % \pretextualchapter{Lista de abreviaturas e siglas}
+  \begin{siglas}
+    \@OnehalfSpacing
+    % % {\setlength{\parindent}{0cm}
+    \item[IDR] \textit{Interesting Dense Region}
+    \item[IFRN] Instituto Federal do Rio Grande do Norte
+    \item[TADS] Tecnologia em Análise e Desenvolvimento de Sistemas
+    % \@starttoc{loab}
+  \end{siglas}
+	% {\setlength{\parindent}{0cm}
+  % }
 }
 % Como a entrada sera impressa
 \newcommand\l@abreviatura[2]{\par #1}
@@ -116,91 +478,173 @@
 	\noindent
 }
 
-
-% Hifeniza������o de palavras feita de forma incorreta pelo LaTeX
-\hyphenation{PYTHON ou-tros}
-
-
-% Inicio do documento
 \begin{document}
+  \selectlanguage{brazil}
+  \frenchspacing
 
-\frenchspacing
+  \frontmatter
 
-% Capa (arquivo Includes/Capa.tex)
-\include{extra-includes/Capa}
+  \include{extra-includes/Capa}
+  \include{extra-includes/FolhaRosto}
 
-% Folha de rosto (arquivo extra-includes/FolhaRosto.tex)
-\include{extra-includes/FolhaRosto}
+  \include{extra-includes/FolhaAprovacao}
+  \include{extra-includes/Dedicatoria}
 
-% Folha de aprovacao (arquivo extra-includes/FolhaAprovacao.tex)
-\include{extra-includes/FolhaAprovacao}
+  \include{extra-includes/Agradecimentos}
 
-% Dedicatoria (arquivo extra-includes/Dedicatoria.tex)
-\include{extra-includes/Dedicatoria}
+  % \include{extra-includes/Epigrafe}
 
-% Agradecimentos (arquivo extra-includes/Agradecimentos.tex)
-\include{extra-includes/Agradecimentos}
+  \include{extra-includes/Resumo}
+  \include{extra-includes/Abstract}
 
-% Epigrafe (arquivo extra-includes/Epigrafe.tex)
-\include{extra-includes/Epigrafe}
+  % ---
+  % inserir lista de ilustrações
+  % ---
+  \pdfbookmark[0]{\listfigurename}{lof}
+  \listoffigures*
+  \cleardoublepage
+  % ---
 
-% Resumo em l���ngua vernacula (arquivo extra-includes/Resumo.tex)
-\include{extra-includes/Resumo}
+  % ---
+  % inserir lista de tabelas
+  % ---
+  \pdfbookmark[0]{\listtablename}{lot}
+  \listoftables*
+  \cleardoublepage
+  % ---
 
-% Abstract, resumo em l���ngua estrangeira (arquivo Include/Abstract.tex)
-\include{extra-includes/Abstract}
+  % \listadeabreviaturas
+  % \cleardoublepage
 
-% Lista de figuras
-\listoffigures
+  % ---
+  % inserir o sumario
+  % ---
+  \pdfbookmark[0]{\contentsname}{toc}
+  \tableofcontents*
+  \cleardoublepage
+  % ---
 
-% Lista de tabelas
-\listoftables
+  % Parte central do trabalho, englobando os capítulos que constituem o mesmo
+  % Os referidos capítulos devem ser organizados dentro do diretório "Capítulos"
 
-% Lista de abreviaturas e siglas
-\listadeabreviaturas
+  \mainmatter
 
-% Lista de símbolos
-% \listadesimbolos
+	\include{capitulos/introducao}
+	\include{capitulos/contextualizacao}
+	\include{capitulos/modelo}
+	\include{capitulos/conclusao}
 
-% Lista de algoritmos (se houver)
-% Devem ser inclu���dos os pacotes algorithm e algorithmic
-\listofalgorithms
+  \backmatter
 
-% Sum���rio
-\sumario
+  % Bibliografia (arquivo Capitulos/Referencias.bib)
+  %\nocite{*}
+  \postextual
+  \bibliography{capitulos/referencias}
+  %\bibliographystyle{abnt-alf}
 
-% Parte central do trabalho, englobando os cap��tulos que constituem o mesmo
-% Os referidos cap��tulos devem ser organizados dentro do diret��rio "Cap��tulos"
+  % Apêndice A (arquivo Includes/ApendiceA)
+%   \begin{apendicesenv}
+%     %\partapendices
 
-% Capitulo 1: Introdu����o (arquivo Includes/Introducao.tex)
-\include{capitulos/introducao}
+%     \include{capitulos/ApendiceA}
+%   \end{apendicesenv}
 
-\include{capitulos/contextualizacao}
+  % Anexo A (arquivo Includes/AnexoA)
+%   \begin{anexosenv}
+%     \partanexos
+%     \include{capitulos/AnexoA}
+%   \end{anexosenv}
 
-\include{capitulos/modelo}
-
-% \include{capitulos/coletando}
-
-% \include{capitulos/aplicando}
-
-% \include{capitulos/guiando}
-
-% \include{capitulos/experimentos}
-
-\include{capitulos/conclusao}
-
-% Bibliografia (arquivo Capitulos/Referencias.bib)
-
-\bibliography{capitulos/referencias}
-\bibliographystyle{abnt-alf}
-
-% Ap���ndice A (arquivo Includes/ApendiceA)
-% \include{capitulos/ApendiceA}
-
-% Anexo A (arquivo Includes/AnexoA)
-% \include{capitulos/AnexoA}
-
-% P���gina em branco
-\newpage
+\phantompart
+\printindex
 
 \end{document}
+
+
+% % Hifeniza������o de palavras feita de forma incorreta pelo LaTeX
+% \hyphenation{PYTHON ou-tros}
+
+
+% % Inicio do documento
+% \begin{document}
+
+% \frenchspacing
+
+% % Capa (arquivo Includes/Capa.tex)
+% \include{extra-includes/Capa}
+
+% % Folha de rosto (arquivo extra-includes/FolhaRosto.tex)
+% \include{extra-includes/FolhaRosto}
+
+% % Folha de aprovacao (arquivo extra-includes/FolhaAprovacao.tex)
+% \include{extra-includes/FolhaAprovacao}
+
+% % Dedicatoria (arquivo extra-includes/Dedicatoria.tex)
+% \include{extra-includes/Dedicatoria}
+
+% % Agradecimentos (arquivo extra-includes/Agradecimentos.tex)
+% \include{extra-includes/Agradecimentos}
+
+% % Epigrafe (arquivo extra-includes/Epigrafe.tex)
+% \include{extra-includes/Epigrafe}
+
+% % Resumo em l���ngua vernacula (arquivo extra-includes/Resumo.tex)
+% \include{extra-includes/Resumo}
+
+% % Abstract, resumo em l���ngua estrangeira (arquivo Include/Abstract.tex)
+% \include{extra-includes/Abstract}
+
+% % Lista de figuras
+% \listoffigures
+
+% % Lista de tabelas
+% \listoftables
+
+% % Lista de abreviaturas e siglas
+% \listadeabreviaturas
+
+% % Lista de símbolos
+% % \listadesimbolos
+
+% % Lista de algoritmos (se houver)
+% % Devem ser inclu���dos os pacotes algorithm e algorithmic
+% \listofalgorithms
+
+% % Sum���rio
+% \sumario
+
+% % Parte central do trabalho, englobando os cap��tulos que constituem o mesmo
+% % Os referidos cap��tulos devem ser organizados dentro do diret��rio "Cap��tulos"
+
+% % Capitulo 1: Introdu����o (arquivo Includes/Introducao.tex)
+% \include{capitulos/introducao}
+
+% \include{capitulos/contextualizacao}
+
+% \include{capitulos/modelo}
+
+% % \include{capitulos/coletando}
+
+% % \include{capitulos/aplicando}
+
+% % \include{capitulos/guiando}
+
+% % \include{capitulos/experimentos}
+
+% \include{capitulos/conclusao}
+
+% % Bibliografia (arquivo Capitulos/Referencias.bib)
+
+% \bibliography{capitulos/referencias}
+% \bibliographystyle{abnt-alf}
+
+% % Ap���ndice A (arquivo Includes/ApendiceA)
+% % \include{capitulos/ApendiceA}
+
+% % Anexo A (arquivo Includes/AnexoA)
+% % \include{capitulos/AnexoA}
+
+% % P���gina em branco
+% \newpage
+
+% \end{document}
